@@ -73,6 +73,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DictionaryEntry.cs" />
+    <Compile Include="DictionaryNamespace.cs" />
     <Compile Include="MergedDictionary.cs" />
     <Compile Include="RawDictionaryEntry.cs" />
     <Compile Include="ResourceDictionaryFile.cs" />

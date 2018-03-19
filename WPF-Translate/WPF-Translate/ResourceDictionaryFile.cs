@@ -6,6 +6,15 @@ namespace de.LandauSoftware.WPFTranslate
     [DebuggerDisplay("{FileName} {Entrys.Count}")]
     public class ResourceDictionaryFile
     {
+        public static readonly DictionaryNamespace[] DefaultNameSpaces = new DictionaryNamespace[]
+        {
+            new DictionaryNamespace("", "http://schemas.microsoft.com/winfx/2006/xaml/presentation"),
+            new DictionaryNamespace("x", "http://schemas.microsoft.com/winfx/2006/xaml")
+        };
+
+        public const string MsCoreLibSystemNameSpace = "clr-namespace:System;assembly=mscorlib";
+
+        private List<DictionaryNamespace> _AdditionalNamespaces = new List<DictionaryNamespace>();
         private List<RawDictionaryEntry> _Entrys = new List<RawDictionaryEntry>();
         private string _FileName;
         private List<MergedDictionary> _MergedDictionarys = new List<MergedDictionary>();
@@ -36,6 +45,14 @@ namespace de.LandauSoftware.WPFTranslate
             get
             {
                 return _MergedDictionarys;
+            }
+        }
+
+        public List<DictionaryNamespace> AdditionalNamespaces
+        {
+            get
+            {
+                return _AdditionalNamespaces;
             }
         }
     }
