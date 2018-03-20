@@ -1,4 +1,5 @@
 ﻿using de.LandauSoftware.Core;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace de.LandauSoftware.WPFTranslate
@@ -62,7 +63,7 @@ namespace de.LandauSoftware.WPFTranslate
                 string name = item.Name.Substring(item.Name.Contains(":") ? 6 : 5);
                 string source = item.Value;
 
-                if (!ResourceDictionaryFile.DefaultNameSpaces.Contains(ns => (ns.Name == name && ns.Source == source) || source == ResourceDictionaryFile.MsCoreLibSystemNameSpace))
+                if (!ResourceDictionaryFile.DefaultNameSpaces.Contains(ns => (ns.Name == name && ns.Source == source) || source == ResourceDictionaryFile.MsCoreLibSystemNameSpace.Source))
                     rdfile.AdditionalNamespaces.Add(new DictionaryNamespace(name, source));
             }
         }
@@ -79,7 +80,7 @@ namespace de.LandauSoftware.WPFTranslate
                 if (source == null)
                     throw new XmlException("ResourceDictionary Source can not be null");
 
-                rdfile.MergedDictionarys.Add(new MergedDictionary(source));
+                rdfile.MergedDictionaries.Add(new MergedDictionary(source));
             }
         }
 
@@ -104,7 +105,13 @@ namespace de.LandauSoftware.WPFTranslate
 
         private static void ParseUnknow(ResourceDictionaryFile rdfile, XmlElement node)
         {
-            rdfile.Entrys.Add(new RawDictionaryEntry(node.OuterXml));
+            Regex regex = new Regex(@"\s+xmlns\s*(:\w+)?\s*=\s*\""([^\""]*)\""", RegexOptions.IgnoreCase);
+
+            MatchCollection mc = regex.Matches(node.OuterXml);
+
+            string xml = regex.Replace(node.OuterXml, "");
+
+            rdfile.Entrys.Add(new RawDictionaryEntry(xml));
         }
     }
 }

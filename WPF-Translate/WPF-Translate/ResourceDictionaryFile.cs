@@ -6,22 +6,31 @@ namespace de.LandauSoftware.WPFTranslate
     [DebuggerDisplay("{FileName} {Entrys.Count}")]
     public class ResourceDictionaryFile
     {
-        public const string MsCoreLibSystemNameSpace = "clr-namespace:System;assembly=mscorlib";
+        public static readonly DictionaryNamespace EmptyNameSpace = new DictionaryNamespace("", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
 
-        public static readonly DictionaryNamespace[] DefaultNameSpaces = new DictionaryNamespace[]
-                {
-            new DictionaryNamespace("", "http://schemas.microsoft.com/winfx/2006/xaml/presentation"),
-            new DictionaryNamespace("x", "http://schemas.microsoft.com/winfx/2006/xaml")
-        };
+        public static readonly DictionaryNamespace MsCoreLibSystemNameSpace = new DictionaryNamespace("sys", "clr-namespace:System;assembly=mscorlib");
+
+        public static readonly DictionaryNamespace xNameSpace = new DictionaryNamespace("x", "http://schemas.microsoft.com/winfx/2006/xaml");
 
         private List<DictionaryNamespace> _AdditionalNamespaces = new List<DictionaryNamespace>();
+
         private List<RawDictionaryEntry> _Entrys = new List<RawDictionaryEntry>();
+
         private string _FileName;
-        private List<MergedDictionary> _MergedDictionarys = new List<MergedDictionary>();
+
+        private List<MergedDictionary> _MergedDictionaries = new List<MergedDictionary>();
 
         public ResourceDictionaryFile(string fileName)
         {
             _FileName = fileName;
+        }
+
+        public static DictionaryNamespace[] DefaultNameSpaces
+        {
+            get
+            {
+                return new DictionaryNamespace[] { EmptyNameSpace, xNameSpace };
+            }
         }
 
         public List<DictionaryNamespace> AdditionalNamespaces
@@ -29,6 +38,19 @@ namespace de.LandauSoftware.WPFTranslate
             get
             {
                 return _AdditionalNamespaces;
+            }
+        }
+
+        public List<DictionaryNamespace> AllNamespces
+        {
+            get
+            {
+                List<DictionaryNamespace> ret = new List<DictionaryNamespace>();
+                ret.AddRange(DefaultNameSpaces);
+                ret.AddRange(AdditionalNamespaces);
+                ret.Add(MsCoreLibSystemNameSpace);
+
+                return ret;
             }
         }
 
@@ -48,11 +70,11 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
-        public List<MergedDictionary> MergedDictionarys
+        public List<MergedDictionary> MergedDictionaries
         {
             get
             {
-                return _MergedDictionarys;
+                return _MergedDictionaries;
             }
         }
     }
