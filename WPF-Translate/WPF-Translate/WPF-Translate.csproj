@@ -78,6 +78,7 @@
     <Compile Include="RawDictionaryEntry.cs" />
     <Compile Include="ResourceDictionaryFile.cs" />
     <Compile Include="ResourceDictionaryReader.cs" />
+    <Compile Include="ResourceDictionaryWriter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
