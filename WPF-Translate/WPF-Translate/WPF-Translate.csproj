@@ -40,8 +40,8 @@
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="LSDOTNETCORE, Version=1.1.6646.19787, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\LSDOTNETCORE.1.1.6646.19787\lib\net452\LSDOTNETCORE.dll</HintPath>
+    <Reference Include="LSDOTNETCORE, Version=1.1.6653.26119, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LSDOTNETCORE.1.1.6653.26119\lib\net452\LSDOTNETCORE.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.1.4, Culture=neutral, processorArchitecture=MSIL">
@@ -72,13 +72,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DictionaryEntry.cs" />
-    <Compile Include="DictionaryNamespace.cs" />
-    <Compile Include="MergedDictionary.cs" />
-    <Compile Include="RawDictionaryEntry.cs" />
-    <Compile Include="ResourceDictionaryFile.cs" />
-    <Compile Include="ResourceDictionaryReader.cs" />
-    <Compile Include="ResourceDictionaryWriter.cs" />
+    <Compile Include="IO\DictionaryEntry.cs" />
+    <Compile Include="IO\DictionaryNamespace.cs" />
+    <Compile Include="IO\MergedDictionary.cs" />
+    <Compile Include="IO\RawDictionaryEntry.cs" />
+    <Compile Include="IO\ResourceDictionaryFile.cs" />
+    <Compile Include="IO\ResourceDictionaryReader.cs" />
+    <Compile Include="IO\ResourceDictionaryWriter.cs" />
+    <Compile Include="Language.cs" />
+    <Compile Include="LanguageKeyValueCollection.cs" />
+    <Compile Include="LangValue.cs" />
+    <Compile Include="LangValueCollection.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,8 +95,17 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\IconsNonShared.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -116,9 +129,16 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Entypo.ttf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WindowsIcons-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
