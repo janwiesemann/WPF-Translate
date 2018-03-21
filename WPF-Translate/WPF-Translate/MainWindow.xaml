@@ -6,16 +6,22 @@
     xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:de.LandauSoftware.WPFTranslate"
+    xmlns:lswpf="clr-namespace:de.LandauSoftware.Core.WPF;assembly=LSDOTNETCORE"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="WPF-Translate"
-    Width="525"
-    Height="350"
+    Width="800"
+    Height="600"
     Dialog:DialogParticipation.Register="{Binding}"
-    BorderThickness="1"
-    GlowBrush="{DynamicResource AccentColorBrush}"
+    lswpf:WindowHelper.SaveWindowStates="True"
     mc:Ignorable="d">
+    <Controls:MetroWindow.Resources>
+        <lswpf:BindingProxy x:Key="BindingProxy" Data="{Binding}" />
+    </Controls:MetroWindow.Resources>
     <Controls:MetroWindow.DataContext>
-        <local:MainWindowViewModel x:Name="vModel" LanguageCollectionChangedEvent="vModel_LanguageCollectionChangedEvent" />
+        <local:MainWindowViewModel
+            x:Name="vModel"
+            LanguageCollectionChangedEvent="vModel_LanguageCollectionChangedEvent"
+            LanguageCollectionScrollIntoViewRequest="vModel_LanguageCollectionScrollIntoViewRequest" />
     </Controls:MetroWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -27,33 +33,44 @@
             <MenuItem Header="Datei">
                 <MenuItem Command="{Binding LoadFileCommand, Mode=OneWay}" Header="Öffnen" />
                 <MenuItem Header="Speichern" />
+                <Separator />
+                <MenuItem Command="{Binding SearchCommand, Mode=OneWay}" Header="Suche" />
                 <MenuItem Command="{Binding ClearCommand, Mode=OneWay}" Header="Inhalt Löschen" />
                 <Separator />
                 <MenuItem Click="close_Click" Header="Beenden" />
             </MenuItem>
             <MenuItem Header="Sprache">
-                <MenuItem Header="Sprache anlegen" />
-                <MenuItem Header="Sprache löschen" />
+                <MenuItem Command="{Binding AddLanguageCommand, Mode=OneWay}" Header="Sprache anlegen" />
+                <MenuItem Command="{Binding RemoveLanguageCommand, Mode=OneWay}" Header="Sprache löschen" />
                 <MenuItem Header="Sprache übersetzen" />
             </MenuItem>
             <MenuItem Header="Hilfe" />
         </Menu>
-        <ListView Grid.Row="2" Margin="10,0,10,10" ItemsSource="{Binding LangData.Keys}">
+        <ListView
+            x:Name="listView"
+            Grid.Row="2"
+            Margin="10,0,10,10"
+            ItemsSource="{Binding LangData.Keys}"
+            ScrollViewer.HorizontalScrollBarVisibility="Visible"
+            ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <ListView.Resources>
+                <Style BasedOn="{StaticResource NonSelectableListViewItem}" TargetType="{x:Type ListViewItem}">
+                    <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                </Style>
+
+            </ListView.Resources>
             <ListView.View>
                 <GridView x:Name="gridView" />
             </ListView.View>
         </ListView>
         <Button
             Grid.Row="2"
-            Margin="0,0,10,10"
-            Padding="10"
+            Margin="0,0,30,30"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Background="{DynamicResource AccentColorBrush}"
-            BorderThickness="0"
-            Foreground="White">
+            Command="{Binding AddKeyCommand, Mode=OneWay}">
             <Button.Style>
-                <Style BasedOn="{StaticResource MetroCircleButtonStyle}" TargetType="{x:Type Button}">
+                <Style BasedOn="{StaticResource BlueCircleButtonStyle}" TargetType="{x:Type Button}">
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="False">
                             <Setter Property="Opacity" Value="0.5" />
@@ -62,8 +79,8 @@
                 </Style>
             </Button.Style>
             <Rectangle
-                Width="20"
-                Height="20"
+                Width="30"
+                Height="30"
                 Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                 <Rectangle.OpacityMask>
                     <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_add}" />

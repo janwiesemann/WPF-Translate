@@ -1,16 +1,16 @@
 ﻿using de.LandauSoftware.Core.WPF;
-using de.LandauSoftware.Core;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace de.LandauSoftware.WPFTranslate
 {
     public class LanguageKeyValueCollection : NotifyBase
     {
+        private ObservableCollection<LangValueCollection> _Keys;
+
+        private ObservableCollection<Language> _Languages;
+
         public LanguageKeyValueCollection()
         {
             _Keys = new ObservableCollection<LangValueCollection>();
@@ -19,14 +19,6 @@ namespace de.LandauSoftware.WPFTranslate
         }
 
         public event EventHandler LanguagesChangedEvent;
-
-        private void Languages_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            LanguagesChangedEvent?.Invoke(this, null);
-        }
-
-        private ObservableCollection<LangValueCollection> _Keys;
-        private ObservableCollection<Language> _Languages;
 
         public ObservableCollection<LangValueCollection> Keys
         {
@@ -54,9 +46,92 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        public LangValueCollection AddKey()
+        {
+            LangValueCollection langVal = new LangValueCollection("noname", Languages);
+
+            Keys.Add(langVal);
+
+            return langVal;
+        }
+
+        public Language AddLanguage(string langID)
+        {
+            Language ret = new Language(langID);
+
+            foreach (LangValueCollection langkey in Keys)
+            {
+                langkey.Add(new LangValue(ret));
+            }
+
+            Languages.Add(ret);
+
+            return ret;
+        }
+
+        public void AddSetValue(string langID, string key, string value)
+        {
+            Language lang = GetLangByID(langID);
+
+            if (lang == null)
+                lang = AddLanguage(langID);
+
+            LangValueCollection langKey = GetLangValueCollectionByKey(key);
+
+            if (langKey == null)
+            {
+                langKey = new LangValueCollection(key, Languages);
+
+                Keys.Add(langKey);
+            }
+
+            langKey.SetValue(lang, value);
+        }
+
         public bool ContainsLanguage(string langID)
         {
             return GetLangByID(langID) != null;
+        }
+
+        public Language FindLang(string langID)
+        {
+            foreach (Language item in Languages)
+            {
+                if (item.LangKey == langID)
+                    return item;
+            }
+
+            return null;
+        }
+
+        public void RemoveKey(LangValueCollection key)
+        {
+            Keys.Remove(key);
+        }
+
+        public void RemoveLanguage(Language lang)
+        {
+            Languages.Remove(lang);
+
+            for (int i = Keys.Count - 1; i >= 0; i--)
+            {
+                LangValueCollection langvals = Keys[i];
+
+                langvals.RemoveLang(lang);
+
+                if (langvals.Count <= 0)
+                    Keys.RemoveAt(i);
+            }
+        }
+
+        public void RemoveLanguage(string langID)
+        {
+            Language lang = GetLangByID(langID);
+
+            if (lang == null)
+                throw new KeyNotFoundException("Lang was not Found!");
+
+            RemoveLanguage(lang);
         }
 
         private Language GetLangByID(string langID)
@@ -81,73 +156,14 @@ namespace de.LandauSoftware.WPFTranslate
             return null;
         }
 
-        public void AddSetValue(string langID, string key, string value)
+        private void Languages_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            Language lang = GetLangByID(langID);
-
-            if (lang == null)
-                lang = AddLanguage(langID);
-
-            LangValueCollection langKey = GetLangValueCollectionByKey(key);
-
-            if(langKey == null)
-            {
-                langKey = new LangValueCollection(Languages);
-
-                Keys.Add(langKey);
-            }
-
-            langKey.SetValue(lang, value);
+            LanguagesChangedEvent?.Invoke(this, null);
         }
 
-        public void RemoveLanguage(string langID)
-        {
-            Language lang = GetLangByID(langID);
-
-            if (lang == null)
-                throw new KeyNotFoundException("Lang was not Found!");
-
-            Languages.Remove(lang);
-
-            foreach(LangValueCollection langkey in Keys)
-            {
-                langkey.RemoveLang(lang);
-            }
-        }
-
-        public Language AddLanguage(string langID)
-        {
-            Language ret = new Language(langID);
-
-            foreach (LangValueCollection langkey in Keys)
-            {
-                langkey.Add(new LangValue(ret));
-            }
-
-            Languages.Add(ret);
-
-            return ret;
-        }
-
-        public void AddKey()
-        {
-            Keys.Add(new LangValueCollection(Languages));
-        }
-
-        public void RemoveKey(LangValueCollection key)
-        {
-            Keys.Remove(key);
-        }
-
-        public Language FindLang(string langID)
-        {
-            foreach (Language item in Languages)
-            {
-                if (item.LangKey == langID)
-                    return item;
-            }
-
-            return null;
-        }
+        //public void OrderByKey()
+        //{
+        //    Keys = new ObservableCollection<LangValueCollection>(Keys.OrderBy(k => k.Key));
+        //}
     }
 }

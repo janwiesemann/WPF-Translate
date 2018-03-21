@@ -81,8 +81,21 @@
     <Compile Include="IO\ResourceDictionaryWriter.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="LanguageKeyValueCollection.cs" />
+    <Compile Include="LanguageSetupWindow.xaml.cs">
+      <DependentUpon>LanguageSetupWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LangValue.cs" />
     <Compile Include="LangValueCollection.cs" />
+    <Compile Include="RemoveLanguageWindow.xaml.cs">
+      <DependentUpon>RemoveLanguageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SearchWindow.xaml.cs">
+      <DependentUpon>SearchWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="LanguageSetupWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -95,6 +108,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RemoveLanguageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -102,6 +119,10 @@
     <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SearchWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

@@ -2,6 +2,7 @@
     x:Class="de.LandauSoftware.WPFTranslate.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:local="clr-namespace:de.LandauSoftware.WPFTranslate"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
@@ -20,8 +21,72 @@
                 <ResourceDictionary Source="pack://application:,,,/WPf-Translate;component/Resources/Icons.xaml" />
 
                 <ResourceDictionary>
+                    <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
+
+                    <Style BasedOn="{StaticResource {x:Type Controls:MetroWindow}}" TargetType="{x:Type Controls:MetroWindow}">
+                        <Setter Property="BorderThickness" Value="1" />
+                        <Setter Property="GlowBrush" Value="{DynamicResource AccentColorBrush}" />
+                    </Style>
+
                     <Style BasedOn="{StaticResource VirtualisedMetroListView}" TargetType="{x:Type ListView}">
                         <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
+                    </Style>
+
+                    <!--  https://github.com/MahApps/MahApps.Metro/blob/develop/src/MahApps.Metro/MahApps.Metro/Styles/Controls.Buttons.xaml  -->
+                    <Style
+                        x:Key="BlueCircleButtonStyle"
+                        BasedOn="{StaticResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                        TargetType="{x:Type Button}">
+                        <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+                        <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Padding" Value="5" />
+                    </Style>
+
+                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+                        <Setter Property="Padding" Value="10,4" />
+                        <Style.Triggers>
+                            <Trigger Property="IsDefault" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+                                <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
+                    <!--  Basierend auf https://github.com/MahApps/MahApps.Metro/blob/develop/src/MahApps.Metro/MahApps.Metro/Styles/Controls.ListView.xaml  -->
+                    <Style x:Key="NonSelectableListViewItem" TargetType="{x:Type ListViewItem}">
+                        <Setter Property="BorderBrush" Value="{DynamicResource GrayBrush1}" />
+                        <Setter Property="Foreground" Value="{DynamicResource BlackBrush}" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="IsTabStop" Value="False" />
+                        <Setter Property="Margin" Value="0" />
+                        <Setter Property="MinHeight" Value="25" />
+                        <Setter Property="SnapsToDevicePixels" Value="True" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                    <Border
+                                        x:Name="Border"
+                                        Background="{TemplateBinding Background}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}">
+                                        <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Style.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="0">
+                                <Setter Property="Background" Value="{DynamicResource AlternateRow1BackgroundBrush}" />
+                            </Trigger>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                <Setter Property="Background" Value="{DynamicResource AlternateRow2BackgroundBrush}" />
+                                <Setter Property="Border.BorderThickness" Value="0 1 0 1" />
+                            </Trigger>
+                        </Style.Triggers>
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>

@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using de.LandauSoftware.Core.WPF;
+using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,15 @@ namespace de.LandauSoftware.WPFTranslate
     {
         public MainWindow()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            this.Loaded += MainWindow_LoadedSinglefire;    
+        }
+
+        private void MainWindow_LoadedSinglefire(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= MainWindow_LoadedSinglefire;
+
+            vModel_LanguageCollectionChangedEvent(this, EventArgs.Empty);
         }
 
         private void close_Click(object sender, RoutedEventArgs e)
@@ -32,34 +41,54 @@ namespace de.LandauSoftware.WPFTranslate
             this.Close();
         }
 
-        private  DataTemplate CreateCellTemplate(string langKey, Binding binding)
+        private  DataTemplate CreateTextCellTemplate(string langKey, Binding binding, bool allowNewLines)
         {
             FrameworkElementFactory ff = new FrameworkElementFactory(typeof(TextBox));
             ff.SetBinding(TextBox.TextProperty, binding);
-            ff.SetValue(TextBox.AcceptsReturnProperty, true);
-            ff.SetValue(TextBox.AcceptsTabProperty, true);
-
+            ff.SetValue(TextBox.VerticalAlignmentProperty, VerticalAlignment.Stretch);
+            ff.SetValue(TextBox.VerticalContentAlignmentProperty, VerticalAlignment.Top);
+            
             if (langKey != null)
             {
                 ff.SetValue(SpellCheck.IsEnabledProperty, true);
                 ff.SetValue(TextBox.LanguageProperty, XmlLanguage.GetLanguage(langKey));
             }
 
+            if (allowNewLines)
+            {
+                ff.SetValue(TextBox.AcceptsReturnProperty, true);
+                ff.SetValue(TextBox.AcceptsTabProperty, true);
+            }
+
             return new DataTemplate() { DataType = typeof(TextBox), VisualTree = ff };
         }
 
-        private void CreateColoumn(object header, string langKey, Binding cellbinding)
+        private void CreateColoumn(object header, DataTemplate cellTemplate)
         {
             GridViewColumn col = new GridViewColumn();
 
-            if (header is string)
-                col.Header = header.ToString();
-            else if (header is BindingBase)
-                BindingOperations.SetBinding(col, GridViewColumn.HeaderProperty, header as BindingBase);
-            else
-                throw new ArgumentException(nameof(header), "Header must be string or binding");
+            col.Header = header?.ToString();
 
-            col.CellTemplate = CreateCellTemplate(langKey, cellbinding);
+            col.CellTemplate = cellTemplate;
+
+            gridView.Columns.Add(col);
+        }
+
+        private void CreateButtonColoumn(string content, string toolTip, string commandBindingPath)
+        {
+            FrameworkElementFactory ff = new FrameworkElementFactory(typeof(Button));
+            ff.SetValue(Button.ContentProperty, content);
+            ff.SetValue(Button.VerticalAlignmentProperty, VerticalAlignment.Top);
+            ff.SetValue(Button.HorizontalAlignmentProperty, HorizontalAlignment.Left);
+            ff.SetValue(Button.StyleProperty, App.Current.FindResource("BlueCircleButtonStyle"));
+            ff.SetValue(Button.ToolTipProperty, toolTip);
+            ff.SetBinding(Button.WidthProperty, new Binding(nameof(Button.ActualHeight)) { RelativeSource = new RelativeSource(RelativeSourceMode.Self), Mode = BindingMode.OneWay });
+            ff.SetBinding(Button.CommandProperty, new Binding(nameof(BindingProxy.Data) + "." + commandBindingPath) { Source = Resources["BindingProxy"], Mode = BindingMode.OneWay });
+            ff.SetBinding(Button.CommandParameterProperty, new Binding());
+
+            GridViewColumn col = new GridViewColumn();
+
+            col.CellTemplate = new DataTemplate() { DataType = typeof(Button), VisualTree = ff };
 
             gridView.Columns.Add(col);
         }
@@ -70,15 +99,23 @@ namespace de.LandauSoftware.WPFTranslate
             {
                 gridView.Columns.Clear();
 
-                CreateColoumn("Keys", null, new Binding(nameof(LangValueCollection.Key)));
+                CreateButtonColoumn("X", "Löschen", nameof(MainWindowViewModel.RemoveKeyCommand));
+                CreateButtonColoumn("T", "Übersetzten", nameof(MainWindowViewModel.TranslateKeyCommand));
+
+                CreateColoumn("Key", CreateTextCellTemplate(null, new Binding(nameof(LangValueCollection.Key)), false));
 
                 for (int i = 0; i < vModel.LangData.Languages.Count; i++)
                 {
                     Language lang = vModel.LangData.Languages[i];
 
-                    CreateColoumn(lang.LangKey, null, new Binding("[" + i + "]." + nameof(LangValue.Value)));
+                    CreateColoumn(lang.LangKey, CreateTextCellTemplate(lang.LangKey, new Binding("[" + i + "]." + nameof(LangValue.Value)), true));
                 }
             });
+        }
+
+        private void vModel_LanguageCollectionScrollIntoViewRequest(object sender, LangValueCollection e)
+        {
+            listView.ScrollIntoView(e);
         }
     }
 }

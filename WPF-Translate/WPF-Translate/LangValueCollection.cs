@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,10 +10,13 @@ using System.Windows.Input;
 
 namespace de.LandauSoftware.WPFTranslate
 {
+    [DebuggerDisplay("Key = {Key} Count = {Count}")]
     public class LangValueCollection : ObservableCollection<LangValue>
     {
-        public LangValueCollection(IEnumerable<Language> langs)
+        public LangValueCollection(string key, IEnumerable<Language> langs)
         {
+            _Key = key;
+
             foreach (Language item in langs)
             {
                 this.Add(new LangValue(item));
@@ -25,7 +29,7 @@ namespace de.LandauSoftware.WPFTranslate
         {
             get
             {
-                return _Key;
+                return _Key; 
             }
             set
             {
