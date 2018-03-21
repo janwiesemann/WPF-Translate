@@ -1,0 +1,40 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+	<sys:String x:Key="keyNurNL">ESC - Annuleren</sys:String>
+    <sys:String x:Key="abbrechenESC">ESC - Annuleren</sys:String>
+    <sys:String x:Key="abDatumDoppelpunkt">vanaf datum:</sys:String>
+    <sys:String x:Key="abgelehnt">verworpen</sys:String>
+    <sys:String x:Key="abgelehnt2">2 - Weigerde</sys:String>
+    <sys:String x:Key="abgelehnt5">5 - Weigerde</sys:String>
+    <sys:String x:Key="adressdaten">adresgegevens</sys:String>
+    <sys:String x:Key="adresse">adres</sys:String>
+    <sys:String x:Key="adresseKopieren">Kopieer het adres</sys:String>
+    <sys:String x:Key="adressfeldFuellen">Vul adresveld in</sys:String>
+    <sys:String x:Key="adressfeldFuerinfomanFormulareDoppelpunkt">Adresveldweergave voor INFOMAN-formulieren:</sys:String>
+    <sys:String x:Key="aendern">verandering</sys:String>
+    <sys:String x:Key="aenderungstextUndAdressenichtAusgefuellt">De wijzigingstekst en het adres moeten ingevuld worden!</sys:String>
+    <sys:String x:Key="aktuellerKundeDoppelpunkt">Huidige klant:</sys:String>
+    <sys:String x:Key="aktuellerReklamationsstatus">Huidige klachtstatus</sys:String>
+    <sys:String x:Key="alleAenderungenWerdenVerworfenWorklichAusfuehren">Eventuele niet-opgeslagen wijzigingen worden weggegooid.</sys:String>
+    <sys:String x:Key="alleTeileVKDoppelpunkt">Alle onderdelen VK:</sys:String>
+    <sys:String x:Key="alterBonusBGS">Leeftijd bonus (BGS)</sys:String>
+    <sys:String x:Key="altnwertKurzDoppelpunkt">AW:</sys:String>
+    <sys:String x:Key="analye">analyse</sys:String>
+    <sys:String x:Key="analysieren">analyseren</sys:String>
+    <sys:String x:Key="anderesFormularBenutzten">Gebruik ander formulier</sys:String>
+    <sys:String x:Key="angelegt">aangemaakt</sys:String>
+    <sys:String x:Key="angelegtDoppelpunkt">gemaakt:</sys:String>
+    <sys:String x:Key="angenommenVonDoppelpunkt">Aangenomen door:</sys:String>
+    <sys:String x:Key="anlegen">investeren</sys:String>
+    <sys:String x:Key="anlegenLoeschenDoppelpunkt">Maken / verwijderen:</sys:String>
+    <sys:String x:Key="anLieferantenReklaUebergebenF1">F1 - Aan Leverancier Recl.</sys:String>
+    <sys:String x:Key="annahmeDatum">Pick-up date</sys:String>
+    <sys:String x:Key="annahmetagDoppelpunkt">Aanvaarding Datum:</sys:String>
+    <sys:String x:Key="anrede">begroeting</sys:String>
+    <sys:String x:Key="anredeDoppelpunkt">Aanhef:</sys:String>
+    <sys:String x:Key="anruf">telefoontje</sys:String>
+   
+</ResourceDictionary>
