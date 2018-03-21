@@ -10,7 +10,7 @@
     <sys:String x:Key="geograpischerStandort">Geographischer Standort</sys:String>
     <sys:String x:Key="tvIdUndPasswortDoppelpunkt">TV ID + Passwort:</sys:String>
     <sys:String x:Key="filialdatenBearbeiten">Filialdaten bearbeiten</sys:String>
-    <sys:String x:Key="abbrechen">Abbrechen</sys:String>
+    <sys:String x:Key="abbrechen" xml:space="preserve">Zeile1&#x0d;&#x0a;Abbrechen&#x0d;&#x0a;üöä</sys:String>
     <sys:String x:Key="filialID">Filial ID</sys:String>
     <sys:String x:Key="retoureCaps">RETOURE</sys:String>
     <sys:String x:Key="ort">Ort</sys:String>
@@ -120,7 +120,7 @@
     <sys:String x:Key="adressfeldFuerinfomanFormulareDoppelpunkt">Adressfeldanzeige für INFOMAN Formulare:</sys:String>
     <sys:String x:Key="aendern">Ändern</sys:String>
     <sys:String x:Key="aenderungenNichtInReparaturUbertragen" xml:space="preserve">Die Änderungen können nicht in die Reparatur übertragen werden!&#x0d;&#x0a;{0}</sys:String>
-    <sys:String x:Key="aenderungenVerwerfenFrage" xml:space="preserve">Sie haben ungespeicherte Änderungen!&#x0d;&#x0a;Sollen diese verworfen werden?</sys:String>
+    <sys:String x:Key="aenderungenVerwerfenFrage" xml:space="preserve">&#x0d;&#x0a;Sie haben ungespeicherte Änderungen!&#x0d;&#x0a;Sollen diese verworfen werden?</sys:String>
     <sys:String x:Key="aenderungenVerwerfenFragezeichen">Änderungen verwerfen?</sys:String>
     <sys:String x:Key="aenderungstextUndAdressenichtAusgefuellt">Der Änderungstext und die Adresse müssen ausgefüllt seien!</sys:String>
     <sys:String x:Key="aktuellerKundeDoppelpunkt">Aktueller Kunde:</sys:String>
