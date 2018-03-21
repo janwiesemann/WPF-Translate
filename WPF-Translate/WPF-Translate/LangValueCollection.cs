@@ -39,7 +39,7 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
-        private LangValue FindValueByLang(Language lang)
+        public LangValue FindValueByLang(Language lang)
         {
             foreach (LangValue item in this)
             {
@@ -62,7 +62,7 @@ namespace de.LandauSoftware.WPFTranslate
             val.Value = value;
         }
 
-        internal void RemoveLang(Language lang)
+        public void RemoveLang(Language lang)
         {
             LangValue val = FindValueByLang(lang);
 

@@ -42,7 +42,7 @@
             <MenuItem Header="Sprache">
                 <MenuItem Command="{Binding AddLanguageCommand, Mode=OneWay}" Header="Sprache anlegen" />
                 <MenuItem Command="{Binding RemoveLanguageCommand, Mode=OneWay}" Header="Sprache löschen" />
-                <MenuItem Header="Sprache übersetzen" />
+                <MenuItem Header="Sprache übersetzen" Command="{Binding TranslateLanguageCommand, Mode=OneWay}" />
             </MenuItem>
             <MenuItem Header="Hilfe" />
         </Menu>
@@ -57,7 +57,6 @@
                 <Style BasedOn="{StaticResource NonSelectableListViewItem}" TargetType="{x:Type ListViewItem}">
                     <Setter Property="VerticalContentAlignment" Value="Stretch" />
                 </Style>
-
             </ListView.Resources>
             <ListView.View>
                 <GridView x:Name="gridView" />

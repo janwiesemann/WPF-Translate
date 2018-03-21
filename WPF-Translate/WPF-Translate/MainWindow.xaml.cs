@@ -43,6 +43,8 @@ namespace de.LandauSoftware.WPFTranslate
 
         private  DataTemplate CreateTextCellTemplate(string langKey, Binding binding, bool allowNewLines)
         {
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
             FrameworkElementFactory ff = new FrameworkElementFactory(typeof(TextBox));
             ff.SetBinding(TextBox.TextProperty, binding);
             ff.SetValue(TextBox.VerticalAlignmentProperty, VerticalAlignment.Stretch);

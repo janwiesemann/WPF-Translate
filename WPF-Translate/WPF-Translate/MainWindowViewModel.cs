@@ -15,10 +15,9 @@ using System.IO;
 
 namespace de.LandauSoftware.WPFTranslate
 {
-    public class MainWindowViewModel : NotifyBase
+    public class MainWindowViewModel : DialogCoordinatorNotifyBase
     {
         private LanguageKeyValueCollection _LangData;
-        private IDialogCoordinator _DialogCoordinator;
         private RelayICommand _LoadFileCommand;
         private Dictionary<Language, ResourceDictionaryFile> _FileList;
         private RelayICommand _ClearCommand;
@@ -60,16 +59,7 @@ namespace de.LandauSoftware.WPFTranslate
             LanguageCollectionChangedEvent?.Invoke(sender, e);
         }
 
-        public IDialogCoordinator DialogCoordinator
-        {
-            get
-            {
-                if (_DialogCoordinator == null)
-                    _DialogCoordinator = MahApps.Metro.Controls.Dialogs.DialogCoordinator.Instance;
-
-                return _DialogCoordinator;
-            }
-        }
+        
 
         public Dictionary<Language, ResourceDictionaryFile> FileList
         {
@@ -99,12 +89,23 @@ namespace de.LandauSoftware.WPFTranslate
                 return null;
         }
 
+        public ICommand TranslateLanguageCommand
+        {
+            get
+            {
+                if (_TranslateLanguageCommand == null)
+                    _TranslateLanguageCommand = new RelayICommand(p => LangData.Languages.Count > 0, p => TranslateWindow.ShowDialog(LangData.Keys, LangData.Languages));
+
+                return _TranslateLanguageCommand;
+            }
+        }
+
         public ICommand SearchCommand
         {
             get
             {
                 if (_SearchCommand == null)
-                    _SearchCommand = new RelayICommand(async p =>
+                    _SearchCommand = new RelayICommand(p => LangData.Languages.Count > 0, async p =>
                     {
                         SearchWindow sw = new SearchWindow();
 
@@ -178,6 +179,7 @@ namespace de.LandauSoftware.WPFTranslate
         private RelayICommand _AddLanguageCommand;
         private RelayICommand _RemoveLanguageCommand;
         private RelayICommand _SearchCommand;
+        private RelayICommand _TranslateLanguageCommand;
 
         public ICommand RemoveKeyCommand
         {
@@ -244,7 +246,10 @@ namespace de.LandauSoftware.WPFTranslate
             get
             {
                 if (_TranslateKeyCommand == null)
-                    _TranslateKeyCommand = new RelayICommand<LangValueCollection>(lk => {
+                    _TranslateKeyCommand = new RelayICommand<LangValueCollection>(p => LangData.Languages.Count > 0, lk => {
+                        List<LangValueCollection> collection = new List<LangValueCollection>() { lk };
+
+                        TranslateWindow.ShowDialog(collection, LangData.Languages);
                     });
 
                 return _TranslateKeyCommand;

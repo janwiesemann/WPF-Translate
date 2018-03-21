@@ -31,6 +31,21 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        public static bool operator ==(Language left, Language right)
+        {
+            if (object.ReferenceEquals(left, right))
+                return true;
+            else if (object.ReferenceEquals(left, null) || object.ReferenceEquals(right, null))
+                return false;
+            else
+                return left.LangKey == right.LangKey;
+        }
+
+        public static bool operator !=(Language left, Language right)
+        {
+            return !(left == right);
+        }
+
         public override int GetHashCode()
         {
             return LangKey.GetHashCode();
