@@ -59,5 +59,15 @@ namespace de.LandauSoftware.WPFTranslate.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] Handbuch {
+            get {
+                object obj = ResourceManager.GetObject("Handbuch", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

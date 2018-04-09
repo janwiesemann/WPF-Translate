@@ -6,6 +6,7 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -21,6 +22,7 @@ namespace de.LandauSoftware.WPFTranslate
         private RelayICommand _AddLanguageCommand;
         private RelayICommand _ClearCommand;
         private Dictionary<Language, ResourceDictionaryFile> _FileList;
+        private RelayICommand _HelpCommand;
         private LanguageKeyValueCollection _LangData;
         private RelayICommand _LoadFileCommand;
         private RelayICommand<LangValueCollection> _RemoveKeyCommand;
@@ -105,6 +107,31 @@ namespace de.LandauSoftware.WPFTranslate
                     _FileList = new Dictionary<Language, ResourceDictionaryFile>();
 
                 return _FileList;
+            }
+        }
+
+        public ICommand HelpCommand
+        {
+            get
+            {
+                if (_HelpCommand == null)
+                    _HelpCommand = new RelayICommand(async p =>
+                    {
+                        try
+                        {
+                            string fileName = Path.Combine(Path.GetTempPath(), "WPF-TranslateHelp.pdf");
+
+                            File.WriteAllBytes(fileName, Properties.Resources.Handbuch);
+
+                            Process.Start(fileName);
+                        }
+                        catch (Exception ex)
+                        {
+                            await DialogCoordinator.ShowMessageAsync(this, "Fehler", "Beim anzeigen der Hilfe ist ein Fehler augetreten." + Environment.NewLine + ex.Message);
+                        }
+                    });
+
+                return _HelpCommand;
             }
         }
 
