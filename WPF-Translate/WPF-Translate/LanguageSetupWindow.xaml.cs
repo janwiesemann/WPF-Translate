@@ -1,18 +1,7 @@
 ﻿using MahApps.Metro.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using Microsoft.Win32;
 
 namespace de.LandauSoftware.WPFTranslate
 {
@@ -25,7 +14,6 @@ namespace de.LandauSoftware.WPFTranslate
         {
             InitializeComponent();
         }
-        
 
         public string FileName
         {
@@ -51,11 +39,10 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
-        private void VerifyInputAndEnableOk()
+        private void cancel_Click(object sender, RoutedEventArgs e)
         {
-            ok.IsEnabled = !string.IsNullOrWhiteSpace(sprachKey.Text) && !string.IsNullOrWhiteSpace(filePath.Text);
+            this.DialogResult = false;
         }
-
 
         private void changeFile_Click(object sender, RoutedEventArgs e)
         {
@@ -67,14 +54,14 @@ namespace de.LandauSoftware.WPFTranslate
                 filePath.Text = sfd.FileName;
         }
 
+        private void filePath_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            VerifyInputAndEnableOk();
+        }
+
         private void ok_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
-        }
-
-        private void cancel_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = false;
         }
 
         private void sprachKey_TextChanged(object sender, TextChangedEventArgs e)
@@ -82,9 +69,9 @@ namespace de.LandauSoftware.WPFTranslate
             VerifyInputAndEnableOk();
         }
 
-        private void filePath_TextChanged(object sender, TextChangedEventArgs e)
+        private void VerifyInputAndEnableOk()
         {
-            VerifyInputAndEnableOk();
+            ok.IsEnabled = !string.IsNullOrWhiteSpace(sprachKey.Text) && !string.IsNullOrWhiteSpace(filePath.Text);
         }
     }
 }

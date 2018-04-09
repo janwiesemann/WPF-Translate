@@ -73,6 +73,5 @@
                 Content="Abbrechen"
                 IsCancel="True" />
         </Grid>
-
     </Grid>
 </Controls:MetroWindow>

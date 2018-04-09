@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace de.LandauSoftware.WPFTranslate
 {
     [DebuggerDisplay("Key = {Key} Count = {Count}")]
     public class LangValueCollection : ObservableCollection<LangValue>
     {
+        private string _Key;
+
         public LangValueCollection(string key, IEnumerable<Language> langs)
         {
             _Key = key;
@@ -23,13 +20,11 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
-        private string _Key;
-
         public string Key
         {
             get
             {
-                return _Key; 
+                return _Key;
             }
             set
             {
@@ -50,9 +45,11 @@ namespace de.LandauSoftware.WPFTranslate
             return null;
         }
 
-        protected virtual void OnPropertyChanged(string name)
+        public void RemoveLang(Language lang)
         {
-            base.OnPropertyChanged(new PropertyChangedEventArgs(name));
+            LangValue val = FindValueByLang(lang);
+
+            this.Remove(val);
         }
 
         public void SetValue(Language lang, string value)
@@ -62,11 +59,9 @@ namespace de.LandauSoftware.WPFTranslate
             val.Value = value;
         }
 
-        public void RemoveLang(Language lang)
+        protected virtual void OnPropertyChanged(string name)
         {
-            LangValue val = FindValueByLang(lang);
-
-            this.Remove(val);
+            base.OnPropertyChanged(new PropertyChangedEventArgs(name));
         }
     }
 }

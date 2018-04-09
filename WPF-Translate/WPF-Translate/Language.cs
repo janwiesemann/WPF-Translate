@@ -1,14 +1,11 @@
 ﻿using de.LandauSoftware.Core.WPF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace de.LandauSoftware.WPFTranslate
 {
     public class Language : NotifyBase
     {
+        private string _LangKey;
+
         public Language()
         { }
 
@@ -16,8 +13,6 @@ namespace de.LandauSoftware.WPFTranslate
         {
             _LangKey = key;
         }
-
-        private string _LangKey;
 
         public string LangKey
         {
@@ -31,6 +26,11 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        public static bool operator !=(Language left, Language right)
+        {
+            return !(left == right);
+        }
+
         public static bool operator ==(Language left, Language right)
         {
             if (object.ReferenceEquals(left, right))
@@ -41,16 +41,6 @@ namespace de.LandauSoftware.WPFTranslate
                 return left.LangKey == right.LangKey;
         }
 
-        public static bool operator !=(Language left, Language right)
-        {
-            return !(left == right);
-        }
-
-        public override int GetHashCode()
-        {
-            return LangKey.GetHashCode();
-        }
-
         public override bool Equals(object obj)
         {
             if (object.ReferenceEquals(obj, null) || !(obj is Language))
@@ -59,5 +49,9 @@ namespace de.LandauSoftware.WPFTranslate
             return ((Language)obj).LangKey == LangKey;
         }
 
+        public override int GetHashCode()
+        {
+            return LangKey.GetHashCode();
+        }
     }
 }

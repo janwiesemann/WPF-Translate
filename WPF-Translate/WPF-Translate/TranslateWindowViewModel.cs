@@ -1,5 +1,4 @@
-﻿using de.LandauSoftware.Core;
-using de.LandauSoftware.Core.WPF;
+﻿using de.LandauSoftware.Core.WPF;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -15,14 +14,14 @@ namespace de.LandauSoftware.WPFTranslate
         private int _CurrentPosition = -1;
         private LangValueCollection _CurrentTranslationKey;
         private IList<LangValueCollection> _KeyList;
+        private IList<Language> _Languages;
         private RelayICommand _RestCommand;
         private Language _SelectedSourceLanguage;
         private Language _SelectedTargetLanguage;
-        private IList<Language> _Languages;
         private RelayICommand _StartCommand;
         private RelayICommand _StopCommand;
-        private bool _TranslateJustEmpty;
         private List<Language> _TargetLanguages;
+        private bool _TranslateJustEmpty;
 
         public CancellationTokenSource CancellationTokenSource
         {
@@ -52,14 +51,6 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
-        public int CurrentPositionUINumber
-        {
-            get
-            {
-                return _CurrentPosition + 1;
-            }
-        }
-
         public int CurrentPosition
         {
             get
@@ -72,6 +63,14 @@ namespace de.LandauSoftware.WPFTranslate
 
                 RaisePropertyChanged(nameof(CurrentPosition));
                 RaisePropertyChanged(nameof(CurrentPositionUINumber));
+            }
+        }
+
+        public int CurrentPositionUINumber
+        {
+            get
+            {
+                return _CurrentPosition + 1;
             }
         }
 
@@ -103,10 +102,20 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
-        private void Rest()
+        public IList<Language> Languages
         {
-            CurrentPosition = -1;
-            CurrentTranslationKey = null;
+            get
+            {
+                return _Languages;
+            }
+            set
+            {
+                _Languages = value;
+
+                RaisePropertyChanged(nameof(Languages));
+
+                TargetLanguages = null;
+            }
         }
 
         public ICommand RestCommand
@@ -153,47 +162,6 @@ namespace de.LandauSoftware.WPFTranslate
                 _SelectedTargetLanguage = value;
 
                 RaisePropertyChanged(nameof(SelectedTargetLanguage));
-            }
-        }
-
-        public List<Language> TargetLanguages
-        {
-            get
-            {
-                if(_TargetLanguages == null && Languages != null && SelectedSourceLanguage != null)
-                {
-                    _TargetLanguages = new List<Language>();
-
-                    foreach (Language item in Languages)
-                    {
-                        if (item != SelectedSourceLanguage)
-                            _TargetLanguages.Add(item);
-                    }
-                }
-
-                return _TargetLanguages;
-            }
-            set
-            {
-                _TargetLanguages = value;
-
-                RaisePropertyChanged(nameof(TargetLanguages));
-            }
-        }
-
-        public IList<Language> Languages
-        {
-            get
-            {
-                return _Languages;
-            }
-            set
-            {
-                _Languages = value;
-
-                RaisePropertyChanged(nameof(Languages));
-
-                TargetLanguages = null;
             }
         }
 
@@ -246,6 +214,31 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        public List<Language> TargetLanguages
+        {
+            get
+            {
+                if (_TargetLanguages == null && Languages != null && SelectedSourceLanguage != null)
+                {
+                    _TargetLanguages = new List<Language>();
+
+                    foreach (Language item in Languages)
+                    {
+                        if (item != SelectedSourceLanguage)
+                            _TargetLanguages.Add(item);
+                    }
+                }
+
+                return _TargetLanguages;
+            }
+            set
+            {
+                _TargetLanguages = value;
+
+                RaisePropertyChanged(nameof(TargetLanguages));
+            }
+        }
+
         public bool TranslateJustEmpty
         {
             get
@@ -258,6 +251,12 @@ namespace de.LandauSoftware.WPFTranslate
 
                 RaisePropertyChanged(nameof(TranslateJustEmpty));
             }
+        }
+
+        private void Rest()
+        {
+            CurrentPosition = -1;
+            CurrentTranslationKey = null;
         }
 
         private bool TranslateNextElement()

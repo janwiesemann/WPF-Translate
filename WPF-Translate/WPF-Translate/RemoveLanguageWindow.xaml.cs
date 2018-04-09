@@ -1,18 +1,8 @@
 ﻿using de.LandauSoftware.WPFTranslate.IO;
 using MahApps.Metro.Controls;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace de.LandauSoftware.WPFTranslate
 {
@@ -21,6 +11,13 @@ namespace de.LandauSoftware.WPFTranslate
     /// </summary>
     public partial class RemoveLanguageWindow : MetroWindow
     {
+        public RemoveLanguageWindow(Dictionary<Language, ResourceDictionaryFile> fileList)
+        {
+            InitializeComponent();
+
+            langs.ItemsSource = fileList;
+        }
+
         public Language Selectedlanguage
         {
             get
@@ -32,16 +29,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
-        public RemoveLanguageWindow(Dictionary<Language, ResourceDictionaryFile> fileList)
+        private void langs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            InitializeComponent();
-
-            langs.ItemsSource = fileList;
-        }
-
-        private void yes_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = true;
+            yes.IsEnabled = langs.SelectedItem != null;
         }
 
         private void no_Click(object sender, RoutedEventArgs e)
@@ -49,9 +39,9 @@ namespace de.LandauSoftware.WPFTranslate
             this.DialogResult = false;
         }
 
-        private void langs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void yes_Click(object sender, RoutedEventArgs e)
         {
-            yes.IsEnabled = langs.SelectedItem != null;
+            this.DialogResult = true;
         }
     }
 }

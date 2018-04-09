@@ -4,6 +4,10 @@ namespace de.LandauSoftware.WPFTranslate
 {
     public class LangValue : NotifyBase
     {
+        private Language _Language;
+
+        private string _Value;
+
         public LangValue(Language lang)
         {
             _Language = lang;
@@ -21,9 +25,6 @@ namespace de.LandauSoftware.WPFTranslate
                 return _Language;
             }
         }
-
-        private string _Value;
-        private Language _Language;
 
         public string Value
         {

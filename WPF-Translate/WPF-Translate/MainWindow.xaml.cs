@@ -1,20 +1,10 @@
 ﻿using de.LandauSoftware.Core.WPF;
 using MahApps.Metro.Controls;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace de.LandauSoftware.WPFTranslate
 {
@@ -26,54 +16,12 @@ namespace de.LandauSoftware.WPFTranslate
         public MainWindow()
         {
             InitializeComponent();
-            this.Loaded += MainWindow_LoadedSinglefire;    
-        }
-
-        private void MainWindow_LoadedSinglefire(object sender, RoutedEventArgs e)
-        {
-            this.Loaded -= MainWindow_LoadedSinglefire;
-
-            vModel_LanguageCollectionChangedEvent(this, EventArgs.Empty);
+            this.Loaded += MainWindow_LoadedSinglefire;
         }
 
         private void close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private  DataTemplate CreateTextCellTemplate(string langKey, Binding binding, bool allowNewLines)
-        {
-            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
-
-            FrameworkElementFactory ff = new FrameworkElementFactory(typeof(TextBox));
-            ff.SetBinding(TextBox.TextProperty, binding);
-            ff.SetValue(TextBox.VerticalAlignmentProperty, VerticalAlignment.Stretch);
-            ff.SetValue(TextBox.VerticalContentAlignmentProperty, VerticalAlignment.Top);
-            
-            if (langKey != null)
-            {
-                ff.SetValue(SpellCheck.IsEnabledProperty, true);
-                ff.SetValue(TextBox.LanguageProperty, XmlLanguage.GetLanguage(langKey));
-            }
-
-            if (allowNewLines)
-            {
-                ff.SetValue(TextBox.AcceptsReturnProperty, true);
-                ff.SetValue(TextBox.AcceptsTabProperty, true);
-            }
-
-            return new DataTemplate() { DataType = typeof(TextBox), VisualTree = ff };
-        }
-
-        private void CreateColoumn(object header, DataTemplate cellTemplate)
-        {
-            GridViewColumn col = new GridViewColumn();
-
-            col.Header = header?.ToString();
-
-            col.CellTemplate = cellTemplate;
-
-            gridView.Columns.Add(col);
         }
 
         private void CreateButtonColoumn(string content, string toolTip, string commandBindingPath)
@@ -93,6 +41,48 @@ namespace de.LandauSoftware.WPFTranslate
             col.CellTemplate = new DataTemplate() { DataType = typeof(Button), VisualTree = ff };
 
             gridView.Columns.Add(col);
+        }
+
+        private void CreateColoumn(object header, DataTemplate cellTemplate)
+        {
+            GridViewColumn col = new GridViewColumn();
+
+            col.Header = header?.ToString();
+
+            col.CellTemplate = cellTemplate;
+
+            gridView.Columns.Add(col);
+        }
+
+        private DataTemplate CreateTextCellTemplate(string langKey, Binding binding, bool allowNewLines)
+        {
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
+
+            FrameworkElementFactory ff = new FrameworkElementFactory(typeof(TextBox));
+            ff.SetBinding(TextBox.TextProperty, binding);
+            ff.SetValue(TextBox.VerticalAlignmentProperty, VerticalAlignment.Stretch);
+            ff.SetValue(TextBox.VerticalContentAlignmentProperty, VerticalAlignment.Top);
+
+            if (langKey != null)
+            {
+                ff.SetValue(SpellCheck.IsEnabledProperty, true);
+                ff.SetValue(TextBox.LanguageProperty, XmlLanguage.GetLanguage(langKey));
+            }
+
+            if (allowNewLines)
+            {
+                ff.SetValue(TextBox.AcceptsReturnProperty, true);
+                ff.SetValue(TextBox.AcceptsTabProperty, true);
+            }
+
+            return new DataTemplate() { DataType = typeof(TextBox), VisualTree = ff };
+        }
+
+        private void MainWindow_LoadedSinglefire(object sender, RoutedEventArgs e)
+        {
+            this.Loaded -= MainWindow_LoadedSinglefire;
+
+            vModel_LanguageCollectionChangedEvent(this, EventArgs.Empty);
         }
 
         private void vModel_LanguageCollectionChangedEvent(object sender, EventArgs e)

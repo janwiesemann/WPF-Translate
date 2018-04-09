@@ -76,6 +76,5 @@
                 IsCancel="True"
                 IsDefault="True" />
         </Grid>
-
     </Grid>
 </Controls:MetroWindow>
