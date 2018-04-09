@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace de.LandauSoftware.WPFTranslate.IO
@@ -75,6 +76,15 @@ namespace de.LandauSoftware.WPFTranslate.IO
             get
             {
                 return _MergedDictionaries;
+            }
+        }
+
+        public void RemoveAllStringRessoueces()
+        {
+            for (int i = Entrys.Count - 1; i >= 0; i--)
+            {
+                if (Entrys[i] is DictionaryEntry)
+                    Entrys.RemoveAt(i);
             }
         }
     }

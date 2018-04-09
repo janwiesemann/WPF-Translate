@@ -180,6 +180,7 @@ namespace de.LandauSoftware.WPFTranslate
         private RelayICommand _RemoveLanguageCommand;
         private RelayICommand _SearchCommand;
         private RelayICommand _TranslateLanguageCommand;
+        private RelayICommand _SaveFileCommand;
 
         public ICommand RemoveKeyCommand
         {
@@ -225,7 +226,7 @@ namespace de.LandauSoftware.WPFTranslate
             get
             {
                 if (_AddLanguageCommand == null)
-                    _AddLanguageCommand = new RelayICommand(async p =>
+                    _AddLanguageCommand = new RelayICommand(p => LangData.Languages.Count > 0,  async p =>
                     {
                         LanguageSetupWindow lsw = new LanguageSetupWindow();
 
@@ -283,7 +284,41 @@ namespace de.LandauSoftware.WPFTranslate
             if (lang == null)
                 lang = LangData.AddLanguage(langID);
 
+            rdf.RemoveAllStringRessoueces();
+
             FileList.Add(lang, rdf);
+        }
+
+        public ICommand SaveFileCommand
+        {
+            get
+            {
+                if (_SaveFileCommand == null)
+                    _SaveFileCommand = new RelayICommand(p => LangData.Languages.Count > 0, async p =>
+                    {
+
+                        foreach (KeyValuePair<Language, ResourceDictionaryFile> file in FileList)
+                        {
+                            try
+                            {
+                                IEnumerable<RawDictionaryEntry> entrys = LangData.GetLangEntrysAsDictionaryEntry(file.Key);
+
+                                file.Value.Entrys.AddRange(entrys);
+
+                                ResourceDictionaryWriter.Write(file.Value);
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageDialogResult res = await DialogCoordinator.ShowMessageAsync(this, "Fehler", "Beim speichern der Datei ist ein Fehler aufgetreten." + Environment.NewLine + ex.Message, MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings() { AffirmativeButtonText = "Weiter", NegativeButtonText = "Abbrechen" });
+
+                                if (res == MessageDialogResult.Negative)
+                                    return;
+                            }
+                        }
+                    });
+
+                return _SaveFileCommand;
+            }
         }
 
         public ICommand LoadFileCommand

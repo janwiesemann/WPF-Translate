@@ -23,6 +23,24 @@
             LanguageCollectionChangedEvent="vModel_LanguageCollectionChangedEvent"
             LanguageCollectionScrollIntoViewRequest="vModel_LanguageCollectionScrollIntoViewRequest" />
     </Controls:MetroWindow.DataContext>
+    <Controls:MetroWindow.InputBindings>
+        <KeyBinding
+            Key="F"
+            Command="{Binding SearchCommand, Mode=OneWay}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="O"
+            Command="{Binding LoadFileCommand, Mode=OneWay}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="S"
+            Command="{Binding SaveFileCommand, Mode=OneWay}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="N"
+            Command="{Binding AddKeyCommand, Mode=OneWay}"
+            Modifiers="Ctrl" />
+    </Controls:MetroWindow.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -31,10 +49,19 @@
         </Grid.RowDefinitions>
         <Menu>
             <MenuItem Header="Datei">
-                <MenuItem Command="{Binding LoadFileCommand, Mode=OneWay}" Header="Öffnen" />
-                <MenuItem Header="Speichern" />
+                <MenuItem
+                    Command="{Binding LoadFileCommand, Mode=OneWay}"
+                    Header="Öffnen"
+                    InputGestureText="Strg+O" />
+                <MenuItem
+                    Command="{Binding SaveFileCommand, Mode=OneWay}"
+                    Header="Speichern"
+                    InputGestureText="Strg+S" />
                 <Separator />
-                <MenuItem Command="{Binding SearchCommand, Mode=OneWay}" Header="Suche" />
+                <MenuItem
+                    Command="{Binding SearchCommand, Mode=OneWay}"
+                    Header="Suche"
+                    InputGestureText="Strg+F" />
                 <MenuItem Command="{Binding ClearCommand, Mode=OneWay}" Header="Inhalt Löschen" />
                 <Separator />
                 <MenuItem Click="close_Click" Header="Beenden" />
@@ -42,7 +69,7 @@
             <MenuItem Header="Sprache">
                 <MenuItem Command="{Binding AddLanguageCommand, Mode=OneWay}" Header="Sprache anlegen" />
                 <MenuItem Command="{Binding RemoveLanguageCommand, Mode=OneWay}" Header="Sprache löschen" />
-                <MenuItem Header="Sprache übersetzen" Command="{Binding TranslateLanguageCommand, Mode=OneWay}" />
+                <MenuItem Command="{Binding TranslateLanguageCommand, Mode=OneWay}" Header="Sprache übersetzen" />
             </MenuItem>
             <MenuItem Header="Hilfe" />
         </Menu>
@@ -67,7 +94,8 @@
             Margin="0,0,30,30"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding AddKeyCommand, Mode=OneWay}">
+            Command="{Binding AddKeyCommand, Mode=OneWay}"
+            ToolTip="Neuer Key (Strg+N)">
             <Button.Style>
                 <Style BasedOn="{StaticResource BlueCircleButtonStyle}" TargetType="{x:Type Button}">
                     <Style.Triggers>

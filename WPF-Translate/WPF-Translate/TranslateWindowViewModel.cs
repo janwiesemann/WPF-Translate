@@ -1,4 +1,5 @@
-﻿using de.LandauSoftware.Core.WPF;
+﻿using de.LandauSoftware.Core;
+using de.LandauSoftware.Core.WPF;
 using System;
 using System.Collections.Generic;
 using System.Threading;

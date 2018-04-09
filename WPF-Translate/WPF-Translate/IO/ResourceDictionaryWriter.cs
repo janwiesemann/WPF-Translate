@@ -119,7 +119,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
             if (entry.Value.Contains(c => c == '\r' || c == '\n'))
                 writer.WriteAttributeString("xml", "space", "", "preserve");
 
-            writer.WriteRaw(entry.Value);
+            writer.WriteString(entry.Value);
 
             writer.WriteEndElement();
         }

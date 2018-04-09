@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using de.LandauSoftware.WPFTranslate.IO;
 
 namespace de.LandauSoftware.WPFTranslate
 {
@@ -161,9 +162,19 @@ namespace de.LandauSoftware.WPFTranslate
             LanguagesChangedEvent?.Invoke(this, null);
         }
 
-        //public void OrderByKey()
-        //{
-        //    Keys = new ObservableCollection<LangValueCollection>(Keys.OrderBy(k => k.Key));
-        //}
+        public IEnumerable<RawDictionaryEntry> GetLangEntrysAsDictionaryEntry(Language value)
+        {
+            List<RawDictionaryEntry> res = new List<RawDictionaryEntry>();
+
+            foreach (LangValueCollection item in Keys)
+            {
+                LangValue lval = item.FindValueByLang(value);
+
+                if (lval != null)
+                    res.Add(new DictionaryEntry(item.Key, lval.Value));
+            }
+
+            return res;
+        }
     }
 }
