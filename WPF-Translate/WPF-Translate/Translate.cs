@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
@@ -23,7 +24,16 @@ namespace de.LandauSoftware.WPFTranslate
 
                 string response = Encoding.UTF8.GetString(data);
 
-                return response;
+                string result = string.Empty;
+
+                JArray arr = JArray.Parse(response);
+
+                foreach (JArray item in arr.First)
+                {
+                    result += item.First.Value<string>();
+                }
+
+                return result;
             }
         }
     }
