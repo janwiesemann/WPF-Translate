@@ -2,12 +2,16 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace de.LandauSoftware.WPFTranslate
 {
     [DebuggerDisplay("Key = {Key} Count = {Count}")]
     public class LangValueCollection : ObservableCollection<LangValue>
     {
+        private static CancellationTokenSource CancelTokenSource;
+        private bool _BackgroundIsHighlited;
         private string _Key;
 
         public LangValueCollection(string key, IEnumerable<Language> langs)
@@ -17,6 +21,20 @@ namespace de.LandauSoftware.WPFTranslate
             foreach (Language item in langs)
             {
                 this.Add(new LangValue(item));
+            }
+        }
+
+        public bool BackgroundIsHighlited
+        {
+            get
+            {
+                return _BackgroundIsHighlited;
+            }
+            set
+            {
+                _BackgroundIsHighlited = value;
+
+                OnPropertyChanged(nameof(BackgroundIsHighlited));
             }
         }
 
@@ -32,6 +50,37 @@ namespace de.LandauSoftware.WPFTranslate
 
                 OnPropertyChanged(nameof(Key));
             }
+        }
+
+        public void BlinkBackgroundForTwoSeconds()
+        {
+            BlinkBackgroundSecond(250, 8);
+        }
+
+        public void BlinkBackgroundSecond(int delay, int amount)
+        {
+            if (CancelTokenSource != null)
+                CancelTokenSource.Cancel();
+
+            CancelTokenSource = new CancellationTokenSource();
+
+            Task.Run(() =>
+            {
+                CancellationToken token = CancelTokenSource.Token;
+
+                BackgroundIsHighlited = false;
+
+                while (amount > 0 && !token.IsCancellationRequested)
+                {
+                    BackgroundIsHighlited = !BackgroundIsHighlited;
+
+                    amount--;
+
+                    Task.Delay(delay).Wait();
+                }
+
+                BackgroundIsHighlited = false;
+            }, CancelTokenSource.Token);
         }
 
         public LangValue FindValueByLang(Language lang)

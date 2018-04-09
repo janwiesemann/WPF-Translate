@@ -31,6 +31,7 @@ namespace de.LandauSoftware.WPFTranslate
 
         private RelayICommand _SearchCommand;
 
+        private SearchWindow.SearchModule _SerachModule;
         private RelayICommand<LangValueCollection> _TranslateKeyCommand;
 
         private RelayICommand _TranslateLanguageCommand;
@@ -44,7 +45,7 @@ namespace de.LandauSoftware.WPFTranslate
             get
             {
                 if (_AddKeyCommand == null)
-                    _AddKeyCommand = new RelayICommand(p =>
+                    _AddKeyCommand = new RelayICommand(p => LangData.Languages.Count > 0, p =>
                     {
                         LangValueCollection langValue = LangData.AddKey();
 
@@ -60,7 +61,7 @@ namespace de.LandauSoftware.WPFTranslate
             get
             {
                 if (_AddLanguageCommand == null)
-                    _AddLanguageCommand = new RelayICommand(p => LangData.Languages.Count > 0, async p =>
+                    _AddLanguageCommand = new RelayICommand(async p =>
                    {
                        LanguageSetupWindow lsw = new LanguageSetupWindow();
 
@@ -254,27 +255,48 @@ namespace de.LandauSoftware.WPFTranslate
                         SearchWindow.SearchModule searchModule = sw.CreateSearchModule();
 
                         ProgressDialogController progresscontroller = await DialogCoordinator.ShowProgressAsync(this, "Suche", "Bitte warten...", true);
-
-                        progresscontroller.Maximum = LangData.Keys.Count;
-
-                        for (int i = 0; i < LangData.Keys.Count; i++)
+                        try
                         {
-                            progresscontroller.SetProgress(i);
+                            progresscontroller.Maximum = LangData.Keys.Count;
 
-                            if (searchModule.IsMatch(LangData.Keys[i]))
+                            List<LangValueCollection> matches = new List<LangValueCollection>();
+
+                            for (int i = 0; i < LangData.Keys.Count; i++)
                             {
-                                LanguageCollectionScrollIntoViewRequest?.Invoke(this, LangData.Keys[i]);
+                                progresscontroller.SetProgress(i);
 
-                                break;
+                                if (searchModule.IsMatch(LangData.Keys[i]))
+                                    matches.Add(LangData.Keys[i]);
+                                else if (progresscontroller.IsCanceled)
+                                    return;
                             }
-                            else if (progresscontroller.IsCanceled)
-                                break;
-                        }
 
-                        await progresscontroller.CloseAsync();
+                            if (matches.Count > 1)
+                            {
+                                new SearchPresenter(LangData.Languages, matches, lvc => LanguageCollectionScrollIntoViewRequest?.Invoke(this, lvc)).Show();
+                            }
+                            else if (matches.Count == 1)
+                                LanguageCollectionScrollIntoViewRequest?.Invoke(this, matches.First());
+                        }
+                        finally
+                        {
+                            await progresscontroller.CloseAsync();
+                        }
                     });
 
                 return _SearchCommand;
+            }
+        }
+
+        public SearchWindow.SearchModule SerachModule
+        {
+            get
+            {
+                return _SerachModule;
+            }
+            set
+            {
+                _SerachModule = value;
             }
         }
 

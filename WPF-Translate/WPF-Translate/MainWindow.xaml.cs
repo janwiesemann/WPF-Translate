@@ -4,6 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Markup;
 
 namespace de.LandauSoftware.WPFTranslate
@@ -62,6 +63,7 @@ namespace de.LandauSoftware.WPFTranslate
             ff.SetBinding(TextBox.TextProperty, binding);
             ff.SetValue(TextBox.VerticalAlignmentProperty, VerticalAlignment.Stretch);
             ff.SetValue(TextBox.VerticalContentAlignmentProperty, VerticalAlignment.Top);
+            ff.SetValue(TextBox.BackgroundProperty, null);
 
             if (langKey != null)
             {
@@ -107,7 +109,9 @@ namespace de.LandauSoftware.WPFTranslate
 
         private void vModel_LanguageCollectionScrollIntoViewRequest(object sender, LangValueCollection e)
         {
+            Keyboard.ClearFocus();
             listView.ScrollIntoView(e);
+            e.BlinkBackgroundForTwoSeconds();
         }
     }
 }

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:local="clr-namespace:de.LandauSoftware.WPFTranslate"
+    ShutdownMode="OnMainWindowClose"
     StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -34,6 +35,16 @@
                         <Setter Property="ScrollViewer.IsDeferredScrollingEnabled" Value="False" />
                     </Style>
 
+                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+                        <Setter Property="Padding" Value="10,4" />
+                        <Style.Triggers>
+                            <Trigger Property="IsDefault" Value="True">
+                                <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
+                                <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+
                     <!--  https://github.com/MahApps/MahApps.Metro/blob/develop/src/MahApps.Metro/MahApps.Metro/Styles/Controls.Buttons.xaml  -->
                     <Style
                         x:Key="BlueCircleButtonStyle"
@@ -41,16 +52,11 @@
                         TargetType="{x:Type Button}">
                         <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
                         <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
-                        <Setter Property="BorderThickness" Value="0" />
                         <Setter Property="Padding" Value="5" />
-                    </Style>
-
-                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
-                        <Setter Property="Padding" Value="10,4" />
+                        <Setter Property="BorderThickness" Value="0" />
                         <Style.Triggers>
-                            <Trigger Property="IsDefault" Value="True">
-                                <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}" />
-                                <Setter Property="Background" Value="{DynamicResource AccentColorBrush}" />
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Opacity" Value="0.9" />
                             </Trigger>
                         </Style.Triggers>
                     </Style>

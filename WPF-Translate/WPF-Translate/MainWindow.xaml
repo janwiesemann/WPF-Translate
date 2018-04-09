@@ -83,6 +83,11 @@
             <ListView.Resources>
                 <Style BasedOn="{StaticResource NonSelectableListViewItem}" TargetType="{x:Type ListViewItem}">
                     <Setter Property="VerticalContentAlignment" Value="Stretch" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding BackgroundIsHighlited}" Value="True">
+                            <Setter Property="Background" Value="#F44242" />
+                        </DataTrigger>
+                    </Style.Triggers>
                 </Style>
             </ListView.Resources>
             <ListView.View>
