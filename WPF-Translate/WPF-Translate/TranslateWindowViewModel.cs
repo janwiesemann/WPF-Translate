@@ -7,10 +7,13 @@ using System.Windows.Input;
 
 namespace de.LandauSoftware.WPFTranslate
 {
+    /// <summary>
+    /// TranslateWindowViewModel
+    /// </summary>
     public class TranslateWindowViewModel : DialogCoordinatorNotifyBase
     {
         private CancellationTokenSource _CancellationTokenSource;
-        private bool _CancelOnException;
+        private bool _CancelOnException = true;
         private int _CurrentPosition = -1;
         private LangValueCollection _CurrentTranslationKey;
         private IList<LangValueCollection> _KeyList;
@@ -21,8 +24,11 @@ namespace de.LandauSoftware.WPFTranslate
         private RelayICommand _StartCommand;
         private RelayICommand _StopCommand;
         private List<Language> _TargetLanguages;
-        private bool _TranslateJustEmpty;
+        private bool _TranslateJustEmpty = false;
 
+        /// <summary>
+        /// Cancellation Token für das Abbrechen einer Operation
+        /// </summary>
         public CancellationTokenSource CancellationTokenSource
         {
             get
@@ -37,6 +43,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Legt fest, ob die Anwendung bei einem Fehler abbrechen soll
+        /// </summary>
         public bool CancelOnException
         {
             get
@@ -51,6 +60,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Aktuelle Position
+        /// </summary>
         public int CurrentPosition
         {
             get
@@ -66,6 +78,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Aktuelle Position + 1 für das Anzeigen auf der Oberfläche
+        /// </summary>
         public int CurrentPositionUINumber
         {
             get
@@ -74,6 +89,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Beinhaltet den aktuell zu übersetztenden Wert
+        /// </summary>
         public LangValueCollection CurrentTranslationKey
         {
             get
@@ -88,6 +106,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Liste aller Keys
+        /// </summary>
         public IList<LangValueCollection> KeyList
         {
             get
@@ -102,6 +123,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Liste aller Sprachen
+        /// </summary>
         public IList<Language> Languages
         {
             get
@@ -118,6 +142,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Setzt die Suche zurück
+        /// </summary>
         public ICommand RestCommand
         {
             get
@@ -129,6 +156,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Ausgewählte Quellsprache
+        /// </summary>
         public Language SelectedSourceLanguage
         {
             get
@@ -148,6 +178,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Ausgewählte Sielsprache
+        /// </summary>
         public Language SelectedTargetLanguage
         {
             get
@@ -165,6 +198,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Startet das Übersetzten
+        /// </summary>
         public ICommand StartCommand
         {
             get
@@ -199,6 +235,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Stopt das Übersetzten
+        /// </summary>
         public ICommand StopCommand
         {
             get
@@ -214,6 +253,10 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Liste für die Zielsprache
+        /// Diese Liste wird automatisch über den Geter generiert
+        /// </summary>
         public List<Language> TargetLanguages
         {
             get
@@ -231,7 +274,7 @@ namespace de.LandauSoftware.WPFTranslate
 
                 return _TargetLanguages;
             }
-            set
+            private set
             {
                 _TargetLanguages = value;
 
@@ -239,6 +282,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Legt fest oder ruft ab, ob nur leere Werte übersetzt werden sollen
+        /// </summary>
         public bool TranslateJustEmpty
         {
             get
@@ -253,12 +299,19 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Setzt die Position und den Aktuellen Key zurück
+        /// </summary>
         private void Rest()
         {
             CurrentPosition = -1;
             CurrentTranslationKey = null;
         }
 
+        /// <summary>
+        /// Übersetzt das nächste Element
+        /// </summary>
+        /// <returns></returns>
         private bool TranslateNextElement()
         {
             CurrentPosition = CurrentPosition + 1;

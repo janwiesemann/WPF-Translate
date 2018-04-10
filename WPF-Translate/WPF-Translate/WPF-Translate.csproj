@@ -25,6 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\WPF-Translate.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -78,10 +79,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="DialogCoordinatorNotifyBase.cs" />
-    <Compile Include="IO\DictionaryEntry.cs" />
+    <Compile Include="IO\DictionaryStringEntry.cs" />
     <Compile Include="IO\DictionaryNamespace.cs" />
     <Compile Include="IO\MergedDictionary.cs" />
-    <Compile Include="IO\RawDictionaryEntry.cs" />
+    <Compile Include="IO\DictionaryRawEntry.cs" />
     <Compile Include="IO\ResourceDictionaryFile.cs" />
     <Compile Include="IO\ResourceDictionaryReader.cs" />
     <Compile Include="IO\ResourceDictionaryWriter.cs" />

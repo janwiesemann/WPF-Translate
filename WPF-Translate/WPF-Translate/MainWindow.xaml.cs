@@ -14,9 +14,13 @@ namespace de.LandauSoftware.WPFTranslate
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        /// <summary>
+        /// Erstellt ein neues Hauptfenster
+        /// </summary>
         public MainWindow()
         {
             InitializeComponent();
+
             this.Loaded += MainWindow_LoadedSinglefire;
         }
 
@@ -25,6 +29,12 @@ namespace de.LandauSoftware.WPFTranslate
             this.Close();
         }
 
+        /// <summary>
+        /// Erstellt eine neue Spalte mit einem Button
+        /// </summary>
+        /// <param name="content">Button Content</param>
+        /// <param name="toolTip">Button Tooltip</param>
+        /// <param name="commandBindingPath">Command Binding string</param>
         private void CreateButtonColoumn(string content, string toolTip, string commandBindingPath)
         {
             FrameworkElementFactory ff = new FrameworkElementFactory(typeof(Button));
@@ -44,6 +54,11 @@ namespace de.LandauSoftware.WPFTranslate
             gridView.Columns.Add(col);
         }
 
+        /// <summary>
+        /// Erstellt eine neue Spalte
+        /// </summary>
+        /// <param name="header">Header</param>
+        /// <param name="cellTemplate">Cellen Vorlage</param>
         private void CreateColoumn(object header, DataTemplate cellTemplate)
         {
             GridViewColumn col = new GridViewColumn();
@@ -55,6 +70,13 @@ namespace de.LandauSoftware.WPFTranslate
             gridView.Columns.Add(col);
         }
 
+        /// <summary>
+        /// Erstellt eine neue Textzellen Vorlage.
+        /// </summary>
+        /// <param name="langKey">SprachKey</param>
+        /// <param name="binding">Binding</param>
+        /// <param name="allowNewLines">Neue zeilen und Tabs erlauben</param>
+        /// <returns></returns>
         private DataTemplate CreateTextCellTemplate(string langKey, Binding binding, bool allowNewLines)
         {
             binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged;
@@ -87,6 +109,11 @@ namespace de.LandauSoftware.WPFTranslate
             vModel_LanguageCollectionChangedEvent(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Wird beim hinzufügen, ändern oder löschen einer Sprache aufgerufen und updatet die Spalten des Fensters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void vModel_LanguageCollectionChangedEvent(object sender, EventArgs e)
         {
             Dispatcher.Invoke(() =>

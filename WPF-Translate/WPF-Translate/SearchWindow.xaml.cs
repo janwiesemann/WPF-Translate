@@ -13,6 +13,9 @@ namespace de.LandauSoftware.WPFTranslate
     {
         private SaveWindowStates saveWindowStates;
 
+        /// <summary>
+        /// Ein neues Fentser zur Eingabe von Suchwerten
+        /// </summary>
         public SearchWindow()
         {
             InitializeComponent();
@@ -22,6 +25,10 @@ namespace de.LandauSoftware.WPFTranslate
             saveWindowStates.PreviewAdditionalDataSaved += SaveWindowStates_PreviewAdditionalDataSaved;
         }
 
+        /// <summary>
+        /// Erstellt eine Suchmodul mit den aktuellen Einstellungen
+        /// </summary>
+        /// <returns></returns>
         public SearchModule CreateSearchModule()
         {
             return new SearchModule((bool)searchKey.IsChecked, (bool)searchValue.IsChecked, searchText.Text);
@@ -73,27 +80,27 @@ namespace de.LandauSoftware.WPFTranslate
             search.IsEnabled = !string.IsNullOrWhiteSpace(searchText.Text) && (searchKey.IsChecked == true || searchValue.IsChecked == true);
         }
 
-        [Serializable]
-        private struct SaveWindowStatesAdditionalData
-        {
-            public bool searchKeys;
-            public bool searchValues;
-            public string text;
-        }
-
-        public class SearchModule
+        /// <summary>
+        /// Führt die Suche für einen bestimmten Wert aus
+        /// </summary>
+        public struct SearchModule
         {
             private bool seachKeys;
             private bool searchValues;
             private string text;
 
-            public SearchModule(bool seachKeys, bool searchValues, string text)
+            internal SearchModule(bool seachKeys, bool searchValues, string text)
             {
                 this.seachKeys = seachKeys;
                 this.searchValues = searchValues;
                 this.text = text;
             }
 
+            /// <summary>
+            /// Prüft, ob der Wert ein Match ist
+            /// </summary>
+            /// <param name="langValues"></param>
+            /// <returns></returns>
             public bool IsMatch(LangValueCollection langValues)
             {
                 if (seachKeys)
@@ -113,6 +120,14 @@ namespace de.LandauSoftware.WPFTranslate
 
                 return false;
             }
+        }
+
+        [Serializable]
+        private struct SaveWindowStatesAdditionalData
+        {
+            public bool searchKeys;
+            public bool searchValues;
+            public string text;
         }
     }
 }

@@ -11,6 +11,10 @@ namespace de.LandauSoftware.WPFTranslate
     /// </summary>
     public partial class RemoveLanguageWindow : MetroWindow
     {
+        /// <summary>
+        /// Erstellt ein neues Fenster zurm entfernen einer Sprache
+        /// </summary>
+        /// <param name="fileList"></param>
         public RemoveLanguageWindow(Dictionary<Language, ResourceDictionaryFile> fileList)
         {
             InitializeComponent();
@@ -18,6 +22,9 @@ namespace de.LandauSoftware.WPFTranslate
             langs.ItemsSource = fileList;
         }
 
+        /// <summary>
+        /// Ausgewählte Sprache
+        /// </summary>
         public Language Selectedlanguage
         {
             get

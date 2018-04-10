@@ -13,6 +13,12 @@ namespace de.LandauSoftware.WPFTranslate
     {
         private Action<LangValueCollection> elementClickedCallback;
 
+        /// <summary>
+        /// Erstellt einen neuen SearchPresenter
+        /// </summary>
+        /// <param name="langs">Alle möglichen Sprachen</param>
+        /// <param name="matches">Alle anzuzeigenden Ergebnisse</param>
+        /// <param name="elementClickedCallback">Callback für den Click auf ein Element</param>
         public SearchPresenter(IList<Language> langs, IEnumerable<LangValueCollection> matches, Action<LangValueCollection> elementClickedCallback)
         {
             InitializeComponent();

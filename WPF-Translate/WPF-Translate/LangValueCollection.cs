@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace de.LandauSoftware.WPFTranslate
 {
+    /// <summary>
+    /// Stellt eine Samlung an Werten dar
+    /// </summary>
     [DebuggerDisplay("Key = {Key} Count = {Count}")]
     public class LangValueCollection : ObservableCollection<LangValue>
     {
@@ -14,6 +17,11 @@ namespace de.LandauSoftware.WPFTranslate
         private bool _BackgroundIsHighlited;
         private string _Key;
 
+        /// <summary>
+        /// Ersellt eine neue Smlung
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="langs"></param>
         public LangValueCollection(string key, IEnumerable<Language> langs)
         {
             _Key = key;
@@ -24,6 +32,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Legt fest, ob der Hintergrund dieser Spalte rot makiert ist
+        /// </summary>
         public bool BackgroundIsHighlited
         {
             get
@@ -38,6 +49,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Key
+        /// </summary>
         public string Key
         {
             get
@@ -52,11 +66,21 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Lässt den Hintergrund der Spalte für zwei Sekunden blinken
+        /// </summary>
         public void BlinkBackgroundForTwoSeconds()
         {
             BlinkBackgroundSecond(250, 8);
         }
 
+        /// <summary>
+        /// Lässt den Hintergrund Blinken
+        ///
+        /// Es kann immer nur ein Hintergrund blinken!
+        /// </summary>
+        /// <param name="delay">Verzögerung zwischen den Wechseln</param>
+        /// <param name="amount">Anzahl der Wechsel</param>
         public void BlinkBackgroundSecond(int delay, int amount)
         {
             if (CancelTokenSource != null)
@@ -83,6 +107,11 @@ namespace de.LandauSoftware.WPFTranslate
             }, CancelTokenSource.Token);
         }
 
+        /// <summary>
+        /// Sucht nach einem Wert über die Sprache
+        /// </summary>
+        /// <param name="lang">Sprache</param>
+        /// <returns>Null wenn nicht gefunden</returns>
         public LangValue FindValueByLang(Language lang)
         {
             foreach (LangValue item in this)
@@ -94,6 +123,10 @@ namespace de.LandauSoftware.WPFTranslate
             return null;
         }
 
+        /// <summary>
+        /// Entfernt eine Sprache
+        /// </summary>
+        /// <param name="lang"></param>
         public void RemoveLang(Language lang)
         {
             LangValue val = FindValueByLang(lang);
@@ -101,6 +134,11 @@ namespace de.LandauSoftware.WPFTranslate
             this.Remove(val);
         }
 
+        /// <summary>
+        /// Setzt einen Wert
+        /// </summary>
+        /// <param name="lang"></param>
+        /// <param name="value"></param>
         public void SetValue(Language lang, string value)
         {
             LangValue val = FindValueByLang(lang);
@@ -108,6 +146,10 @@ namespace de.LandauSoftware.WPFTranslate
             val.Value = value;
         }
 
+        /// <summary>
+        /// OnPropertyChanged
+        /// </summary>
+        /// <param name="name">name der Eigenschaft</param>
         protected virtual void OnPropertyChanged(string name)
         {
             base.OnPropertyChanged(new PropertyChangedEventArgs(name));

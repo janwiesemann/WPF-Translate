@@ -15,9 +15,16 @@ using System.Windows.Input;
 
 namespace de.LandauSoftware.WPFTranslate
 {
+    /// <summary>
+    /// MainWindowViewModel
+    /// </summary>
     public class MainWindowViewModel : DialogCoordinatorNotifyBase
     {
+        /// <summary>
+        /// MahApps Settings für Dialog mit Ja und Nein
+        /// </summary>
         public static readonly MetroDialogSettings DialogSettingsYesNo = new MetroDialogSettings() { AffirmativeButtonText = "Ja", NegativeButtonText = "Nein", DefaultButtonFocus = MessageDialogResult.Negative };
+
         private RelayICommand _AddKeyCommand;
         private RelayICommand _AddLanguageCommand;
         private RelayICommand _ClearCommand;
@@ -33,15 +40,23 @@ namespace de.LandauSoftware.WPFTranslate
 
         private RelayICommand _SearchCommand;
 
-        private SearchWindow.SearchModule _SerachModule;
         private RelayICommand<LangValueCollection> _TranslateKeyCommand;
 
         private RelayICommand _TranslateLanguageCommand;
 
+        /// <summary>
+        /// Wird beim Ändern einer Sprache aufgerufen
+        /// </summary>
         public event EventHandler LanguageCollectionChangedEvent;
 
+        /// <summary>
+        /// Wird aufgerufen wenn die Anwendung ein Element in den Vordergrund scrollen soll
+        /// </summary>
         public event EventHandler<LangValueCollection> LanguageCollectionScrollIntoViewRequest;
 
+        /// <summary>
+        /// Fügt einen neuen Key hinzu
+        /// </summary>
         public ICommand AddKeyCommand
         {
             get
@@ -58,6 +73,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Fügt eine neue Sprache hinzu
+        /// </summary>
         public ICommand AddLanguageCommand
         {
             get
@@ -79,6 +97,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Löscht den Inhalt der Anwendung
+        /// </summary>
         public ICommand ClearCommand
         {
             get
@@ -99,6 +120,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Beinhaltet alle geladenen Dateien
+        /// </summary>
         public Dictionary<Language, ResourceDictionaryFile> FileList
         {
             get
@@ -110,6 +134,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Öffnet die Hilfe
+        /// </summary>
         public ICommand HelpCommand
         {
             get
@@ -135,6 +162,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Sprachdaten (Alle Daten für die ListView)
+        /// </summary>
         public LanguageKeyValueCollection LangData
         {
             get
@@ -157,6 +187,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Lädt eine Datei
+        /// </summary>
         public ICommand LoadFileCommand
         {
             get
@@ -185,7 +218,7 @@ namespace de.LandauSoftware.WPFTranslate
                                await AddResourceDictionaryFileToLangData(rdf, langID);
                            }
 
-                           LangData.Keys = new ObservableCollection<LangValueCollection>(LangData.Keys.OrderBy(k => k.Key));
+                           LangData.Keys = new ObservableCollection<LangValueCollection>(LangData.Keys.OrderBy(k => k.Key)); //Sortieren nach key
                        }
                        catch (Exception ex)
                        {
@@ -197,6 +230,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Entfernt einen Key
+        /// </summary>
         public ICommand RemoveKeyCommand
         {
             get
@@ -214,6 +250,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Entfernt eine Sprache
+        /// </summary>
         public ICommand RemoveLanguageCommand
         {
             get
@@ -236,6 +275,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// speichert alle Dateien
+        /// </summary>
         public ICommand SaveFileCommand
         {
             get
@@ -247,7 +289,7 @@ namespace de.LandauSoftware.WPFTranslate
                         {
                             try
                             {
-                                IEnumerable<RawDictionaryEntry> entrys = LangData.GetLangEntrysAsDictionaryEntry(file.Key);
+                                IEnumerable<DictionaryRawEntry> entrys = LangData.GetLangEntrysAsDictionaryEntry(file.Key);
 
                                 file.Value.Entrys.AddRange(entrys);
 
@@ -267,6 +309,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Öffnet die Suche und führt diese aus
+        /// </summary>
         public ICommand SearchCommand
         {
             get
@@ -315,18 +360,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
-        public SearchWindow.SearchModule SerachModule
-        {
-            get
-            {
-                return _SerachModule;
-            }
-            set
-            {
-                _SerachModule = value;
-            }
-        }
-
+        /// <summary>
+        /// Öffnet einen Key im übersetzter
+        /// </summary>
         public ICommand TranslateKeyCommand
         {
             get
@@ -334,7 +370,7 @@ namespace de.LandauSoftware.WPFTranslate
                 if (_TranslateKeyCommand == null)
                     _TranslateKeyCommand = new RelayICommand<LangValueCollection>(p => LangData.Languages.Count > 0, lk =>
                     {
-                        List<LangValueCollection> collection = new List<LangValueCollection>() { lk };
+                        List<LangValueCollection> collection = new List<LangValueCollection>() { lk }; //Da der Übersetzter nur mit Listen arbeiten kann wird eine neue Liste mit einem eimnzelnem Element erstellt
 
                         TranslateWindow.ShowDialog(collection, LangData.Languages);
                     });
@@ -343,6 +379,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Öffnet den Translator zum übersetzten einer ganzen Sprache
+        /// </summary>
         public ICommand TranslateLanguageCommand
         {
             get
@@ -354,6 +393,12 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Fügt ein Wörterbuch in die Sprachdaten hinzu
+        /// </summary>
+        /// <param name="rdf">ResourceDictionaryFile</param>
+        /// <param name="langID">Sprach Key</param>
+        /// <returns></returns>
         private async Task AddResourceDictionaryFileToLangData(ResourceDictionaryFile rdf, string langID)
         {
             while (langID == null || LangData.ContainsLanguage(langID))
@@ -366,7 +411,7 @@ namespace de.LandauSoftware.WPFTranslate
 
             for (int i = rdf.Entrys.Count - 1; i >= 0; i--)
             {
-                DictionaryEntry entry = rdf.Entrys[i] as DictionaryEntry;
+                DictionaryStringEntry entry = rdf.Entrys[i] as DictionaryStringEntry;
 
                 if (entry != null)
                 {
@@ -376,7 +421,7 @@ namespace de.LandauSoftware.WPFTranslate
                 }
             }
 
-            Language lang = LangData.FindLang(langID);
+            Language lang = LangData.GetLangByID(langID);
 
             if (lang == null)
                 lang = LangData.AddLanguage(langID);
@@ -386,6 +431,11 @@ namespace de.LandauSoftware.WPFTranslate
             FileList.Add(lang, rdf);
         }
 
+        /// <summary>
+        /// Prüft, ob eine Datei in der Dateiliste vorhanden ist
+        /// </summary>
+        /// <param name="filename">Dateiname</param>
+        /// <returns></returns>
         private bool FileListContainsFile(string filename)
         {
             return FileList.Contains(kvp => kvp.Value.FileName == filename);
@@ -401,6 +451,11 @@ namespace de.LandauSoftware.WPFTranslate
             LanguageCollectionChangedEvent?.Invoke(this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Versucht einen Sprachkey in eine, String zu finden.
+        /// </summary>
+        /// <param name="filename">Dateiname</param>
+        /// <returns>Null wenn nicht gefunden</returns>
         private string TryFindLangKey(string filename)
         {
             filename = Path.GetFileName(filename);

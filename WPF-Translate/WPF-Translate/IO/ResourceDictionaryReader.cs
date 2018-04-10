@@ -4,8 +4,16 @@ using System.Xml;
 
 namespace de.LandauSoftware.WPFTranslate.IO
 {
+    /// <summary>
+    /// eine Klasse zum lesen von XAML-RessourceDictionary dateien.
+    /// </summary>
     public static class ResourceDictionaryReader
     {
+        /// <summary>
+        /// Ließt eine Datei in ein ResourceDictionaryFile
+        /// </summary>
+        /// <param name="file">Dateipfad</param>
+        /// <returns></returns>
         public static ResourceDictionaryFile Read(string file)
         {
             ResourceDictionaryFile rdfile = new ResourceDictionaryFile(file);
@@ -18,24 +26,24 @@ namespace de.LandauSoftware.WPFTranslate.IO
 
             ParseAdditionalNameSpaces(rdfile, doc.DocumentElement);
 
-            foreach (XmlElement node in doc.DocumentElement.ChildNodes)
+            foreach (XmlElement node in doc.DocumentElement.ChildNodes) //einlesen aller Elemente
             {
                 switch (node.LocalName)
                 {
                     case "ResourceDictionary.MergedDictionaries":
-                        ParseMergedDictonaries(rdfile, node);
+                        ParseMergedDictonariesElement(rdfile, node);
                         break;
 
                     case "String":
-                        ParseString(rdfile, node);
+                        ParseStringElement(rdfile, node);
                         break;
 
                     case "Static":
-                        ParseStatic(rdfile, node);
+                        ParseStaticElement(rdfile, node);
                         break;
 
                     default:
-                        ParseUnknow(rdfile, node);
+                        ParseUnknowElement(rdfile, node);
                         break;
                 }
             }
@@ -43,6 +51,11 @@ namespace de.LandauSoftware.WPFTranslate.IO
             return rdfile;
         }
 
+        /// <summary>
+        /// Ruft den x:Key eines String-Knotens ab.
+        /// </summary>
+        /// <param name="node"></param>
+        /// <returns></returns>
         private static string GetKey(XmlElement node)
         {
             string key = node.Attributes["x:Key"]?.Value;
@@ -53,6 +66,11 @@ namespace de.LandauSoftware.WPFTranslate.IO
             return key;
         }
 
+        /// <summary>
+        /// Ließt ggf. zusätzliche Namespaces ein und fügt diese in die Datei hinzu
+        /// </summary>
+        /// <param name="rdfile">ResourceDictionaryFile</param>
+        /// <param name="docElement">Xml-Root-Element</param>
         private static void ParseAdditionalNameSpaces(ResourceDictionaryFile rdfile, XmlElement docElement)
         {
             foreach (XmlAttribute item in docElement.Attributes)
@@ -68,7 +86,12 @@ namespace de.LandauSoftware.WPFTranslate.IO
             }
         }
 
-        private static void ParseMergedDictonaries(ResourceDictionaryFile rdfile, XmlElement node)
+        /// <summary>
+        /// Ließt einen MergedDictionaries Knoten ein
+        /// </summary>
+        /// <param name="rdfile">ResourceDictionaryFile</param>
+        /// <param name="node">Knoten</param>
+        private static void ParseMergedDictonariesElement(ResourceDictionaryFile rdfile, XmlElement node)
         {
             foreach (XmlElement item in node.ChildNodes)
             {
@@ -84,34 +107,47 @@ namespace de.LandauSoftware.WPFTranslate.IO
             }
         }
 
-        private static void ParseStatic(ResourceDictionaryFile rdfile, XmlElement node)
+        /// <summary>
+        /// Ließt einen leeres String-Element ein.
+        /// </summary>
+        /// <param name="rdfile">ResourceDictionaryFile</param>
+        /// <param name="node">Knoten</param>
+        private static void ParseStaticElement(ResourceDictionaryFile rdfile, XmlElement node)
         {
             string key = GetKey(node);
 
             bool memberIsEmptyString = node.Attributes["Member"]?.Value == "sys:String.Empty";
 
             if (memberIsEmptyString)
-                rdfile.Entrys.Add(new DictionaryEntry(key, string.Empty));
+                rdfile.Entrys.Add(new DictionaryStringEntry(key, string.Empty));
             else
-                rdfile.Entrys.Add(new RawDictionaryEntry(node.OuterXml));
+                rdfile.Entrys.Add(new DictionaryRawEntry(node.OuterXml));
         }
 
-        private static void ParseString(ResourceDictionaryFile rdfile, XmlElement node)
+        /// <summary>
+        /// Ließt ein String-Element ein
+        /// </summary>
+        /// <param name="rdfile">ResourceDictionaryFile</param>
+        /// <param name="node">Knoten</param>
+        private static void ParseStringElement(ResourceDictionaryFile rdfile, XmlElement node)
         {
             string key = GetKey(node);
 
-            rdfile.Entrys.Add(new DictionaryEntry(key, node.InnerText));
+            rdfile.Entrys.Add(new DictionaryStringEntry(key, node.InnerText));
         }
 
-        private static void ParseUnknow(ResourceDictionaryFile rdfile, XmlElement node)
+        /// <summary>
+        /// Ließt ein unbekanntes Element ein
+        /// </summary>
+        /// <param name="rdfile">ResourceDictionaryFile</param>
+        /// <param name="node">Knoten</param>
+        private static void ParseUnknowElement(ResourceDictionaryFile rdfile, XmlElement node)
         {
             Regex regex = new Regex(@"\s+xmlns\s*(:\w+)?\s*=\s*\""([^\""]*)\""", RegexOptions.IgnoreCase);
 
-            MatchCollection mc = regex.Matches(node.OuterXml);
+            string xml = regex.Replace(node.OuterXml, ""); //entfernt alle lokalen namespaces welche von dem XML-Reader hinzugefügt wurden
 
-            string xml = regex.Replace(node.OuterXml, "");
-
-            rdfile.Entrys.Add(new RawDictionaryEntry(xml));
+            rdfile.Entrys.Add(new DictionaryRawEntry(xml));
         }
     }
 }

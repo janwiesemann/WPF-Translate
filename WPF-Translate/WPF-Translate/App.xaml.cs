@@ -12,7 +12,7 @@ namespace de.LandauSoftware.WPFTranslate
     {
         static App()
         {
-            SaveWindowStates.ForceDirectory = Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName), "WindowStates");
+            SaveWindowStates.ForceDirectory = Path.Combine(Path.GetDirectoryName(Process.GetCurrentProcess().MainModule.FileName), "WindowStates"); //Setzt den Pfad für das Speichern von Fensterpositionen in einen Lokalen Ordner.
         }
     }
 }

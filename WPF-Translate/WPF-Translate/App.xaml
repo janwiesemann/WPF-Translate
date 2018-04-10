@@ -17,10 +17,13 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
 
+                <!--  MahApps FlatButton  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
 
+                <!--  MahApps Ressorces  -->
                 <ResourceDictionary Source="pack://application:,,,/WPf-Translate;component/Resources/Icons.xaml" />
 
+                <!--  Eigene Ressourcen und Styleanpassungen  -->
                 <ResourceDictionary>
                     <Style BasedOn="{StaticResource {x:Type TextBox}}" TargetType="{x:Type TextBox}">
                         <Setter Property="VerticalContentAlignment" Value="Center" />

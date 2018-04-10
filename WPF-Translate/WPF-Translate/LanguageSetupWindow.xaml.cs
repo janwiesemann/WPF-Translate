@@ -10,11 +10,17 @@ namespace de.LandauSoftware.WPFTranslate
     /// </summary>
     public partial class LanguageSetupWindow : MetroWindow
     {
+        /// <summary>
+        /// Erstellt ein neues LanguageSetupWindow
+        /// </summary>
         public LanguageSetupWindow()
         {
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Dateiname
+        /// </summary>
         public string FileName
         {
             get
@@ -27,6 +33,9 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
+        /// <summary>
+        /// Sprach ID
+        /// </summary>
         public string LangID
         {
             get

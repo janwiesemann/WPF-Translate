@@ -6,11 +6,18 @@ using System.Xml;
 
 namespace de.LandauSoftware.WPFTranslate.IO
 {
+    /// <summary>
+    /// Eine Klasse zum schreiben von ResourceDictionaryFiles
+    /// </summary>
     public static class ResourceDictionaryWriter
     {
+        /// <summary>
+        /// Schreibt eine Datei auf die Festplatte
+        /// </summary>
+        /// <param name="rdfile">ResourceDictionaryFile</param>
         public static void Write(ResourceDictionaryFile rdfile)
         {
-            using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream()) //Zwischenspeicher zum formattieren
             {
                 using (XmlWriter writer = XmlWriter.Create(ms))
                 {
@@ -29,6 +36,11 @@ namespace de.LandauSoftware.WPFTranslate.IO
             }
         }
 
+        /// <summary>
+        /// Ließt XML aus einem Stream und speichert diese Daten anschließend formatiert in einer Datei
+        /// </summary>
+        /// <param name="stream">Stream</param>
+        /// <param name="file">Dateipfad</param>
         private static void FormatAndWriteXmToFile(Stream stream, string file)
         {
             stream.Position = 0;
@@ -51,6 +63,11 @@ namespace de.LandauSoftware.WPFTranslate.IO
             }
         }
 
+        /// <summary>
+        /// Schreibt alle zusätzlichen Ressourcen Wörterbücher in die Datei
+        /// </summary>
+        /// <param name="rdfile">ResourceDictionaryFile</param>
+        /// <param name="writer">XmlWriter</param>
         private static void WriteAdditionalResourceDictionaries(ResourceDictionaryFile rdfile, XmlWriter writer)
         {
             if (rdfile.MergedDictionaries.Count <= 0)
@@ -67,7 +84,12 @@ namespace de.LandauSoftware.WPFTranslate.IO
             writer.WriteEndElement();
         }
 
-        private static void WriteEmptyString(DictionaryEntry entry, XmlWriter writer)
+        /// <summary>
+        /// Schreibt einen leeren String in die Datei
+        /// </summary>
+        /// <param name="entry">DictionaryStringEntry</param>
+        /// <param name="writer">XmlWriter</param>
+        private static void WriteEmptyString(DictionaryStringEntry entry, XmlWriter writer)
         {
             writer.WriteStartElement("Static", ResourceDictionaryFile.xNameSpace.Source);
 
@@ -78,11 +100,16 @@ namespace de.LandauSoftware.WPFTranslate.IO
             writer.WriteEndElement();
         }
 
+        /// <summary>
+        /// Schreibt alle Einträge in die Datei
+        /// </summary>
+        /// <param name="rdfile">ResourceDictionaryFile</param>
+        /// <param name="writer">XmlWriter</param>
         private static void WriteEntrys(ResourceDictionaryFile rdfile, XmlWriter writer)
         {
-            foreach (RawDictionaryEntry rawEntry in rdfile.Entrys)
+            foreach (DictionaryRawEntry rawEntry in rdfile.Entrys)
             {
-                DictionaryEntry entry = rawEntry as DictionaryEntry;
+                DictionaryStringEntry entry = rawEntry as DictionaryStringEntry;
 
                 if (entry != null)
                 {
@@ -96,11 +123,21 @@ namespace de.LandauSoftware.WPFTranslate.IO
             }
         }
 
+        /// <summary>
+        /// Schreibt einen x:Key in die Datei
+        /// </summary>
+        /// <param name="key">Key</param>
+        /// <param name="writer">XmlWriter</param>
         private static void WriteKey(string key, XmlWriter writer)
         {
             writer.WriteAttributeString("Key", ResourceDictionaryFile.xNameSpace.Source, key);
         }
 
+        /// <summary>
+        /// Schreibt die Namespaces in die Datei
+        /// </summary>
+        /// <param name="rdfile">ResourceDictionaryFile</param>
+        /// <param name="writer">XmlWriter</param>
         private static void WriteNamepaces(ResourceDictionaryFile rdfile, XmlWriter writer)
         {
             foreach (DictionaryNamespace item in rdfile.AllNamespces)
@@ -110,7 +147,12 @@ namespace de.LandauSoftware.WPFTranslate.IO
             }
         }
 
-        private static void WriteStringEntry(DictionaryEntry entry, XmlWriter writer)
+        /// <summary>
+        /// Schreibt einen String-Eintrag in die datei
+        /// </summary>
+        /// <param name="entry">DictionaryStringEntry</param>
+        /// <param name="writer">XmlWriter</param>
+        private static void WriteStringEntry(DictionaryStringEntry entry, XmlWriter writer)
         {
             writer.WriteStartElement("String", ResourceDictionaryFile.xNameSpace.Source);
 
