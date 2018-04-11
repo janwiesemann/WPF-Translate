@@ -137,6 +137,8 @@ namespace de.LandauSoftware.WPFTranslate
         private void vModel_LanguageCollectionScrollIntoViewRequest(object sender, LangValueCollection e)
         {
             Keyboard.ClearFocus();
+
+            listView.Focus();
             listView.ScrollIntoView(e);
             e.BlinkBackgroundForTwoSeconds();
         }

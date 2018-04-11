@@ -327,33 +327,27 @@ namespace de.LandauSoftware.WPFTranslate
                         SearchWindow.SearchModule searchModule = sw.CreateSearchModule();
 
                         ProgressDialogController progresscontroller = await DialogCoordinator.ShowProgressAsync(this, "Suche", "Bitte warten...", true);
-                        try
+
+                        progresscontroller.Maximum = LangData.Keys.Count;
+
+                        List<LangValueCollection> matches = new List<LangValueCollection>();
+
+                        for (int i = 0; i < LangData.Keys.Count; i++)
                         {
-                            progresscontroller.Maximum = LangData.Keys.Count;
+                            progresscontroller.SetProgress(i);
 
-                            List<LangValueCollection> matches = new List<LangValueCollection>();
-
-                            for (int i = 0; i < LangData.Keys.Count; i++)
-                            {
-                                progresscontroller.SetProgress(i);
-
-                                if (searchModule.IsMatch(LangData.Keys[i]))
-                                    matches.Add(LangData.Keys[i]);
-                                else if (progresscontroller.IsCanceled)
-                                    return;
-                            }
-
-                            if (matches.Count > 1)
-                            {
-                                new SearchPresenter(LangData.Languages, matches, lvc => LanguageCollectionScrollIntoViewRequest?.Invoke(this, lvc)).Show();
-                            }
-                            else if (matches.Count == 1)
-                                LanguageCollectionScrollIntoViewRequest?.Invoke(this, matches.First());
+                            if (searchModule.IsMatch(LangData.Keys[i]))
+                                matches.Add(LangData.Keys[i]);
+                            else if (progresscontroller.IsCanceled)
+                                matches.Clear();
                         }
-                        finally
-                        {
-                            await progresscontroller.CloseAsync();
-                        }
+
+                        await progresscontroller.CloseAsync();
+
+                        if (matches.Count > 1)
+                            new SearchPresenter(LangData.Languages, matches, lvc => LanguageCollectionScrollIntoViewRequest?.Invoke(this, lvc)).Show();
+                        else if (matches.Count == 1)
+                            LanguageCollectionScrollIntoViewRequest?.Invoke(this, matches.First());
                     });
 
                 return _SearchCommand;
