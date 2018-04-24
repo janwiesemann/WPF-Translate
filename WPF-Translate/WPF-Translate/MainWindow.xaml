@@ -38,6 +38,10 @@
             Modifiers="Ctrl" />
         <KeyBinding
             Key="N"
+            Command="{Binding AddLanguageCommand, Mode=OneWay}"
+            Modifiers="Ctrl" />
+        <KeyBinding
+            Key="N"
             Command="{Binding AddKeyCommand, Mode=OneWay}"
             Modifiers="Ctrl" />
     </Controls:MetroWindow.InputBindings>
@@ -57,6 +61,10 @@
                     Command="{Binding SaveFileCommand, Mode=OneWay}"
                     Header="Speichern"
                     InputGestureText="Strg+S" />
+                <MenuItem
+                    Command="{Binding AddLanguageCommand, Mode=OneWay}"
+                    Header="Neu"
+                    InputGestureText="Strg+N" />
                 <Separator />
                 <MenuItem
                     Command="{Binding SearchCommand, Mode=OneWay}"
@@ -67,7 +75,10 @@
                 <MenuItem Click="close_Click" Header="Beenden" />
             </MenuItem>
             <MenuItem Header="Sprache">
-                <MenuItem Command="{Binding AddLanguageCommand, Mode=OneWay}" Header="Sprache anlegen" />
+                <MenuItem
+                    Command="{Binding AddLanguageCommand, Mode=OneWay}"
+                    Header="Sprache anlegen"
+                    InputGestureText="Strg+N" />
                 <MenuItem Command="{Binding RemoveLanguageCommand, Mode=OneWay}" Header="Sprache löschen" />
                 <MenuItem Command="{Binding TranslateLanguageCommand, Mode=OneWay}" Header="Sprache übersetzen" />
             </MenuItem>
