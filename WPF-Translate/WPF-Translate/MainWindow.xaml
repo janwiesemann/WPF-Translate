@@ -85,6 +85,9 @@
                 <MenuItem Command="{Binding RemoveLanguageCommand, Mode=OneWay}" Header="Sprache löschen" />
                 <MenuItem Command="{Binding TranslateLanguageCommand, Mode=OneWay}" Header="Sprache übersetzen" />
             </MenuItem>
+            <MenuItem Header="Werkzeuge">
+                <MenuItem Command="{Binding SearchMissingKeysCommand, Mode=OneWay}" Header="Fehlende Keys suchen" />
+            </MenuItem>
             <MenuItem Command="{Binding HelpCommand, Mode=OneWay}" Header="Hilfe" />
         </Menu>
         <ListView

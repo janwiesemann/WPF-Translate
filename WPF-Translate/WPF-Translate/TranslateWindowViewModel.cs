@@ -1,4 +1,5 @@
 ﻿using de.LandauSoftware.Core.WPF;
+using de.LandauSoftware.Metro;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -10,7 +11,7 @@ namespace de.LandauSoftware.WPFTranslate
     /// <summary>
     /// TranslateWindowViewModel
     /// </summary>
-    public class TranslateWindowViewModel : DialogCoordinatorNotifyBase
+    public class TranslateWindowViewModel : MetroNotifyBase
     {
         private CancellationTokenSource _CancellationTokenSource;
         private bool _CancelOnException = true;

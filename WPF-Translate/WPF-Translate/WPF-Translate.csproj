@@ -48,6 +48,9 @@
     <Reference Include="LSDOTNETCORE, Version=1.1.7019.15906, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LSDOTNETCORE.AnyCPU.2019.321.4\lib\net45\LSDOTNETCORE.dll</HintPath>
     </Reference>
+    <Reference Include="LSDOTNETCOREMETRO, Version=1.1.7019.15907, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\LSDOTNETCOREMETRO.AnyCPU.2019.321.4\lib\net45\LSDOTNETCOREMETRO.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\LS.Native.MahApps.1.6.5\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -60,6 +63,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\LS.Native.MahApps.1.6.5\lib\net45\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -81,7 +85,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DialogCoordinatorNotifyBase.cs" />
     <Compile Include="IO\DictionaryStringEntry.cs" />
     <Compile Include="IO\DictionaryNamespace.cs" />
     <Compile Include="IO\MergedDictionary.cs" />
@@ -96,6 +99,10 @@
     </Compile>
     <Compile Include="LangValue.cs" />
     <Compile Include="LangValueCollection.cs" />
+    <Compile Include="MissingKeyInfo.cs" />
+    <Compile Include="MissingKeysWindow.xaml.cs">
+      <DependentUpon>MissingKeysWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RemoveLanguageWindow.xaml.cs">
       <DependentUpon>RemoveLanguageWindow.xaml</DependentUpon>
     </Compile>
@@ -126,6 +133,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MissingKeysWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="RemoveLanguageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

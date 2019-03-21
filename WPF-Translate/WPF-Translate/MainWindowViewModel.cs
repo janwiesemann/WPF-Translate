@@ -1,5 +1,6 @@
 ﻿using de.LandauSoftware.Core;
 using de.LandauSoftware.Core.WPF;
+using de.LandauSoftware.Metro;
 using de.LandauSoftware.WPFTranslate.IO;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Win32;
@@ -18,7 +19,7 @@ namespace de.LandauSoftware.WPFTranslate
     /// <summary>
     /// MainWindowViewModel
     /// </summary>
-    public class MainWindowViewModel : DialogCoordinatorNotifyBase
+    public class MainWindowViewModel : MetroNotifyBase
     {
         /// <summary>
         /// MahApps Settings für Dialog mit Ja und Nein
@@ -40,6 +41,7 @@ namespace de.LandauSoftware.WPFTranslate
 
         private RelayICommand _SearchCommand;
 
+        private TaskProgressRelayICommand _SearchMissingKeysCommand;
         private RelayICommand<LangValueCollection> _TranslateKeyCommand;
 
         private RelayICommand _TranslateLanguageCommand;
@@ -355,6 +357,70 @@ namespace de.LandauSoftware.WPFTranslate
                     });
 
                 return _SearchCommand;
+            }
+        }
+
+        /// <summary>
+        /// Sucht nach Fehlenden Keys
+        /// </summary>
+        public ICommand SearchMissingKeysCommand
+        {
+            get
+            {
+                if (_SearchMissingKeysCommand == null)
+                    _SearchMissingKeysCommand = new TaskProgressRelayICommand(p => LangData.Keys.Count > 0, () => new TaskProgressRelayICommand.Settings(this) { Message = "Bitte warten...", Title = "Suche", IsCancelable = true }, async (p, d, progress) =>
+                       {
+                           string dir = d.Invoke(() =>
+                           {
+                               System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
+
+                               if (fbd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                                   return fbd.SelectedPath;
+                               else
+                                   return null;
+                           });
+
+                           if (dir == null)
+                               return;
+
+                           List<MissingKeyInfo> infos = new List<MissingKeyInfo>();
+
+                           string[] files = Directory.GetFiles(dir, "*.cs", SearchOption.AllDirectories);
+                           progress.Maximum = files.Length;
+                           for (int i = 0; i < files.Length; i++)
+                           {
+                               progress.SetProgress(i);
+
+                               string content = File.ReadAllText(files[i]);
+
+                               MatchCollection matches = Regex.Matches(content, @"(?:App(?:Ex)?\.FindString\(""(\w+)""(?:\)|,))|(?:\[ResolvedEnumDescription\(""(\w+)""\)\])|(?:Application\.Current\??.TryFindResource\(""(\w+)""\))", RegexOptions.Multiline);
+                               foreach (Match item in matches)
+                               {
+                                   string key = null;
+                                   string fullMatch = null;
+                                   for (int j = 1; j < item.Groups.Count; j++)
+                                   {
+                                       if (!string.IsNullOrWhiteSpace(item.Groups[j].Value))
+                                       {
+                                           key = item.Groups[j].Value;
+                                           fullMatch = item.Groups[0].Value;
+
+                                           break;
+                                       }
+                                   }
+
+                                   if (key != null && !LangData.Keys.Contains(obj => obj.Key == key))
+                                       infos.Add(new MissingKeyInfo() { File = files[i], Key = key, FullMatch = fullMatch });
+                               }
+                           }
+
+                           await progress.CloseAsync();
+
+                           if (infos.Count > 0)
+                               d.Invoke(() => new MissingKeysWindow(infos).ShowDialog());
+                       });
+
+                return _SearchMissingKeysCommand;
             }
         }
 
