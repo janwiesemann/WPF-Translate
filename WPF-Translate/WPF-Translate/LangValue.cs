@@ -9,8 +9,6 @@ namespace de.LandauSoftware.WPFTranslate
     [DebuggerDisplay("Value = {Value}")]
     public class LangValue : NotifyBase
     {
-        private Language _Language;
-
         private string _Value;
 
         /// <summary>
@@ -19,19 +17,13 @@ namespace de.LandauSoftware.WPFTranslate
         /// <param name="lang">Sprache</param>
         public LangValue(Language lang)
         {
-            _Language = lang;
+            Language = lang;
         }
 
         /// <summary>
         /// Ruft die Sprache des Wertes ab
         /// </summary>
-        public Language Language
-        {
-            get
-            {
-                return _Language;
-            }
-        }
+        public Language Language { get; }
 
         /// <summary>
         /// Der Wert

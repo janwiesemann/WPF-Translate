@@ -9,7 +9,6 @@ namespace de.LandauSoftware.WPFTranslate.IO
     [DebuggerDisplay("Value = {Value}")]
     public class DictionaryRawEntry
     {
-        private string _Value;
 
         /// <summary>
         /// Erstellt eine neue Instanz, eines rohen Eintrages
@@ -17,18 +16,12 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <param name="value">Wert</param>
         public DictionaryRawEntry(string value)
         {
-            _Value = value;
+            Value = value;
         }
 
         /// <summary>
         /// Ruft den Wert ab
         /// </summary>
-        public string Value
-        {
-            get
-            {
-                return _Value;
-            }
-        }
+        public string Value { get; }
     }
 }

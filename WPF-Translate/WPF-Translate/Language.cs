@@ -60,12 +60,14 @@ namespace de.LandauSoftware.WPFTranslate
         /// <returns></returns>
         public static bool operator ==(Language left, Language right)
         {
+#pragma warning disable IDE0041 // "Ist NULL"-Prüfung verwenden
             if (object.ReferenceEquals(left, right))
                 return true;
             else if (object.ReferenceEquals(left, null) || object.ReferenceEquals(right, null))
                 return false;
             else
                 return left.LangKey == right.LangKey;
+#pragma warning restore IDE0041 // "Ist NULL"-Prüfung verwenden
         }
 
         /// <summary>
@@ -75,10 +77,12 @@ namespace de.LandauSoftware.WPFTranslate
         /// <returns></returns>
         public override bool Equals(object obj)
         {
+#pragma warning disable IDE0041 // "Ist NULL"-Prüfung verwenden
             if (object.ReferenceEquals(obj, null) || !(obj is Language))
                 return false;
 
             return ((Language)obj).LangKey == LangKey;
+#pragma warning restore IDE0041 // "Ist NULL"-Prüfung verwenden
         }
 
         /// <summary>

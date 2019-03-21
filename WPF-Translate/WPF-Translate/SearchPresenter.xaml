@@ -18,7 +18,7 @@
     <ListView
         x:Name="listView"
         Margin="10"
-        SelectionChanged="listView_SelectionChanged">
+        SelectionChanged="ListView_SelectionChanged">
         <ListView.View>
             <GridView x:Name="gridView" />
         </ListView.View>

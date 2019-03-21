@@ -5,9 +5,6 @@
     /// </summary>
     public class DictionaryNamespace
     {
-        private string _Name;
-
-        private string _Source;
 
         /// <summary>
         /// initialisiert eine neue Instanz eines Namespaces
@@ -16,30 +13,18 @@
         /// <param name="source">Quelle</param>
         public DictionaryNamespace(string name, string source)
         {
-            _Name = name;
-            _Source = source;
+            Name = name;
+            Source = source;
         }
 
         /// <summary>
         /// Name
         /// </summary>
-        public string Name
-        {
-            get
-            {
-                return _Name;
-            }
-        }
+        public string Name { get; }
 
         /// <summary>
         /// Quelle
         /// </summary>
-        public string Source
-        {
-            get
-            {
-                return _Source;
-            }
-        }
+        public string Source { get; }
     }
 }

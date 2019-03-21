@@ -36,17 +36,17 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
-        private void langs_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Langs_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             yes.IsEnabled = langs.SelectedItem != null;
         }
 
-        private void no_Click(object sender, RoutedEventArgs e)
+        private void No_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
         }
 
-        private void yes_Click(object sender, RoutedEventArgs e)
+        private void Yes_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
         }

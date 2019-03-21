@@ -48,32 +48,34 @@ namespace de.LandauSoftware.WPFTranslate
             }
         }
 
-        private void cancel_Click(object sender, RoutedEventArgs e)
+        private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
         }
 
-        private void changeFile_Click(object sender, RoutedEventArgs e)
+        private void ChangeFile_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "XAML-Datei|*.xaml";
-            sfd.FileName = "StringResource_" + sprachKey.Text + ".xaml";
+            SaveFileDialog sfd = new SaveFileDialog
+            {
+                Filter = "XAML-Datei|*.xaml",
+                FileName = "StringResource_" + sprachKey.Text + ".xaml"
+            };
 
             if (sfd.ShowDialog() == true)
                 filePath.Text = sfd.FileName;
         }
 
-        private void filePath_TextChanged(object sender, TextChangedEventArgs e)
+        private void FilePath_TextChanged(object sender, TextChangedEventArgs e)
         {
             VerifyInputAndEnableOk();
         }
 
-        private void ok_Click(object sender, RoutedEventArgs e)
+        private void Ok_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
         }
 
-        private void sprachKey_TextChanged(object sender, TextChangedEventArgs e)
+        private void SprachKey_TextChanged(object sender, TextChangedEventArgs e)
         {
             VerifyInputAndEnableOk();
         }

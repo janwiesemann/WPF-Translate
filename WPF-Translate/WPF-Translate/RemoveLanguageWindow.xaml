@@ -37,7 +37,7 @@
                     x:Name="langs"
                     Grid.Column="2"
                     Grid.IsSharedSizeScope="True"
-                    SelectionChanged="langs_SelectionChanged">
+                    SelectionChanged="Langs_SelectionChanged">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -66,12 +66,12 @@
             </Grid.ColumnDefinitions>
             <Button
                 x:Name="yes"
-                Click="yes_Click"
+                Click="Yes_Click"
                 Content="Ja"
                 IsEnabled="False" />
             <Button
                 Grid.Column="2"
-                Click="no_Click"
+                Click="No_Click"
                 Content="Nein"
                 IsCancel="True"
                 IsDefault="True" />

@@ -37,16 +37,16 @@
                 Grid.Column="2"
                 Grid.ColumnSpan="3"
                 Controls:TextBoxHelper.Watermark="en-us"
-                TextChanged="sprachKey_TextChanged" />
+                TextChanged="SprachKey_TextChanged" />
             <TextBox
                 x:Name="filePath"
                 Grid.Row="2"
                 Grid.Column="2"
-                TextChanged="filePath_TextChanged" />
+                TextChanged="FilePath_TextChanged" />
             <Button
                 Grid.Row="2"
                 Grid.Column="4"
-                Click="changeFile_Click"
+                Click="ChangeFile_Click"
                 Content="Ändern" />
         </Grid>
         <Grid
@@ -61,12 +61,12 @@
             </Grid.ColumnDefinitions>
             <Button
                 x:Name="ok"
-                Click="ok_Click"
+                Click="Ok_Click"
                 Content="Ok"
                 IsEnabled="False" />
             <Button
                 Grid.Column="2"
-                Click="cancel_Click"
+                Click="Cancel_Click"
                 Content="Abbrechen"
                 IsCancel="True"
                 IsDefault="True" />

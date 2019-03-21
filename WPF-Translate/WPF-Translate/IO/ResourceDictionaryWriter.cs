@@ -109,9 +109,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
         {
             foreach (DictionaryRawEntry rawEntry in rdfile.Entrys)
             {
-                DictionaryStringEntry entry = rawEntry as DictionaryStringEntry;
-
-                if (entry != null)
+                if (rawEntry is DictionaryStringEntry entry)
                 {
                     if (string.IsNullOrWhiteSpace(entry.Value))
                         WriteEmptyString(entry, writer);
@@ -154,7 +152,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <param name="writer">XmlWriter</param>
         private static void WriteStringEntry(DictionaryStringEntry entry, XmlWriter writer)
         {
-            writer.WriteStartElement("String", ResourceDictionaryFile.xNameSpace.Source);
+            writer.WriteStartElement("String", ResourceDictionaryFile.MsCoreLibSystemNameSpace.Source);
 
             WriteKey(entry.Key, writer);
 

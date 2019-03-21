@@ -24,21 +24,13 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// </summary>
         public static readonly DictionaryNamespace xNameSpace = new DictionaryNamespace("x", "http://schemas.microsoft.com/winfx/2006/xaml");
 
-        private List<DictionaryNamespace> _AdditionalNamespaces = new List<DictionaryNamespace>();
-
-        private List<DictionaryRawEntry> _Entrys = new List<DictionaryRawEntry>();
-
-        private string _FileName;
-
-        private List<MergedDictionary> _MergedDictionaries = new List<MergedDictionary>();
-
         /// <summary>
         /// Erstellt eine neue Instanz eines ResourceDictionaryFiles
         /// </summary>
         /// <param name="fileName">Dateiname</param>
         public ResourceDictionaryFile(string fileName)
         {
-            _FileName = fileName;
+            FileName = fileName;
         }
 
         /// <summary>
@@ -55,13 +47,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <summary>
         /// Eine Sammlung aller zusätzlichen Namespaces
         /// </summary>
-        public List<DictionaryNamespace> AdditionalNamespaces
-        {
-            get
-            {
-                return _AdditionalNamespaces;
-            }
-        }
+        public List<DictionaryNamespace> AdditionalNamespaces { get; } = new List<DictionaryNamespace>();
 
         /// <summary>
         /// Ruft eine Liste aller Namespaces ab. Zusamengesetzt aus AdditionalNamespaces und DefaultNameSpaces
@@ -82,35 +68,17 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <summary>
         /// Ruft eine Liste aller Einträge ab
         /// </summary>
-        public List<DictionaryRawEntry> Entrys
-        {
-            get
-            {
-                return _Entrys;
-            }
-        }
+        public List<DictionaryRawEntry> Entrys { get; } = new List<DictionaryRawEntry>();
 
         /// <summary>
         /// Ruft den Dateinamen ab
         /// </summary>
-        public string FileName
-        {
-            get
-            {
-                return _FileName;
-            }
-        }
+        public string FileName { get; }
 
         /// <summary>
         /// Ruft alle MergedDictionaries ab
         /// </summary>
-        public List<MergedDictionary> MergedDictionaries
-        {
-            get
-            {
-                return _MergedDictionaries;
-            }
-        }
+        public List<MergedDictionary> MergedDictionaries { get; } = new List<MergedDictionary>();
 
         /// <summary>
         /// Entfernt alle String-Ressourcen (DictionaryStringEntry) aus den Einträgen

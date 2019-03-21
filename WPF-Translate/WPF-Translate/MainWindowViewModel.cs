@@ -199,9 +199,11 @@ namespace de.LandauSoftware.WPFTranslate
                    {
                        try
                        {
-                           OpenFileDialog ofd = new OpenFileDialog();
-                           ofd.Multiselect = true;
-                           ofd.Filter = "XAML-Datei|*.xaml";
+                           OpenFileDialog ofd = new OpenFileDialog
+                           {
+                               Multiselect = true,
+                               Filter = "XAML-Datei|*.xaml"
+                           };
 
                            if (ofd.ShowDialog() != true)
                                return;
@@ -294,6 +296,8 @@ namespace de.LandauSoftware.WPFTranslate
                                 file.Value.Entrys.AddRange(entrys);
 
                                 ResourceDictionaryWriter.Write(file.Value);
+
+                                file.Value.Entrys.Clear();
                             }
                             catch (Exception ex)
                             {
@@ -405,9 +409,7 @@ namespace de.LandauSoftware.WPFTranslate
 
             for (int i = rdf.Entrys.Count - 1; i >= 0; i--)
             {
-                DictionaryStringEntry entry = rdf.Entrys[i] as DictionaryStringEntry;
-
-                if (entry != null)
+                if (rdf.Entrys[i] is DictionaryStringEntry entry)
                 {
                     LangData.AddSetValue(langID, entry.Key, entry.Value);
 

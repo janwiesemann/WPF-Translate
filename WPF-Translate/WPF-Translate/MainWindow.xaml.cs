@@ -24,7 +24,7 @@ namespace de.LandauSoftware.WPFTranslate
             this.Loaded += MainWindow_LoadedSinglefire;
         }
 
-        private void close_Click(object sender, RoutedEventArgs e)
+        private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
@@ -47,9 +47,14 @@ namespace de.LandauSoftware.WPFTranslate
             ff.SetBinding(Button.CommandProperty, new Binding(nameof(BindingProxy.Data) + "." + commandBindingPath) { Source = Resources["BindingProxy"], Mode = BindingMode.OneWay });
             ff.SetBinding(Button.CommandParameterProperty, new Binding());
 
-            GridViewColumn col = new GridViewColumn();
-
-            col.CellTemplate = new DataTemplate() { DataType = typeof(Button), VisualTree = ff };
+            GridViewColumn col = new GridViewColumn
+            {
+                CellTemplate = new DataTemplate
+                {
+                    DataType = typeof(Button),
+                    VisualTree = ff
+                }
+            };
 
             gridView.Columns.Add(col);
         }
@@ -61,11 +66,11 @@ namespace de.LandauSoftware.WPFTranslate
         /// <param name="cellTemplate">Cellen Vorlage</param>
         private void CreateColoumn(object header, DataTemplate cellTemplate)
         {
-            GridViewColumn col = new GridViewColumn();
-
-            col.Header = header?.ToString();
-
-            col.CellTemplate = cellTemplate;
+            GridViewColumn col = new GridViewColumn
+            {
+                Header = header?.ToString(),
+                CellTemplate = cellTemplate
+            };
 
             gridView.Columns.Add(col);
         }
@@ -106,7 +111,7 @@ namespace de.LandauSoftware.WPFTranslate
         {
             this.Loaded -= MainWindow_LoadedSinglefire;
 
-            vModel_LanguageCollectionChangedEvent(this, EventArgs.Empty);
+            VModel_LanguageCollectionChangedEvent(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -114,7 +119,7 @@ namespace de.LandauSoftware.WPFTranslate
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void vModel_LanguageCollectionChangedEvent(object sender, EventArgs e)
+        private void VModel_LanguageCollectionChangedEvent(object sender, EventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
@@ -134,7 +139,7 @@ namespace de.LandauSoftware.WPFTranslate
             });
         }
 
-        private void vModel_LanguageCollectionScrollIntoViewRequest(object sender, LangValueCollection e)
+        private void VModel_LanguageCollectionScrollIntoViewRequest(object sender, LangValueCollection e)
         {
             Keyboard.ClearFocus();
 

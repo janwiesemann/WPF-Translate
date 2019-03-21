@@ -8,7 +8,6 @@ namespace de.LandauSoftware.WPFTranslate.IO
     [DebuggerDisplay("{Source}")]
     public class MergedDictionary
     {
-        private string _Source;
 
         /// <summary>
         /// Initialisiert eine neue Instanz des Merged Dictionarys
@@ -16,18 +15,12 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <param name="source">Quelle</param>
         public MergedDictionary(string source)
         {
-            _Source = source;
+            Source = source;
         }
 
         /// <summary>
         /// Quellpfad
         /// </summary>
-        public string Source
-        {
-            get
-            {
-                return _Source;
-            }
-        }
+        public string Source { get; }
     }
 }

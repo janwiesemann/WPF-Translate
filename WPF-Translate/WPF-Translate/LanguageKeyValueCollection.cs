@@ -13,16 +13,14 @@ namespace de.LandauSoftware.WPFTranslate
     {
         private ObservableCollection<LangValueCollection> _Keys;
 
-        private ObservableCollection<Language> _Languages;
-
         /// <summary>
         /// Erstellt eine neue LanguageKeyValueCollection
         /// </summary>
         public LanguageKeyValueCollection()
         {
             _Keys = new ObservableCollection<LangValueCollection>();
-            _Languages = new ObservableCollection<Language>();
-            _Languages.CollectionChanged += Languages_CollectionChanged;
+            Languages = new ObservableCollection<Language>();
+            Languages.CollectionChanged += Languages_CollectionChanged;
         }
 
         /// <summary>
@@ -50,13 +48,7 @@ namespace de.LandauSoftware.WPFTranslate
         /// <summary>
         /// Eine Liste aller Sprachen
         /// </summary>
-        public ObservableCollection<Language> Languages
-        {
-            get
-            {
-                return _Languages;
-            }
-        }
+        public ObservableCollection<Language> Languages { get; }
 
         /// <summary>
         /// Fügt einen leeren Key hinzu

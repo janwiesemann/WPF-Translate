@@ -8,7 +8,6 @@ namespace de.LandauSoftware.WPFTranslate.IO
     [DebuggerDisplay("Key = {Key} Value = {Value}")]
     public class DictionaryStringEntry : DictionaryRawEntry
     {
-        private string _Key;
 
         /// <summary>
         /// Initialisiert einen neuen String Eintrag
@@ -17,18 +16,12 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <param name="value">Wert</param>
         public DictionaryStringEntry(string key, string value) : base(value)
         {
-            _Key = key;
+            Key = key;
         }
 
         /// <summary>
         /// Ruft den Key des Eintrages ab
         /// </summary>
-        public string Key
-        {
-            get
-            {
-                return _Key;
-            }
-        }
+        public string Key { get; }
     }
 }

@@ -19,8 +19,10 @@ namespace de.LandauSoftware.WPFTranslate
         /// <returns></returns>
         public static string StringTranslate(string text, string sourceLanguage, string targetLanguage)
         {
-            NameValueCollection nvc = new NameValueCollection();
-            nvc.Add("q", text);
+            NameValueCollection nvc = new NameValueCollection
+            {
+                { "q", text }
+            };
 
             using (WebClient client = new WebClient())
             {

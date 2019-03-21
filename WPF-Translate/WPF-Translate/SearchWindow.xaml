@@ -10,6 +10,7 @@
     Title="Suche"
     Width="350"
     WPF:WindowHelper.SaveWindowStates="True"
+    Loaded="MetroWindow_Loaded"
     ResizeMode="NoResize"
     SizeToContent="Height"
     mc:Ignorable="d">
@@ -29,15 +30,15 @@
             </Grid.RowDefinitions>
             <CheckBox
                 x:Name="searchKey"
-                Checked="checkBox_CheckedChanged"
+                Checked="CheckBox_CheckedChanged"
                 Content="Keys durchsuchen"
-                Unchecked="checkBox_CheckedChanged" />
+                Unchecked="CheckBox_CheckedChanged" />
             <CheckBox
                 x:Name="searchValue"
                 Grid.Row="2"
-                Checked="checkBox_CheckedChanged"
+                Checked="CheckBox_CheckedChanged"
                 Content="Werte durchsuchen"
-                Unchecked="checkBox_CheckedChanged" />
+                Unchecked="CheckBox_CheckedChanged" />
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -48,7 +49,8 @@
                 <TextBox
                     x:Name="searchText"
                     Grid.Column="2"
-                    TextChanged="searchText_TextChanged" />
+                    GotKeyboardFocus="SearchText_GotKeyboardFocus"
+                    TextChanged="SearchText_TextChanged" />
             </Grid>
         </Grid>
         <Grid
@@ -63,13 +65,13 @@
             </Grid.ColumnDefinitions>
             <Button
                 x:Name="search"
-                Click="search_Click"
+                Click="Search_Click"
                 Content="Suchen"
                 IsDefault="True"
                 IsEnabled="False" />
             <Button
                 Grid.Column="2"
-                Click="cancel_Click"
+                Click="Cancel_Click"
                 Content="Abbrechen"
                 IsCancel="True" />
         </Grid>

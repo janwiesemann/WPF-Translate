@@ -37,14 +37,16 @@ namespace de.LandauSoftware.WPFTranslate
 
         private void AddColoumn(string header, string bindingPath)
         {
-            GridViewColumn gvc = new GridViewColumn();
-            gvc.Header = header;
-            gvc.DisplayMemberBinding = new Binding(bindingPath);
+            GridViewColumn gvc = new GridViewColumn
+            {
+                Header = header,
+                DisplayMemberBinding = new Binding(bindingPath)
+            };
 
             gridView.Columns.Add(gvc);
         }
 
-        private void listView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             elementClickedCallback?.Invoke(listView.SelectedItem as LangValueCollection);
         }

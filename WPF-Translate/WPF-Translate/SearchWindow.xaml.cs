@@ -21,8 +21,8 @@ namespace de.LandauSoftware.WPFTranslate
             InitializeComponent();
 
             saveWindowStates = WindowHelper.GetSaveWindowStatesStorage(this);
-            saveWindowStates.AdditionalDataLoaded += SaveWindowStates_AdditionalDataLoaded;
-            saveWindowStates.PreviewAdditionalDataSaved += SaveWindowStates_PreviewAdditionalDataSaved;
+            saveWindowStates.AdditionalDataLoadedEvent += SaveWindowStates_AdditionalDataLoaded;
+            saveWindowStates.PreviewAdditionalDataSavedEvent += SaveWindowStates_PreviewAdditionalDataSaved;
         }
 
         /// <summary>
@@ -34,14 +34,19 @@ namespace de.LandauSoftware.WPFTranslate
             return new SearchModule((bool)searchKey.IsChecked, (bool)searchValue.IsChecked, searchText.Text);
         }
 
-        private void cancel_Click(object sender, RoutedEventArgs e)
+        private void Cancel_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = false;
         }
 
-        private void checkBox_CheckedChanged(object sender, RoutedEventArgs e)
+        private void CheckBox_CheckedChanged(object sender, RoutedEventArgs e)
         {
             VerifySearchEnabledAnEnable();
+        }
+
+        private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            ControlzEx.KeyboardNavigationEx.Focus(searchText);
         }
 
         private void SaveWindowStates_AdditionalDataLoaded(object sender, object e)
@@ -57,20 +62,25 @@ namespace de.LandauSoftware.WPFTranslate
 
         private void SaveWindowStates_PreviewAdditionalDataSaved(object sender, EventArgs e)
         {
-            SaveWindowStatesAdditionalData ad = new SaveWindowStatesAdditionalData();
-            ad.text = searchText.Text;
-            ad.searchKeys = (bool)searchKey.IsChecked;
-            ad.searchValues = (bool)searchValue.IsChecked;
-
-            saveWindowStates.AdditionalData = ad;
+            saveWindowStates.AdditionalData = new SaveWindowStatesAdditionalData
+            {
+                text = searchText.Text,
+                searchKeys = (bool)searchKey.IsChecked,
+                searchValues = (bool)searchValue.IsChecked
+            };
         }
 
-        private void search_Click(object sender, RoutedEventArgs e)
+        private void Search_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
         }
 
-        private void searchText_TextChanged(object sender, TextChangedEventArgs e)
+        private void SearchText_GotKeyboardFocus(object sender, System.Windows.Input.KeyboardFocusChangedEventArgs e)
+        {
+            searchText.SelectAll();
+        }
+
+        private void SearchText_TextChanged(object sender, TextChangedEventArgs e)
         {
             VerifySearchEnabledAnEnable();
         }
@@ -85,9 +95,9 @@ namespace de.LandauSoftware.WPFTranslate
         /// </summary>
         public struct SearchModule
         {
-            private bool seachKeys;
-            private bool searchValues;
-            private string text;
+            private readonly bool seachKeys;
+            private readonly bool searchValues;
+            private readonly string text;
 
             internal SearchModule(bool seachKeys, bool searchValues, string text)
             {
