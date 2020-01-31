@@ -94,7 +94,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <param name="writer">XmlWriter</param>
         private static void WriteEmptyString(ResourceDictionaryFile rdfile, DictionaryStringEntry entry, XmlWriter writer)
         {
-            writer.WriteStartElement("Static", rdfile.DefaultNamespaces.XNamespace.Name);
+            writer.WriteStartElement("Static", rdfile.DefaultNamespaces.XNamespace.Source);
 
             WriteKey(rdfile, entry.Key, writer);
 
