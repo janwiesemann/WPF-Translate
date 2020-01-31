@@ -85,6 +85,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DefaultNamespaces.cs" />
     <Compile Include="IO\DictionaryStringEntry.cs" />
     <Compile Include="IO\DictionaryNamespace.cs" />
     <Compile Include="IO\MergedDictionary.cs" />

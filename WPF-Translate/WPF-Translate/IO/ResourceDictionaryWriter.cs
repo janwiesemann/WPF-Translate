@@ -1,5 +1,6 @@
 ﻿using de.LandauSoftware.Core;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -21,9 +22,10 @@ namespace de.LandauSoftware.WPFTranslate.IO
             {
                 using (XmlWriter writer = XmlWriter.Create(ms))
                 {
-                    writer.WriteStartElement("ResourceDictionary", ResourceDictionaryFile.EmptyNameSpace.Source);
+                    writer.WriteStartElement("ResourceDictionary", rdfile.DefaultNamespaces.MainNamespace.Source);
                     {
-                        WriteNamepaces(rdfile, writer);
+                        WriteNamepaces(rdfile.DefaultNamespaces, writer);
+                        WriteNamepaces(rdfile.Namespaces, writer);
 
                         WriteAdditionalResourceDictionaries(rdfile, writer);
 
@@ -87,15 +89,16 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <summary>
         /// Schreibt einen leeren String in die Datei
         /// </summary>
+        /// <param name="rdfile"></param>
         /// <param name="entry">DictionaryStringEntry</param>
         /// <param name="writer">XmlWriter</param>
-        private static void WriteEmptyString(DictionaryStringEntry entry, XmlWriter writer)
+        private static void WriteEmptyString(ResourceDictionaryFile rdfile, DictionaryStringEntry entry, XmlWriter writer)
         {
-            writer.WriteStartElement("Static", ResourceDictionaryFile.xNameSpace.Source);
+            writer.WriteStartElement("Static", rdfile.DefaultNamespaces.XNamespace.Name);
 
-            WriteKey(entry.Key, writer);
+            WriteKey(rdfile, entry.Key, writer);
 
-            writer.WriteAttributeString("Member", ResourceDictionaryFile.MsCoreLibSystemNameSpace.Name + ":String.Empty");
+            writer.WriteAttributeString("Member", rdfile.DefaultNamespaces.SysNamespace.Name + ":String.Empty");
 
             writer.WriteEndElement();
         }
@@ -112,9 +115,9 @@ namespace de.LandauSoftware.WPFTranslate.IO
                 if (rawEntry is DictionaryStringEntry entry)
                 {
                     if (string.IsNullOrWhiteSpace(entry.Value))
-                        WriteEmptyString(entry, writer);
+                        WriteEmptyString(rdfile, entry, writer);
                     else
-                        WriteStringEntry(entry, writer);
+                        WriteStringEntry(rdfile, entry, writer);
                 }
                 else
                     writer.WriteRaw(rawEntry.Value + Environment.NewLine);
@@ -124,21 +127,22 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <summary>
         /// Schreibt einen x:Key in die Datei
         /// </summary>
+        /// <param name="rdfile"></param>
         /// <param name="key">Key</param>
         /// <param name="writer">XmlWriter</param>
-        private static void WriteKey(string key, XmlWriter writer)
+        private static void WriteKey(ResourceDictionaryFile rdfile, string key, XmlWriter writer)
         {
-            writer.WriteAttributeString("Key", ResourceDictionaryFile.xNameSpace.Source, key);
+            writer.WriteAttributeString("Key", rdfile.DefaultNamespaces.XNamespace.Source, key);
         }
 
         /// <summary>
         /// Schreibt die Namespaces in die Datei
         /// </summary>
-        /// <param name="rdfile">ResourceDictionaryFile</param>
+        /// <param name="dics">ResourceDictionaryFile</param>
         /// <param name="writer">XmlWriter</param>
-        private static void WriteNamepaces(ResourceDictionaryFile rdfile, XmlWriter writer)
+        private static void WriteNamepaces(IEnumerable<DictionaryNamespace> dics, XmlWriter writer)
         {
-            foreach (DictionaryNamespace item in rdfile.AllNamespces)
+            foreach (DictionaryNamespace item in dics)
             {
                 if (!string.IsNullOrWhiteSpace(item.Name))
                     writer.WriteAttributeString("xmlns", item.Name, null, item.Source);
@@ -148,13 +152,14 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <summary>
         /// Schreibt einen String-Eintrag in die datei
         /// </summary>
+        /// <param name="rdfile"></param>
         /// <param name="entry">DictionaryStringEntry</param>
         /// <param name="writer">XmlWriter</param>
-        private static void WriteStringEntry(DictionaryStringEntry entry, XmlWriter writer)
+        private static void WriteStringEntry(ResourceDictionaryFile rdfile, DictionaryStringEntry entry, XmlWriter writer)
         {
-            writer.WriteStartElement("String", ResourceDictionaryFile.MsCoreLibSystemNameSpace.Source);
+            writer.WriteStartElement("String", rdfile.DefaultNamespaces.SysNamespace.Source);
 
-            WriteKey(entry.Key, writer);
+            WriteKey(rdfile, entry.Key, writer);
 
             if (entry.Value.Contains(c => c == '\r' || c == '\n'))
                 writer.WriteAttributeString("xml", "space", "", "preserve");

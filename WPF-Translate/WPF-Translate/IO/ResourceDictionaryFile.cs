@@ -10,21 +10,6 @@ namespace de.LandauSoftware.WPFTranslate.IO
     public class ResourceDictionaryFile
     {
         /// <summary>
-        /// Leerer namespace (Standartdefinition)
-        /// </summary>
-        public static readonly DictionaryNamespace EmptyNameSpace = new DictionaryNamespace("", "http://schemas.microsoft.com/winfx/2006/xaml/presentation");
-
-        /// <summary>
-        /// Namespace für MSCoreLib
-        /// </summary>
-        public static readonly DictionaryNamespace MsCoreLibSystemNameSpace = new DictionaryNamespace("sys", "clr-namespace:System;assembly=mscorlib");
-
-        /// <summary>
-        /// Namespace für winFX definitionen
-        /// </summary>
-        public static readonly DictionaryNamespace xNameSpace = new DictionaryNamespace("x", "http://schemas.microsoft.com/winfx/2006/xaml");
-
-        /// <summary>
         /// Erstellt eine neue Instanz eines ResourceDictionaryFiles
         /// </summary>
         /// <param name="fileName">Dateiname</param>
@@ -34,36 +19,9 @@ namespace de.LandauSoftware.WPFTranslate.IO
         }
 
         /// <summary>
-        /// Eine Sammlung aller Standart-Namespaces
+        /// Standart Namespaces
         /// </summary>
-        public static DictionaryNamespace[] DefaultNameSpaces
-        {
-            get
-            {
-                return new DictionaryNamespace[] { EmptyNameSpace, xNameSpace };
-            }
-        }
-
-        /// <summary>
-        /// Eine Sammlung aller zusätzlichen Namespaces
-        /// </summary>
-        public List<DictionaryNamespace> AdditionalNamespaces { get; } = new List<DictionaryNamespace>();
-
-        /// <summary>
-        /// Ruft eine Liste aller Namespaces ab. Zusamengesetzt aus AdditionalNamespaces und DefaultNameSpaces
-        /// </summary>
-        public List<DictionaryNamespace> AllNamespces
-        {
-            get
-            {
-                List<DictionaryNamespace> ret = new List<DictionaryNamespace>();
-                ret.AddRange(DefaultNameSpaces);
-                ret.AddRange(AdditionalNamespaces);
-                ret.Add(MsCoreLibSystemNameSpace);
-
-                return ret;
-            }
-        }
+        public DefaultNamespaces DefaultNamespaces { get; set; }
 
         /// <summary>
         /// Ruft eine Liste aller Einträge ab
@@ -79,6 +37,11 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// Ruft alle MergedDictionaries ab
         /// </summary>
         public List<MergedDictionary> MergedDictionaries { get; } = new List<MergedDictionary>();
+
+        /// <summary>
+        /// Eine Sammlung aller zusätzlichen Namespaces
+        /// </summary>
+        public List<DictionaryNamespace> Namespaces { get; } = new List<DictionaryNamespace>();
 
         /// <summary>
         /// Entfernt alle String-Ressourcen (DictionaryStringEntry) aus den Einträgen

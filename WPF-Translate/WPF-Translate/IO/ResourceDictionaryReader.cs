@@ -1,4 +1,4 @@
-﻿using de.LandauSoftware.Core;
+﻿using System;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -81,8 +81,30 @@ namespace de.LandauSoftware.WPFTranslate.IO
                 string name = item.Name.Substring(item.Name.Contains(":") ? 6 : 5);
                 string source = item.Value;
 
-                if (!ResourceDictionaryFile.DefaultNameSpaces.Contains(ns => (ns.Name == name && ns.Source == source) || source == ResourceDictionaryFile.MsCoreLibSystemNameSpace.Source))
-                    rdfile.AdditionalNamespaces.Add(new DictionaryNamespace(name, source));
+                if (string.IsNullOrEmpty(name))
+                {
+                    rdfile.DefaultNamespaces = DefaultNamespaces.TryFind(source);
+
+                    continue;
+                }
+
+                rdfile.Namespaces.Add(new DictionaryNamespace(name, source));
+            }
+
+            if (rdfile.DefaultNamespaces == null)
+                throw new Exception("Default Namesapces nicht gefunden!");
+
+            foreach (DictionaryNamespace item in rdfile.DefaultNamespaces)
+            {
+                while (true)
+                {
+                    DictionaryNamespace duplicate = rdfile.Namespaces.Find(i => i.Name == item.Name && i.Source == item.Source);
+
+                    if (duplicate != null)
+                        rdfile.Namespaces.Remove(duplicate);
+                    else
+                        break;
+                }
             }
         }
 
