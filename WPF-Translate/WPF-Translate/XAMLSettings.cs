@@ -8,24 +8,24 @@ namespace de.LandauSoftware.WPFTranslate
     /// <summary>
     /// Standartnamespaces
     /// </summary>
-    public abstract class DefaultNamespacesBase
+    public abstract class XAMLSettings
     {
-        private static ReadOnlyCollection<DefaultNamespacesBase> _Defaults;
+        private static ReadOnlyCollection<XAMLSettings> _Defaults;
 
         /// <summary>
         /// Ruft die Standart NSses ab
         /// </summary>
-        public static ReadOnlyCollection<DefaultNamespacesBase> Defaults
+        public static ReadOnlyCollection<XAMLSettings> Defaults
         {
             get
             {
                 if (_Defaults == null)
                 {
-                    List<DefaultNamespacesBase> tmp = new List<DefaultNamespacesBase>();
-                    foreach (Type item in typeof(DefaultNamespacesBase).Assembly.GetTypes())
+                    List<XAMLSettings> tmp = new List<XAMLSettings>();
+                    foreach (Type item in typeof(XAMLSettings).Assembly.GetTypes())
                     {
-                        if (typeof(DefaultNamespacesBase).IsAssignableFrom(item) && !item.IsAbstract)
-                            tmp.Add((DefaultNamespacesBase)Activator.CreateInstance(item));
+                        if (typeof(XAMLSettings).IsAssignableFrom(item) && !item.IsAbstract)
+                            tmp.Add((XAMLSettings)Activator.CreateInstance(item));
                     }
 
                     _Defaults = tmp.AsReadOnly();
@@ -38,12 +38,17 @@ namespace de.LandauSoftware.WPFTranslate
         /// <summary>
         /// Ruft die Liste als Collection ab
         /// </summary>
-        public abstract ReadOnlyCollection<DictionaryNamespace> GetAsCollection { get; }
+        public abstract ReadOnlyCollection<DictionaryNamespace> GetNamespacesAsCollection { get; }
 
         /// <summary>
         /// Main NS
         /// </summary>
         public abstract DictionaryNamespace MainNamepsace { get; }
+
+        /// <summary>
+        /// Prüft, ob xml:space="preserve" unterstützt wird.
+        /// </summary>
+        public abstract bool SupportesXmlPreserveSpace { get; }
 
         /// <summary>
         /// String NS
@@ -60,9 +65,9 @@ namespace de.LandauSoftware.WPFTranslate
         /// </summary>
         /// <param name="mainNSSource"></param>
         /// <returns></returns>
-        public static DefaultNamespacesBase TryFind(string mainNSSource)
+        public static XAMLSettings TryFind(string mainNSSource)
         {
-            foreach (DefaultNamespacesBase item in Defaults)
+            foreach (XAMLSettings item in Defaults)
             {
                 if (item.MainNamepsace.Source == mainNSSource)
                     return item;

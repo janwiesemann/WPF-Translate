@@ -19,9 +19,9 @@ namespace de.LandauSoftware.WPFTranslate.IO
         }
 
         /// <summary>
-        /// Standart Namespaces
+        /// Settings für die Datei
         /// </summary>
-        public DefaultNamespacesBase DefaultNamespaces { get; set; }
+        public XAMLSettings Settings { get; set; }
 
         /// <summary>
         /// Ruft eine Liste aller Einträge ab

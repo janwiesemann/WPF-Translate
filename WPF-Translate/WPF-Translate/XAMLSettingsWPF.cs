@@ -4,13 +4,13 @@ using System.Collections.ObjectModel;
 
 namespace de.LandauSoftware.WPFTranslate
 {
-    internal class DefaultNamespacesWPF : DefaultNamespacesBase
+    internal class XAMLSettingsWPF : XAMLSettings
     {
         private DictionaryNamespace _MainNamepsace;
         private DictionaryNamespace _StaticNamepsace;
         private DictionaryNamespace _StringNamepsace;
 
-        public override ReadOnlyCollection<DictionaryNamespace> GetAsCollection
+        public override ReadOnlyCollection<DictionaryNamespace> GetNamespacesAsCollection
         {
             get
             {
@@ -28,5 +28,7 @@ namespace de.LandauSoftware.WPFTranslate
         public override DictionaryNamespace SystemNamespace => _StringNamepsace ?? (_StringNamepsace = new DictionaryNamespace("sys", "clr-namespace:System;assembly=mscorlib"));
 
         public override DictionaryNamespace XNamespace => _StaticNamepsace ?? (_StaticNamepsace = new DictionaryNamespace("x", "http://schemas.microsoft.com/winfx/2006/xaml"));
+
+        public override bool SupportesXmlPreserveSpace => true;
     }
 }

@@ -88,7 +88,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
 
                 if (string.IsNullOrEmpty(name))
                 {
-                    rdfile.DefaultNamespaces = DefaultNamespacesBase.TryFind(source);
+                    rdfile.Settings = XAMLSettings.TryFind(source);
 
                     continue;
                 }
@@ -96,10 +96,10 @@ namespace de.LandauSoftware.WPFTranslate.IO
                 rdfile.Namespaces.Add(new DictionaryNamespace(name, source));
             }
 
-            if (rdfile.DefaultNamespaces == null)
+            if (rdfile.Settings == null)
                 throw new Exception("Default Namesapces nicht gefunden!");
 
-            foreach (DictionaryNamespace item in rdfile.DefaultNamespaces.GetAsCollection)
+            foreach (DictionaryNamespace item in rdfile.Settings.GetNamespacesAsCollection)
             {
                 while (true)
                 {

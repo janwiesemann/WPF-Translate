@@ -22,9 +22,9 @@ namespace de.LandauSoftware.WPFTranslate.IO
             {
                 using (XmlWriter writer = XmlWriter.Create(ms))
                 {
-                    writer.WriteStartElement("ResourceDictionary", rdfile.DefaultNamespaces.MainNamepsace.Source);
+                    writer.WriteStartElement("ResourceDictionary", rdfile.Settings.MainNamepsace.Source);
                     {
-                        WriteNamepaces(rdfile.DefaultNamespaces.GetAsCollection, writer);
+                        WriteNamepaces(rdfile.Settings.GetNamespacesAsCollection, writer);
                         WriteNamepaces(rdfile.Namespaces, writer);
 
                         WriteXClass(rdfile, writer);
@@ -96,11 +96,11 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <param name="writer">XmlWriter</param>
         private static void WriteEmptyString(ResourceDictionaryFile rdfile, DictionaryStringEntry entry, XmlWriter writer)
         {
-            writer.WriteStartElement("Static", rdfile.DefaultNamespaces.XNamespace.Source);
+            writer.WriteStartElement("Static", rdfile.Settings.XNamespace.Source);
 
             WriteKey(rdfile, entry.Key, writer);
 
-            writer.WriteAttributeString("Member", rdfile.DefaultNamespaces.SystemNamespace.Name + ":String.Empty");
+            writer.WriteAttributeString("Member", rdfile.Settings.SystemNamespace.Name + ":String.Empty");
 
             writer.WriteEndElement();
         }
@@ -134,7 +134,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <param name="writer">XmlWriter</param>
         private static void WriteKey(ResourceDictionaryFile rdfile, string key, XmlWriter writer)
         {
-            writer.WriteAttributeString("Key", rdfile.DefaultNamespaces.XNamespace.Source, key);
+            writer.WriteAttributeString("Key", rdfile.Settings.XNamespace.Source, key);
         }
 
         /// <summary>
@@ -159,11 +159,11 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <param name="writer">XmlWriter</param>
         private static void WriteStringEntry(ResourceDictionaryFile rdfile, DictionaryStringEntry entry, XmlWriter writer)
         {
-            writer.WriteStartElement("String", rdfile.DefaultNamespaces.SystemNamespace.Source);
+            writer.WriteStartElement("String", rdfile.Settings.SystemNamespace.Source);
 
             WriteKey(rdfile, entry.Key, writer);
 
-            if (entry.Value.Contains(c => c == '\r' || c == '\n'))
+            if (rdfile.Settings.SupportesXmlPreserveSpace && entry.Value.Contains(c => c == '\r' || c == '\n'))
                 writer.WriteAttributeString("xml", "space", "", "preserve");
 
             writer.WriteString(entry.Value);
@@ -181,7 +181,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
             if (string.IsNullOrWhiteSpace(rdfile.XClass))
                 return;
 
-            writer.WriteAttributeString("Class", rdfile.DefaultNamespaces.XNamespace.Source, rdfile.XClass);
+            writer.WriteAttributeString("Class", rdfile.Settings.XNamespace.Source, rdfile.XClass);
         }
     }
 }

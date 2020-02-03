@@ -91,9 +91,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DefaultNamespacesBase.cs" />
-    <Compile Include="DefaultNamespacesXamarin.cs" />
-    <Compile Include="DefaultNamespacesWPF.cs" />
+    <Compile Include="XAMLSettings.cs" />
+    <Compile Include="XAMLSerttingsXamarin.cs" />
+    <Compile Include="XAMLSettingsWPF.cs" />
     <Compile Include="IO\DictionaryStringEntry.cs" />
     <Compile Include="IO\DictionaryNamespace.cs" />
     <Compile Include="IO\MergedDictionary.cs" />

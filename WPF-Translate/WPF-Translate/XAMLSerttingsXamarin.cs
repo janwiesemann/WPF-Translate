@@ -4,12 +4,12 @@ using System.Collections.ObjectModel;
 
 namespace de.LandauSoftware.WPFTranslate
 {
-    internal class DefaultNamespacesXamarin : DefaultNamespacesBase
+    internal class XAMLSerttingsXamarin : XAMLSettings
     {
         private DictionaryNamespace _MainNamepsace;
         private DictionaryNamespace _StaticNamepsace;
 
-        public override ReadOnlyCollection<DictionaryNamespace> GetAsCollection
+        public override ReadOnlyCollection<DictionaryNamespace> GetNamespacesAsCollection
         {
             get
             {
@@ -26,5 +26,7 @@ namespace de.LandauSoftware.WPFTranslate
         public override DictionaryNamespace SystemNamespace => XNamespace;
 
         public override DictionaryNamespace XNamespace => _StaticNamepsace ?? (_StaticNamepsace = new DictionaryNamespace("x", "http://schemas.microsoft.com/winfx/2009/xaml"));
+
+        public override bool SupportesXmlPreserveSpace => false;
     }
 }
