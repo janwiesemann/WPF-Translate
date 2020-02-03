@@ -28,24 +28,27 @@ namespace de.LandauSoftware.WPFTranslate.IO
 
             ParseXClass(rdfile, doc.DocumentElement);
 
-            foreach (XmlElement node in doc.DocumentElement.ChildNodes) //einlesen aller Elemente
+            foreach (XmlNode node in doc.DocumentElement.ChildNodes) //einlesen aller Elemente
             {
+                if(!(node is XmlElement elem))
+                    continue;
+
                 switch (node.LocalName)
                 {
                     case "ResourceDictionary.MergedDictionaries":
-                        ParseMergedDictonariesElement(rdfile, node);
+                        ParseMergedDictonariesElement(rdfile, elem);
                         break;
 
                     case "String":
-                        ParseStringElement(rdfile, node);
+                        ParseStringElement(rdfile, elem);
                         break;
 
                     case "Static":
-                        ParseStaticElement(rdfile, node);
+                        ParseStaticElement(rdfile, elem);
                         break;
 
                     default:
-                        ParseUnknowElement(rdfile, node);
+                        ParseUnknowElement(rdfile, elem);
                         break;
                 }
             }
