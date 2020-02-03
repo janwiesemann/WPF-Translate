@@ -1,4 +1,4 @@
-﻿using de.LandauSoftware.Core.WPF;
+﻿using de.LandauSoftware.UI.WPF;
 using MahApps.Metro.Controls;
 using System;
 using System.Windows;
@@ -22,7 +22,7 @@ namespace de.LandauSoftware.WPFTranslate
 
             saveWindowStates = WindowHelper.GetSaveWindowStatesStorage(this);
             saveWindowStates.AdditionalDataLoadedEvent += SaveWindowStates_AdditionalDataLoaded;
-            saveWindowStates.PreviewAdditionalDataSavedEvent += SaveWindowStates_PreviewAdditionalDataSaved;
+            saveWindowStates.PreviewSaveEvent += SaveWindowStates_PreviewSaveEvent;
         }
 
         /// <summary>
@@ -60,9 +60,9 @@ namespace de.LandauSoftware.WPFTranslate
             searchValue.IsChecked = ad.searchValues;
         }
 
-        private void SaveWindowStates_PreviewAdditionalDataSaved(object sender, EventArgs e)
+        private void SaveWindowStates_PreviewSaveEvent(SaveWindowStates sender, WindowStates e)
         {
-            saveWindowStates.AdditionalData = new SaveWindowStatesAdditionalData
+            e.Additional = new SaveWindowStatesAdditionalData
             {
                 text = searchText.Text,
                 searchKeys = (bool)searchKey.IsChecked,

@@ -368,9 +368,9 @@ namespace de.LandauSoftware.WPFTranslate
             get
             {
                 if (_SearchMissingKeysCommand == null)
-                    _SearchMissingKeysCommand = new TaskProgressRelayICommand(p => LangData.Keys.Count > 0, () => new TaskProgressRelayICommand.Settings(this) { Message = "Bitte warten...", Title = "Suche", IsCancelable = true }, async (p, d, progress) =>
+                    _SearchMissingKeysCommand = new TaskProgressRelayICommand(p => LangData.Keys.Count > 0, () => new TaskProgressSettings(this) { Message = "Bitte warten...", Title = "Suche", IsCancelable = true }, async (p, progress) =>
                        {
-                           string dir = d.Invoke(() =>
+                           string dir = progress.Dispatcher.Invoke(() =>
                            {
                                System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
 
@@ -386,10 +386,10 @@ namespace de.LandauSoftware.WPFTranslate
                            List<MissingKeyInfo> infos = new List<MissingKeyInfo>();
 
                            string[] files = Directory.GetFiles(dir, "*.cs", SearchOption.AllDirectories);
-                           progress.Maximum = files.Length;
+                           progress.ProgressController.Maximum = files.Length;
                            for (int i = 0; i < files.Length; i++)
                            {
-                               progress.SetProgress(i);
+                               progress.ProgressController.SetProgress(i);
 
                                string content = File.ReadAllText(files[i]);
 
@@ -414,10 +414,10 @@ namespace de.LandauSoftware.WPFTranslate
                                }
                            }
 
-                           await progress.CloseAsync();
+                           await progress.ProgressController.CloseAsync();
 
                            if (infos.Count > 0)
-                               d.Invoke(() => new MissingKeysWindow(infos).ShowDialog());
+                               progress.Dispatcher.Invoke(() => new MissingKeysWindow(infos).ShowDialog());
                        });
 
                 return _SearchMissingKeysCommand;

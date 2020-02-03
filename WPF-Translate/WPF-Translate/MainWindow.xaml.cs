@@ -1,4 +1,4 @@
-﻿using de.LandauSoftware.Core.WPF;
+﻿using de.LandauSoftware.UI.WPF;
 using MahApps.Metro.Controls;
 using System;
 using System.Windows;

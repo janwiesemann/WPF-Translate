@@ -1,4 +1,4 @@
-﻿using de.LandauSoftware.Core.WPF;
+﻿using de.LandauSoftware.UI.WPF;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
