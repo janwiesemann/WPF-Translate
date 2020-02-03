@@ -29,23 +29,28 @@
     <Controls:MetroWindow.InputBindings>
         <KeyBinding
             Key="F"
-            Command="{Binding SearchCommand, Mode=OneWay}"
+            Command="{Binding SearchCommand,
+                              Mode=OneWay}"
             Modifiers="Ctrl" />
         <KeyBinding
             Key="O"
-            Command="{Binding LoadFileCommand, Mode=OneWay}"
+            Command="{Binding LoadFileCommand,
+                              Mode=OneWay}"
             Modifiers="Ctrl" />
         <KeyBinding
             Key="S"
-            Command="{Binding SaveFileCommand, Mode=OneWay}"
+            Command="{Binding SaveFileCommand,
+                              Mode=OneWay}"
             Modifiers="Ctrl" />
         <KeyBinding
             Key="N"
-            Command="{Binding AddLanguageCommand, Mode=OneWay}"
+            Command="{Binding AddLanguageCommand,
+                              Mode=OneWay}"
             Modifiers="Ctrl" />
         <KeyBinding
             Key="N"
-            Command="{Binding AddKeyCommand, Mode=OneWay}"
+            Command="{Binding AddKeyCommand,
+                              Mode=OneWay}"
             Modifiers="Ctrl" />
     </Controls:MetroWindow.InputBindings>
     <Grid>
@@ -57,20 +62,24 @@
         <Menu>
             <MenuItem Header="Datei">
                 <MenuItem
-                    Command="{Binding LoadFileCommand, Mode=OneWay}"
+                    Command="{Binding LoadFileCommand,
+                                      Mode=OneWay}"
                     Header="Öffnen"
                     InputGestureText="Strg+O" />
                 <MenuItem
-                    Command="{Binding SaveFileCommand, Mode=OneWay}"
+                    Command="{Binding SaveFileCommand,
+                                      Mode=OneWay}"
                     Header="Speichern"
                     InputGestureText="Strg+S" />
                 <MenuItem
-                    Command="{Binding AddLanguageCommand, Mode=OneWay}"
+                    Command="{Binding AddLanguageCommand,
+                                      Mode=OneWay}"
                     Header="Neu"
                     InputGestureText="Strg+N" />
                 <Separator />
                 <MenuItem
-                    Command="{Binding SearchCommand, Mode=OneWay}"
+                    Command="{Binding SearchCommand,
+                                      Mode=OneWay}"
                     Header="Suche"
                     InputGestureText="Strg+F" />
                 <MenuItem Command="{Binding ClearCommand, Mode=OneWay}" Header="Inhalt Löschen" />
@@ -79,7 +88,8 @@
             </MenuItem>
             <MenuItem Header="Sprache">
                 <MenuItem
-                    Command="{Binding AddLanguageCommand, Mode=OneWay}"
+                    Command="{Binding AddLanguageCommand,
+                                      Mode=OneWay}"
                     Header="Sprache anlegen"
                     InputGestureText="Strg+N" />
                 <MenuItem Command="{Binding RemoveLanguageCommand, Mode=OneWay}" Header="Sprache löschen" />
@@ -116,7 +126,8 @@
             Margin="0,0,30,30"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding AddKeyCommand, Mode=OneWay}"
+            Command="{Binding AddKeyCommand,
+                              Mode=OneWay}"
             ToolTip="Neuer Key (Strg+N)">
             <Button.Style>
                 <Style BasedOn="{StaticResource BlueCircleButtonStyle}" TargetType="{x:Type Button}">
@@ -130,7 +141,9 @@
             <Rectangle
                 Width="30"
                 Height="30"
-                Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                Fill="{Binding Path=Foreground,
+                               RelativeSource={RelativeSource FindAncestor,
+                                                              AncestorType={x:Type Button}}}">
                 <Rectangle.OpacityMask>
                     <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_add}" />
                 </Rectangle.OpacityMask>

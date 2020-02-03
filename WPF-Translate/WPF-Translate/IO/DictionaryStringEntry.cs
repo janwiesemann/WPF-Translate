@@ -8,7 +8,6 @@ namespace de.LandauSoftware.WPFTranslate.IO
     [DebuggerDisplay("Key = {Key} Value = {Value}")]
     public class DictionaryStringEntry : DictionaryRawEntry
     {
-
         /// <summary>
         /// Initialisiert einen neuen String Eintrag
         /// </summary>

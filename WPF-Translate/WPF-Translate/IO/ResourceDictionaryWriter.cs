@@ -22,10 +22,12 @@ namespace de.LandauSoftware.WPFTranslate.IO
             {
                 using (XmlWriter writer = XmlWriter.Create(ms))
                 {
-                    writer.WriteStartElement("ResourceDictionary", rdfile.DefaultNamespaces.MainNamespace.Source);
+                    writer.WriteStartElement("ResourceDictionary", rdfile.DefaultNamespaces.MainNamepsace.Source);
                     {
-                        WriteNamepaces(rdfile.DefaultNamespaces, writer);
+                        WriteNamepaces(rdfile.DefaultNamespaces.GetAsCollection, writer);
                         WriteNamepaces(rdfile.Namespaces, writer);
+
+                        WriteXClass(rdfile, writer);
 
                         WriteAdditionalResourceDictionaries(rdfile, writer);
 
@@ -98,7 +100,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
 
             WriteKey(rdfile, entry.Key, writer);
 
-            writer.WriteAttributeString("Member", rdfile.DefaultNamespaces.SysNamespace.Name + ":String.Empty");
+            writer.WriteAttributeString("Member", rdfile.DefaultNamespaces.SystemNamespace.Name + ":String.Empty");
 
             writer.WriteEndElement();
         }
@@ -157,7 +159,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <param name="writer">XmlWriter</param>
         private static void WriteStringEntry(ResourceDictionaryFile rdfile, DictionaryStringEntry entry, XmlWriter writer)
         {
-            writer.WriteStartElement("String", rdfile.DefaultNamespaces.SysNamespace.Source);
+            writer.WriteStartElement("String", rdfile.DefaultNamespaces.SystemNamespace.Source);
 
             WriteKey(rdfile, entry.Key, writer);
 
@@ -167,6 +169,19 @@ namespace de.LandauSoftware.WPFTranslate.IO
             writer.WriteString(entry.Value);
 
             writer.WriteEndElement();
+        }
+
+        /// <summary>
+        /// Schreibt das X.Class Attribut in dem Root element
+        /// </summary>
+        /// <param name="rdfile"></param>
+        /// <param name="writer"></param>
+        private static void WriteXClass(ResourceDictionaryFile rdfile, XmlWriter writer)
+        {
+            if (string.IsNullOrWhiteSpace(rdfile.XClass))
+                return;
+
+            writer.WriteAttributeString("Class", rdfile.DefaultNamespaces.XNamespace.Source, rdfile.XClass);
         }
     }
 }

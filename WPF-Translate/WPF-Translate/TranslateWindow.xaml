@@ -62,7 +62,8 @@
             </Grid>
             <ProgressBar
                 Grid.Row="6"
-                Maximum="{Binding KeyList.Count, Mode=OneWay}"
+                Maximum="{Binding KeyList.Count,
+                                  Mode=OneWay}"
                 Value="{Binding CurrentPosition}" />
             <TextBlock Grid.Row="8" TextWrapping="Wrap">
                 <TextBlock.Text>
@@ -85,11 +86,13 @@
             <Button Command="{Binding StartCommand, Mode=OneWay}" Content="Start" />
             <Button
                 Grid.Column="2"
-                Command="{Binding StopCommand, Mode=OneWay}"
+                Command="{Binding StopCommand,
+                                  Mode=OneWay}"
                 Content="Stop" />
             <Button
                 Grid.Column="4"
-                Command="{Binding RestCommand, Mode=OneWay}"
+                Command="{Binding RestCommand,
+                                  Mode=OneWay}"
                 Content="Zurücksetzten" />
         </Grid>
     </Grid>

@@ -5,7 +5,6 @@
     /// </summary>
     public class DictionaryNamespace
     {
-
         /// <summary>
         /// initialisiert eine neue Instanz eines Namespaces
         /// </summary>

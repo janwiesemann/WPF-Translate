@@ -8,7 +8,6 @@ namespace de.LandauSoftware.WPFTranslate.IO
     [DebuggerDisplay("{Source}")]
     public class MergedDictionary
     {
-
         /// <summary>
         /// Initialisiert eine neue Instanz des Merged Dictionarys
         /// </summary>

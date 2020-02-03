@@ -26,6 +26,8 @@ namespace de.LandauSoftware.WPFTranslate.IO
 
             ParseAdditionalNameSpaces(rdfile, doc.DocumentElement);
 
+            ParseXClass(rdfile, doc.DocumentElement);
+
             foreach (XmlElement node in doc.DocumentElement.ChildNodes) //einlesen aller Elemente
             {
                 switch (node.LocalName)
@@ -83,7 +85,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
 
                 if (string.IsNullOrEmpty(name))
                 {
-                    rdfile.DefaultNamespaces = DefaultNamespaces.TryFind(source);
+                    rdfile.DefaultNamespaces = DefaultNamespacesBase.TryFind(source);
 
                     continue;
                 }
@@ -94,7 +96,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
             if (rdfile.DefaultNamespaces == null)
                 throw new Exception("Default Namesapces nicht gefunden!");
 
-            foreach (DictionaryNamespace item in rdfile.DefaultNamespaces)
+            foreach (DictionaryNamespace item in rdfile.DefaultNamespaces.GetAsCollection)
             {
                 while (true)
                 {
@@ -170,6 +172,20 @@ namespace de.LandauSoftware.WPFTranslate.IO
             string xml = regex.Replace(node.OuterXml, ""); //entfernt alle lokalen namespaces welche von dem XML-Reader hinzugefügt wurden
 
             rdfile.Entrys.Add(new DictionaryRawEntry(xml));
+        }
+
+        /// <summary>
+        /// Ließt den X:Class Eintrag aus dem rootElement. Dieses wird bei Xamarin.Forms benötigt.
+        /// </summary>
+        /// <param name="rdfile"></param>
+        /// <param name="documentElement"></param>
+        private static void ParseXClass(ResourceDictionaryFile rdfile, XmlElement documentElement)
+        {
+            foreach (XmlAttribute item in documentElement.Attributes)
+            {
+                if (item.Name == "x:Class")
+                    rdfile.XClass = item.Value;
+            }
         }
     }
 }

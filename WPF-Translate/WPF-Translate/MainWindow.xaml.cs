@@ -115,7 +115,8 @@ namespace de.LandauSoftware.WPFTranslate
         }
 
         /// <summary>
-        /// Wird beim hinzufügen, ändern oder löschen einer Sprache aufgerufen und updatet die Spalten des Fensters
+        /// Wird beim hinzufügen, ändern oder löschen einer Sprache aufgerufen und updatet die
+        /// Spalten des Fensters
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

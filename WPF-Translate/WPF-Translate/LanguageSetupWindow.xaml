@@ -31,13 +31,13 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Label Content="SprachKey:" />
-            <Label Grid.Row="2" Content="Datei:" />
             <TextBox
                 x:Name="sprachKey"
                 Grid.Column="2"
                 Grid.ColumnSpan="3"
                 Controls:TextBoxHelper.Watermark="en-us"
                 TextChanged="SprachKey_TextChanged" />
+            <Label Grid.Row="2" Content="Datei:" />
             <TextBox
                 x:Name="filePath"
                 Grid.Row="2"

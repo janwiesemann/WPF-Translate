@@ -255,8 +255,7 @@ namespace de.LandauSoftware.WPFTranslate
         }
 
         /// <summary>
-        /// Liste für die Zielsprache
-        /// Diese Liste wird automatisch über den Geter generiert
+        /// Liste für die Zielsprache Diese Liste wird automatisch über den Geter generiert
         /// </summary>
         public List<Language> TargetLanguages
         {

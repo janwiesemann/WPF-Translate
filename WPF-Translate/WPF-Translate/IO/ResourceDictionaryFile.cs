@@ -21,7 +21,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// <summary>
         /// Standart Namespaces
         /// </summary>
-        public DefaultNamespaces DefaultNamespaces { get; set; }
+        public DefaultNamespacesBase DefaultNamespaces { get; set; }
 
         /// <summary>
         /// Ruft eine Liste aller Einträge ab
@@ -42,6 +42,11 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// Eine Sammlung aller zusätzlichen Namespaces
         /// </summary>
         public List<DictionaryNamespace> Namespaces { get; } = new List<DictionaryNamespace>();
+
+        /// <summary>
+        /// X:Class
+        /// </summary>
+        public string XClass { get; set; }
 
         /// <summary>
         /// Entfernt alle String-Ressourcen (DictionaryStringEntry) aus den Einträgen
