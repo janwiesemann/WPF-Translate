@@ -12,7 +12,7 @@
     Dialog:DialogParticipation.Register="{Binding}"
     ResizeMode="NoResize"
     SizeToContent="Height"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Icon="/WPF-Translate;component/appicon.ico">
     <Controls:MetroWindow.DataContext>
         <local:TranslateWindowViewModel x:Name="vModel" />
     </Controls:MetroWindow.DataContext>

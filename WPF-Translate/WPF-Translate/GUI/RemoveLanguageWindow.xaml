@@ -10,7 +10,7 @@
     Width="300"
     ResizeMode="NoResize"
     SizeToContent="Height"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Icon="/WPF-Translate;component/appicon.ico">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

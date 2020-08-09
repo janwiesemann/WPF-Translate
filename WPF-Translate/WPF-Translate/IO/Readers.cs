@@ -32,6 +32,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
         public static IResourceFileReader FindFileReader(string filename)
         {
             string extension = Path.GetExtension(filename);
+            extension = extension.Substring(1); //remove '.'
             extension = extension.ToUpper();
 
             foreach (IResourceFileReader item in FileReaders)

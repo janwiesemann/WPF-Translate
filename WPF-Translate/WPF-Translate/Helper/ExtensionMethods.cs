@@ -35,15 +35,18 @@ namespace de.LandauSoftware.WPFTranslate
 
             fixed (char* strPtr = str)
             {
+                char* strStartPtr = strPtr;
                 char* strEndPtr = strPtr + str.Length;
 
-                while (strPtr < strEndPtr)
+                while (strStartPtr < strEndPtr)
                 {
                     for (int i = 0; i < chars.Length; i++)
                     {
-                        if (*strPtr == chars[i])
+                        if (*strStartPtr == chars[i])
                             return false;
                     }
+
+                    strStartPtr++;
                 }
             }
 

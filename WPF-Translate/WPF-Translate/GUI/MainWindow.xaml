@@ -14,7 +14,7 @@
     MinWidth="600"
     MinHeight="400"
     Dialog:DialogParticipation.Register="{Binding}"
-    Icon="appicon.ico"
+    Icon="/WPF-Translate;component/appicon.ico"
     mc:Ignorable="d">
     <Controls:MetroWindow.DataContext>
         <local:MainWindowViewModel
@@ -107,6 +107,7 @@
         <Button
             Grid.Row="2"
             Margin="0,0,30,30"
+            Padding="10"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
             Command="{Binding AddKeyCommand, Mode=OneWay}"
