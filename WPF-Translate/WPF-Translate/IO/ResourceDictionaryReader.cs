@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
 
@@ -7,16 +8,35 @@ namespace de.LandauSoftware.WPFTranslate.IO
     /// <summary>
     /// eine Klasse zum lesen von XAML-RessourceDictionary dateien.
     /// </summary>
-    public static class ResourceDictionaryReader
+    public class ResourceDictionaryReader : IResourceFileReader
     {
+        public string FileExtension => "xaml";
+
+        public string GetLanguageKey(ResourceDictionaryFile file)
+        {
+            string filename = Path.GetFileName(file.FileName);
+
+            Match match = Regex.Match(filename, @"(\w{2}-\w{2})");
+
+            if (match.Success)
+                return match.Groups[1].Value;
+            else
+                return null;
+        }
+
+        public IResourceFileWriter GetWriter()
+        {
+            return new ResourceDictionaryWriter();
+        }
+
         /// <summary>
         /// Ließt eine Datei in ein ResourceDictionaryFile
         /// </summary>
         /// <param name="file">Dateipfad</param>
         /// <returns></returns>
-        public static ResourceDictionaryFile Read(string file)
+        public ResourceDictionaryFile Read(string file)
         {
-            ResourceDictionaryFile rdfile = new ResourceDictionaryFile(file);
+            ResourceDictionaryFile rdfile = new ResourceDictionaryFile(file, this);
 
             XmlDocument doc = new XmlDocument();
             doc.Load(file);
@@ -30,7 +50,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
 
             foreach (XmlNode node in doc.DocumentElement.ChildNodes) //einlesen aller Elemente
             {
-                if(!(node is XmlElement elem))
+                if (!(node is XmlElement elem))
                     continue;
 
                 switch (node.LocalName)

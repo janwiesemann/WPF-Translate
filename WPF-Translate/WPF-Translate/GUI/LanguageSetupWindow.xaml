@@ -29,25 +29,36 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="5" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="5" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <Label Content="SprachKey:" />
+            <Label Content="Reader:" />
+            <ComboBox
+                x:Name="readerComboBox"
+                Grid.Column="2"
+                Grid.ColumnSpan="3"
+                SelectionChanged="ReaderComboBox_SelectionChanged" />
+            <Label Grid.Row="2" Content="SprachKey:" />
             <TextBox
                 x:Name="sprachKey"
+                Grid.Row="2"
                 Grid.Column="2"
                 Grid.ColumnSpan="3"
                 Controls:TextBoxHelper.Watermark="en-us"
                 TextChanged="SprachKey_TextChanged" />
-            <Label Grid.Row="2" Content="Datei:" />
+            <Label Grid.Row="4" Content="Datei:" />
             <TextBox
                 x:Name="filePath"
-                Grid.Row="2"
+                Grid.Row="4"
                 Grid.Column="2"
                 TextChanged="FilePath_TextChanged" />
             <Button
-                Grid.Row="2"
+                x:Name="changeFile"
+                Grid.Row="4"
                 Grid.Column="4"
                 Click="ChangeFile_Click"
-                Content="Ändern" />
+                Content="Ändern"
+                IsEnabled="False" />
         </Grid>
         <Grid
             Grid.Row="2"

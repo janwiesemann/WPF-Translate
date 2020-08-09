@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -85,7 +84,7 @@ namespace de.LandauSoftware.WPFTranslate
 
                        if (lsw.ShowDialog() == true)
                        {
-                           ResourceDictionaryFile rdf = new ResourceDictionaryFile(lsw.FileName);
+                           ResourceDictionaryFile rdf = new ResourceDictionaryFile(lsw.FileName, lsw.Reader);
 
                            await AddResourceDictionaryFileToLangData(rdf, lsw.LangID);
                        }
@@ -200,7 +199,7 @@ namespace de.LandauSoftware.WPFTranslate
                            OpenFileDialog ofd = new OpenFileDialog
                            {
                                Multiselect = true,
-                               Filter = "XAML-Datei|*.xaml"
+                               Filter = Readers.GetFileDialogFilter()
                            };
 
                            if (ofd.ShowDialog() != true)
@@ -211,9 +210,11 @@ namespace de.LandauSoftware.WPFTranslate
                                if (FileListContainsFile(file))
                                    continue;
 
-                               ResourceDictionaryFile rdf = ResourceDictionaryReader.Read(file);
+                               IResourceFileReader reader = Readers.FindFileReader(file);
 
-                               string langID = TryFindLangKey(file);
+                               ResourceDictionaryFile rdf = reader.Read(file);
+
+                               string langID = reader.GetLanguageKey(rdf);
 
                                await AddResourceDictionaryFileToLangData(rdf, langID);
                            }
@@ -293,7 +294,10 @@ namespace de.LandauSoftware.WPFTranslate
 
                                 file.Value.Entrys.AddRange(entrys);
 
-                                ResourceDictionaryWriter.Write(file.Value);
+                                IResourceFileReader reader = file.Value.Reader;
+                                IResourceFileWriter writer = reader.GetWriter();
+
+                                writer.Write(file.Value);
 
                                 file.Value.Entrys.Clear();
                             }
@@ -443,23 +447,6 @@ namespace de.LandauSoftware.WPFTranslate
         private void RaiseLanguageCollectionChangedEvent()
         {
             LanguageCollectionChangedEvent?.Invoke(this, EventArgs.Empty);
-        }
-
-        /// <summary>
-        /// Versucht einen Sprachkey in eine, String zu finden.
-        /// </summary>
-        /// <param name="filename">Dateiname</param>
-        /// <returns>Null wenn nicht gefunden</returns>
-        private string TryFindLangKey(string filename)
-        {
-            filename = Path.GetFileName(filename);
-
-            Match match = Regex.Match(filename, @"(\w{2}-\w{2})");
-
-            if (match.Success)
-                return match.Groups[1].Value;
-            else
-                return null;
         }
     }
 }

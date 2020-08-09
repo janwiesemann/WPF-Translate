@@ -8,13 +8,13 @@ namespace de.LandauSoftware.WPFTranslate.IO
     /// <summary>
     /// Eine Klasse zum schreiben von ResourceDictionaryFiles
     /// </summary>
-    public static class ResourceDictionaryWriter
+    public class ResourceDictionaryWriter : IResourceFileWriter
     {
         /// <summary>
         /// Schreibt eine Datei auf die Festplatte
         /// </summary>
         /// <param name="rdfile">ResourceDictionaryFile</param>
-        public static void Write(ResourceDictionaryFile rdfile)
+        public void Write(ResourceDictionaryFile rdfile)
         {
             using (MemoryStream ms = new MemoryStream()) //Zwischenspeicher zum formattieren
             {

@@ -1,4 +1,5 @@
-﻿using MahApps.Metro.Controls;
+﻿using de.LandauSoftware.WPFTranslate.IO;
+using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,37 +17,22 @@ namespace de.LandauSoftware.WPFTranslate
         public LanguageSetupWindow()
         {
             InitializeComponent();
+
+            readerComboBox.ItemsSource = Readers.FileReaders;
+            readerComboBox.SelectedIndex = Readers.FileReaders.Count == 0 ? -1 : 0;
         }
 
         /// <summary>
         /// Dateiname
         /// </summary>
-        public string FileName
-        {
-            get
-            {
-                return filePath.Text;
-            }
-            set
-            {
-                filePath.Text = value;
-            }
-        }
+        public string FileName => filePath.Text;
 
         /// <summary>
         /// Sprach ID
         /// </summary>
-        public string LangID
-        {
-            get
-            {
-                return sprachKey.Text;
-            }
-            set
-            {
-                sprachKey.Text = value;
-            }
-        }
+        public string LangID => sprachKey.Text;
+
+        public IResourceFileReader Reader => readerComboBox.SelectedItem as IResourceFileReader;
 
         private void Cancel_Click(object sender, RoutedEventArgs e)
         {
@@ -57,8 +43,7 @@ namespace de.LandauSoftware.WPFTranslate
         {
             SaveFileDialog sfd = new SaveFileDialog
             {
-                Filter = "XAML-Datei|*.xaml",
-                FileName = "StringResource_" + sprachKey.Text + ".xaml"
+                Filter = "File|*." + Reader.FileExtension
             };
 
             if (sfd.ShowDialog() == true)
@@ -75,6 +60,11 @@ namespace de.LandauSoftware.WPFTranslate
             this.DialogResult = true;
         }
 
+        private void ReaderComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            VerifyInputAndEnableOk();
+        }
+
         private void SprachKey_TextChanged(object sender, TextChangedEventArgs e)
         {
             VerifyInputAndEnableOk();
@@ -82,7 +72,9 @@ namespace de.LandauSoftware.WPFTranslate
 
         private void VerifyInputAndEnableOk()
         {
-            ok.IsEnabled = !string.IsNullOrWhiteSpace(sprachKey.Text) && !string.IsNullOrWhiteSpace(filePath.Text);
+            changeFile.IsEnabled = Reader != null;
+
+            ok.IsEnabled = Reader != null && !string.IsNullOrWhiteSpace(sprachKey.Text) && !string.IsNullOrWhiteSpace(filePath.Text);
         }
     }
 }

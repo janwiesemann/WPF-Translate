@@ -156,6 +156,9 @@
     <Compile Include="Helper\NotifyBase.cs" />
     <Compile Include="Helper\RelayICommandT.cs" />
     <Compile Include="Helper\RelayICommand.cs" />
+    <Compile Include="IO\IResourceFileReader.cs" />
+    <Compile Include="IO\IResourceFileWriter.cs" />
+    <Compile Include="IO\Readers.cs" />
     <Compile Include="IO\XAMLSettings.cs" />
     <Compile Include="IO\XAMLSettingsXamarin.cs" />
     <Compile Include="IO\XAMLSettingsWPF.cs" />

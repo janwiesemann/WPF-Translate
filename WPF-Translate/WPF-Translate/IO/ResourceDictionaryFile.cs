@@ -13,15 +13,11 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// Erstellt eine neue Instanz eines ResourceDictionaryFiles
         /// </summary>
         /// <param name="fileName">Dateiname</param>
-        public ResourceDictionaryFile(string fileName)
+        public ResourceDictionaryFile(string fileName, IResourceFileReader reader)
         {
             FileName = fileName;
+            Reader = reader;
         }
-
-        /// <summary>
-        /// Settings für die Datei
-        /// </summary>
-        public XAMLSettings Settings { get; set; }
 
         /// <summary>
         /// Ruft eine Liste aller Einträge ab
@@ -42,6 +38,13 @@ namespace de.LandauSoftware.WPFTranslate.IO
         /// Eine Sammlung aller zusätzlichen Namespaces
         /// </summary>
         public List<DictionaryNamespace> Namespaces { get; } = new List<DictionaryNamespace>();
+
+        public IResourceFileReader Reader { get; }
+
+        /// <summary>
+        /// Settings für die Datei
+        /// </summary>
+        public XAMLSettings Settings { get; set; }
 
         /// <summary>
         /// X:Class
