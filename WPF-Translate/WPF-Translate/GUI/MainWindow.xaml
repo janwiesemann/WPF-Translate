@@ -16,6 +16,9 @@
     Dialog:DialogParticipation.Register="{Binding}"
     Icon="/WPF-Translate;component/appicon.ico"
     mc:Ignorable="d">
+    <Controls:MetroWindow.Resources>
+        <local:BindingProxy x:Key="BindingProxy" Data="{Binding}" />
+    </Controls:MetroWindow.Resources>
     <Controls:MetroWindow.DataContext>
         <local:MainWindowViewModel
             x:Name="vModel"

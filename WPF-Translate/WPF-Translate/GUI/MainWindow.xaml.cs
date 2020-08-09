@@ -125,8 +125,8 @@ namespace de.LandauSoftware.WPFTranslate
             {
                 gridView.Columns.Clear();
 
-                CreateButtonColoumn("X", "Löschen", nameof(MainWindowViewModel.RemoveKeyCommand));
-                CreateButtonColoumn("T", "Übersetzten", nameof(MainWindowViewModel.TranslateKeyCommand));
+                CreateButtonColoumn("X", App.FindString("remove"), nameof(MainWindowViewModel.RemoveKeyCommand));
+                CreateButtonColoumn("T", App.FindString("translator"), nameof(MainWindowViewModel.TranslateKeyCommand));
 
                 CreateColoumn("Key", CreateTextCellTemplate(null, new Binding(nameof(LangValueCollection.Key)), false));
 
