@@ -1,5 +1,4 @@
-﻿using de.LandauSoftware.UI.WPF;
-using MahApps.Metro.Controls;
+﻿using MahApps.Metro.Controls;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,18 +10,12 @@ namespace de.LandauSoftware.WPFTranslate
     /// </summary>
     public partial class SearchWindow : MetroWindow
     {
-        private SaveWindowStates saveWindowStates;
-
         /// <summary>
         /// Ein neues Fentser zur Eingabe von Suchwerten
         /// </summary>
         public SearchWindow()
         {
             InitializeComponent();
-
-            saveWindowStates = WindowHelper.GetSaveWindowStatesStorage(this);
-            saveWindowStates.AdditionalDataLoadedEvent += SaveWindowStates_AdditionalDataLoaded;
-            saveWindowStates.PreviewSaveEvent += SaveWindowStates_PreviewSaveEvent;
         }
 
         /// <summary>
@@ -47,27 +40,6 @@ namespace de.LandauSoftware.WPFTranslate
         private void MetroWindow_Loaded(object sender, RoutedEventArgs e)
         {
             ControlzEx.KeyboardNavigationEx.Focus(searchText);
-        }
-
-        private void SaveWindowStates_AdditionalDataLoaded(object sender, object e)
-        {
-            if (e == null || !(e is SaveWindowStatesAdditionalData))
-                return;
-
-            SaveWindowStatesAdditionalData ad = (SaveWindowStatesAdditionalData)e;
-            searchText.Text = ad.text;
-            searchKey.IsChecked = ad.searchKeys;
-            searchValue.IsChecked = ad.searchValues;
-        }
-
-        private void SaveWindowStates_PreviewSaveEvent(SaveWindowStates sender, WindowStates e)
-        {
-            e.Additional = new SaveWindowStatesAdditionalData
-            {
-                text = searchText.Text,
-                searchKeys = (bool)searchKey.IsChecked,
-                searchValues = (bool)searchValue.IsChecked
-            };
         }
 
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -130,14 +102,6 @@ namespace de.LandauSoftware.WPFTranslate
 
                 return false;
             }
-        }
-
-        [Serializable]
-        private struct SaveWindowStatesAdditionalData
-        {
-            public bool searchKeys;
-            public bool searchValues;
-            public string text;
         }
     }
 }

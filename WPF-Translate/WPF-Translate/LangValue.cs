@@ -1,5 +1,4 @@
-﻿using de.LandauSoftware.Core.WPF;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 
 namespace de.LandauSoftware.WPFTranslate
 {

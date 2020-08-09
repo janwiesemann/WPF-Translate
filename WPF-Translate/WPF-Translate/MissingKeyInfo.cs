@@ -1,6 +1,4 @@
-﻿using de.LandauSoftware.Core.WPF;
-
-namespace de.LandauSoftware.WPFTranslate
+﻿namespace de.LandauSoftware.WPFTranslate
 {
     /// <summary>
     /// Stellt einen Fehlenden Schlüssel in einer Datei dar

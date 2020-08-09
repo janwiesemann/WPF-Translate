@@ -1,5 +1,4 @@
-﻿using de.LandauSoftware.Core.WPF;
-using de.LandauSoftware.WPFTranslate.IO;
+﻿using de.LandauSoftware.WPFTranslate.IO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

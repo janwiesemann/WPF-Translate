@@ -1,8 +1,6 @@
-﻿using de.LandauSoftware.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml;
 
 namespace de.LandauSoftware.WPFTranslate.IO
@@ -163,7 +161,7 @@ namespace de.LandauSoftware.WPFTranslate.IO
 
             WriteKey(rdfile, entry.Key, writer);
 
-            if (rdfile.Settings.SupportesXmlPreserveSpace && entry.Value.Contains(c => c == '\r' || c == '\n'))
+            if (rdfile.Settings.SupportesXmlPreserveSpace && entry.Value.ContainsChar('\r', '\n'))
                 writer.WriteAttributeString("xml", "space", "", "preserve");
 
             writer.WriteString(entry.Value);
