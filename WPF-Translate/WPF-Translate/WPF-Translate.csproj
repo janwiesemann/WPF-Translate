@@ -168,34 +168,34 @@
     <Compile Include="IO\ResourceDictionaryWriter.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="LanguageKeyValueCollection.cs" />
-    <Compile Include="LanguageSetupWindow.xaml.cs">
+    <Compile Include="GUI\LanguageSetupWindow.xaml.cs">
       <DependentUpon>LanguageSetupWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="LangValue.cs" />
     <Compile Include="LangValueCollection.cs" />
     <Compile Include="MissingKeyInfo.cs" />
-    <Compile Include="MissingKeysWindow.xaml.cs">
+    <Compile Include="GUI\MissingKeysWindow.xaml.cs">
       <DependentUpon>MissingKeysWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="RemoveLanguageWindow.xaml.cs">
+    <Compile Include="GUI\RemoveLanguageWindow.xaml.cs">
       <DependentUpon>RemoveLanguageWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SearchPresenter.xaml.cs">
+    <Compile Include="GUI\SearchPresenter.xaml.cs">
       <DependentUpon>SearchPresenter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="SearchWindow.xaml.cs">
+    <Compile Include="GUI\SearchWindow.xaml.cs">
       <DependentUpon>SearchWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Translate.cs" />
-    <Compile Include="TranslateWindow.xaml.cs">
+    <Compile Include="GUI\TranslateWindow.xaml.cs">
       <DependentUpon>TranslateWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TranslateWindowViewModel.cs" />
-    <Page Include="LanguageSetupWindow.xaml">
+    <Compile Include="GUI\ViewModel\TranslateWindowViewModel.cs" />
+    <Page Include="GUI\LanguageSetupWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="GUI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -203,33 +203,33 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="GUI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MissingKeysWindow.xaml">
+    <Page Include="GUI\MissingKeysWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="RemoveLanguageWindow.xaml">
+    <Page Include="GUI\RemoveLanguageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SearchPresenter.xaml">
+    <Page Include="GUI\SearchPresenter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="SearchWindow.xaml">
+    <Page Include="GUI\SearchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TranslateWindow.xaml">
+    <Page Include="GUI\TranslateWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="GUI\ViewModel\MainWindowViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

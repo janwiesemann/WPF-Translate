@@ -40,7 +40,7 @@ namespace de.LandauSoftware.WPFTranslate
             ff.SetValue(Button.ContentProperty, content);
             ff.SetValue(Button.VerticalAlignmentProperty, VerticalAlignment.Top);
             ff.SetValue(Button.HorizontalAlignmentProperty, HorizontalAlignment.Left);
-            ff.SetValue(Button.StyleProperty, App.Current.FindResource("BlueCircleButtonStyle"));
+            ff.SetValue(Button.StyleProperty, App.Current.FindResource("AccentCircleButtonStyle"));
             ff.SetValue(Button.ToolTipProperty, toolTip);
             ff.SetBinding(Button.WidthProperty, new Binding(nameof(Button.ActualHeight)) { RelativeSource = new RelativeSource(RelativeSourceMode.Self), Mode = BindingMode.OneWay });
             ff.SetBinding(Button.CommandProperty, new Binding(nameof(BindingProxy.Data) + "." + commandBindingPath) { Source = Resources["BindingProxy"], Mode = BindingMode.OneWay });

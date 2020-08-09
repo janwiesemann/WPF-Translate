@@ -5,6 +5,7 @@
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:de.LandauSoftware.WPFTranslate"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="WPF-Translate"
@@ -24,28 +25,23 @@
     <Controls:MetroWindow.InputBindings>
         <KeyBinding
             Key="F"
-            Command="{Binding SearchCommand,
-                              Mode=OneWay}"
+            Command="{Binding SearchCommand, Mode=OneWay}"
             Modifiers="Ctrl" />
         <KeyBinding
             Key="O"
-            Command="{Binding LoadFileCommand,
-                              Mode=OneWay}"
+            Command="{Binding LoadFileCommand, Mode=OneWay}"
             Modifiers="Ctrl" />
         <KeyBinding
             Key="S"
-            Command="{Binding SaveFileCommand,
-                              Mode=OneWay}"
+            Command="{Binding SaveFileCommand, Mode=OneWay}"
             Modifiers="Ctrl" />
         <KeyBinding
             Key="N"
-            Command="{Binding AddLanguageCommand,
-                              Mode=OneWay}"
+            Command="{Binding AddLanguageCommand, Mode=OneWay}"
             Modifiers="Ctrl" />
         <KeyBinding
             Key="N"
-            Command="{Binding AddKeyCommand,
-                              Mode=OneWay}"
+            Command="{Binding AddKeyCommand, Mode=OneWay}"
             Modifiers="Ctrl" />
     </Controls:MetroWindow.InputBindings>
     <Grid>
@@ -57,24 +53,20 @@
         <Menu>
             <MenuItem Header="Datei">
                 <MenuItem
-                    Command="{Binding LoadFileCommand,
-                                      Mode=OneWay}"
+                    Command="{Binding LoadFileCommand, Mode=OneWay}"
                     Header="Öffnen"
                     InputGestureText="Strg+O" />
                 <MenuItem
-                    Command="{Binding SaveFileCommand,
-                                      Mode=OneWay}"
+                    Command="{Binding SaveFileCommand, Mode=OneWay}"
                     Header="Speichern"
                     InputGestureText="Strg+S" />
                 <MenuItem
-                    Command="{Binding AddLanguageCommand,
-                                      Mode=OneWay}"
+                    Command="{Binding AddLanguageCommand, Mode=OneWay}"
                     Header="Neu"
                     InputGestureText="Strg+N" />
                 <Separator />
                 <MenuItem
-                    Command="{Binding SearchCommand,
-                                      Mode=OneWay}"
+                    Command="{Binding SearchCommand, Mode=OneWay}"
                     Header="Suche"
                     InputGestureText="Strg+F" />
                 <MenuItem Command="{Binding ClearCommand, Mode=OneWay}" Header="Inhalt Löschen" />
@@ -83,8 +75,7 @@
             </MenuItem>
             <MenuItem Header="Sprache">
                 <MenuItem
-                    Command="{Binding AddLanguageCommand,
-                                      Mode=OneWay}"
+                    Command="{Binding AddLanguageCommand, Mode=OneWay}"
                     Header="Sprache anlegen"
                     InputGestureText="Strg+N" />
                 <MenuItem Command="{Binding RemoveLanguageCommand, Mode=OneWay}" Header="Sprache löschen" />
@@ -99,8 +90,8 @@
             ItemsSource="{Binding LangData.Keys}"
             ScrollViewer.HorizontalScrollBarVisibility="Visible"
             ScrollViewer.VerticalScrollBarVisibility="Visible">
-            <ListView.Resources>
-                <Style BasedOn="{StaticResource NonSelectableListViewItem}" TargetType="{x:Type ListViewItem}">
+            <ListView.ItemContainerStyle>
+                <Style BasedOn="{StaticResource MahApps.Styles.ListViewItem.NonSelectable}" TargetType="{x:Type ListViewItem}">
                     <Setter Property="VerticalContentAlignment" Value="Stretch" />
                     <Style.Triggers>
                         <DataTrigger Binding="{Binding BackgroundIsHighlited}" Value="True">
@@ -108,7 +99,7 @@
                         </DataTrigger>
                     </Style.Triggers>
                 </Style>
-            </ListView.Resources>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView x:Name="gridView" />
             </ListView.View>
@@ -118,28 +109,11 @@
             Margin="0,0,30,30"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"
-            Command="{Binding AddKeyCommand,
-                              Mode=OneWay}"
-            ToolTip="Neuer Key (Strg+N)">
-            <Button.Style>
-                <Style BasedOn="{StaticResource BlueCircleButtonStyle}" TargetType="{x:Type Button}">
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="False">
-                            <Setter Property="Opacity" Value="0.5" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-            <Rectangle
-                Width="30"
-                Height="30"
-                Fill="{Binding Path=Foreground,
-                               RelativeSource={RelativeSource FindAncestor,
-                                                              AncestorType={x:Type Button}}}">
-                <Rectangle.OpacityMask>
-                    <VisualBrush Stretch="Uniform" Visual="{DynamicResource appbar_add}" />
-                </Rectangle.OpacityMask>
-            </Rectangle>
-        </Button>
+            Command="{Binding AddKeyCommand, Mode=OneWay}"
+            Content="{iconPacks:FontAwesome Kind=PlusSolid,
+                                            Width=32,
+                                            Height=32}"
+            Style="{DynamicResource AccentCircleButtonStyle}"
+            ToolTip="Neuer Key (Strg+N)" />
     </Grid>
 </Controls:MetroWindow>
