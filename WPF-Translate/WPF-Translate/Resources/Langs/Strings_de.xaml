@@ -1,0 +1,53 @@
+﻿<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:sys="clr-namespace:System;assembly=mscorlib" xmlns:local="clr-namespace:de.LandauSoftware.WPFTranslate.Resources.Langs" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <sys:String x:Key="cancel">Abbrechen</sys:String>
+  <sys:String x:Key="change">Ändern</sys:String>
+  <sys:String x:Key="createLanguage">Sprache erstellen</sys:String>
+  <sys:String x:Key="fileColon">Datei:</sys:String>
+  <sys:String x:Key="languageKey">de-de</sys:String>
+  <sys:String x:Key="languageKeyColon">Sprachschlüssel</sys:String>
+  <sys:String x:Key="ok">OK</sys:String>
+  <sys:String x:Key="readerColon">Reader:</sys:String>
+  <sys:String x:Key="file">Datei</sys:String>
+  <sys:String x:Key="open">Öffnen</sys:String>
+  <sys:String x:Key="keysCtrlO">Strg+O</sys:String>
+  <sys:String x:Key="save">Speichern</sys:String>
+  <sys:String x:Key="keysCtrlS">Strg+S</sys:String>
+  <sys:String x:Key="new">Neu</sys:String>
+  <sys:String x:Key="keysCtrlN">Strg+N</sys:String>
+  <sys:String x:Key="search">Suche</sys:String>
+  <sys:String x:Key="keysCtrlF">Strg+F</sys:String>
+  <sys:String x:Key="clearContent">Inhalt löschen</sys:String>
+  <sys:String x:Key="close">Beenden</sys:String>
+  <sys:String x:Key="language">Sprache</sys:String>
+  <sys:String x:Key="addLanguage">Sprache anlegen</sys:String>
+  <sys:String x:Key="removeLanguage">Sprache löschen</sys:String>
+  <sys:String x:Key="translateLanguage">Sprache übersetzten</sys:String>
+  <sys:String x:Key="addKeyCtrlN">Neuer Schlüssel (Strg+N)</sys:String>
+  <sys:String x:Key="wpfTranslate">WPF-Translate</sys:String>
+  <sys:String x:Key="warningRemoveLanguage" xml:space="preserve">Beim entfernen der Sprache gehen alle nicht gespeicherten Änderungen verloren.
+
+Soll diese wirklich gelöscht werden?</sys:String>
+  <sys:String x:Key="yes">Ja</sys:String>
+  <sys:String x:Key="no">Nein</sys:String>
+  <sys:String x:Key="searchResults">Suchergebnisse</sys:String>
+  <sys:String x:Key="searchKeys">Schlüssel durchsuchen</sys:String>
+  <sys:String x:Key="searchValues">Werte durchsuchen</sys:String>
+  <sys:String x:Key="searchColon">Suche:</sys:String>
+  <sys:String x:Key="translator">Übersetzer</sys:String>
+  <sys:String x:Key="cancelOnError">Bei Fehler abbrechen</sys:String>
+  <sys:String x:Key="skipAlreadyTranslatetValues">Übersetzte Felder überspringen</sys:String>
+  <sys:String x:Key="start">Start</sys:String>
+  <sys:String x:Key="stop">Stop</sys:String>
+  <sys:String x:Key="reset">Zurücksetzten</sys:String>
+  <sys:String x:Key="remove">Entfernen</sys:String>
+  <sys:String x:Key="warningClear" xml:space="preserve">Es werden alle Einträge gelöscht!
+
+Soll die Aktion wirklich ausgeführt werden?</sys:String>
+  <sys:String x:Key="error">Fehler</sys:String>
+  <sys:String x:Key="warningRemoveSelected">Soll der Eintrag wirklich gelöscht werden?</sys:String>
+  <sys:String x:Key="errorCanNotSave" xml:space="preserve">Beim speichern ist ein Fehler aufgetreten.
+
+{0}</sys:String>
+  <sys:String x:Key="pleaseWait">Bitte warten</sys:String>
+  <sys:String x:Key="errorCanNotAddLanguage">Die Sprache konnte nicht festgelegt werden! Möglicherweise ist diese bereits vorhanden oder der SprachKey konnte nicht gefunden werden.</sys:String>
+</ResourceDictionary>

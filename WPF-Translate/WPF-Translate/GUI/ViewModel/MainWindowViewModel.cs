@@ -4,8 +4,6 @@ using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -20,7 +18,7 @@ namespace de.LandauSoftware.WPFTranslate
         /// <summary>
         /// MahApps Settings für Dialog mit Ja und Nein
         /// </summary>
-        public static readonly MetroDialogSettings DialogSettingsYesNo = new MetroDialogSettings() { AffirmativeButtonText = "Ja", NegativeButtonText = "Nein", DefaultButtonFocus = MessageDialogResult.Negative };
+        public static readonly MetroDialogSettings DialogSettingsYesNo = new MetroDialogSettings() { AffirmativeButtonText = App.FindString("yes"), NegativeButtonText = App.FindString("no"), DefaultButtonFocus = MessageDialogResult.Negative };
 
         private RelayICommand _AddKeyCommand;
         private RelayICommand _AddLanguageCommand;
@@ -104,7 +102,7 @@ namespace de.LandauSoftware.WPFTranslate
                 if (_ClearCommand == null)
                     _ClearCommand = new RelayICommand(async p =>
                     {
-                        MessageDialogResult res = await DialogCoordinator.ShowMessageAsync(this, "Löschen", "Es werden alle Einträge gelöscht. Soll die Aktion wirklich ausgeführt werden?", MessageDialogStyle.AffirmativeAndNegative, DialogSettingsYesNo);
+                        MessageDialogResult res = await DialogCoordinator.ShowMessageAsync(this, App.FindString("remove"), App.FindString("warningClear"), MessageDialogStyle.AffirmativeAndNegative, DialogSettingsYesNo);
 
                         if (res == MessageDialogResult.Affirmative)
                         {
@@ -128,34 +126,6 @@ namespace de.LandauSoftware.WPFTranslate
                     _FileList = new Dictionary<Language, ResourceDictionaryFile>();
 
                 return _FileList;
-            }
-        }
-
-        /// <summary>
-        /// Öffnet die Hilfe
-        /// </summary>
-        public ICommand HelpCommand
-        {
-            get
-            {
-                if (_HelpCommand == null)
-                    _HelpCommand = new RelayICommand(async p =>
-                    {
-                        try
-                        {
-                            string fileName = Path.Combine(Path.GetTempPath(), "WPF-TranslateHelp.pdf");
-
-                            File.WriteAllBytes(fileName, Properties.Resources.Handbuch);
-
-                            Process.Start(fileName);
-                        }
-                        catch (Exception ex)
-                        {
-                            await DialogCoordinator.ShowMessageAsync(this, "Fehler", "Beim anzeigen der Hilfe ist ein Fehler augetreten." + Environment.NewLine + ex.Message);
-                        }
-                    });
-
-                return _HelpCommand;
             }
         }
 
@@ -223,7 +193,7 @@ namespace de.LandauSoftware.WPFTranslate
                        }
                        catch (Exception ex)
                        {
-                           await DialogCoordinator.ShowMessageAsync(this, "Fehler", ex.Message);
+                           await DialogCoordinator.ShowMessageAsync(this, App.FindString("error"), ex.Message);
                        }
                    });
 
@@ -241,7 +211,7 @@ namespace de.LandauSoftware.WPFTranslate
                 if (_RemoveKeyCommand == null)
                     _RemoveKeyCommand = new RelayICommand<LangValueCollection>(async lk =>
                     {
-                        MessageDialogResult res = await DialogCoordinator.ShowMessageAsync(this, "Löschen", "Soll der Eintrag wirklich gelöscht werden?", MessageDialogStyle.AffirmativeAndNegative, DialogSettingsYesNo);
+                        MessageDialogResult res = await DialogCoordinator.ShowMessageAsync(this, App.FindString("remove"), App.FindString("warningRemoveSelected"), MessageDialogStyle.AffirmativeAndNegative, DialogSettingsYesNo);
 
                         if (res == MessageDialogResult.Affirmative)
                             LangData.RemoveKey(lk);
@@ -303,7 +273,7 @@ namespace de.LandauSoftware.WPFTranslate
                             }
                             catch (Exception ex)
                             {
-                                MessageDialogResult res = await DialogCoordinator.ShowMessageAsync(this, "Fehler", "Beim speichern der Datei ist ein Fehler aufgetreten." + Environment.NewLine + ex.Message, MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings() { AffirmativeButtonText = "Weiter", NegativeButtonText = "Abbrechen" });
+                                MessageDialogResult res = await DialogCoordinator.ShowMessageAsync(this, App.FindString("error"), string.Format(App.FindString("errorCanNotSave"), ex.Message), MessageDialogStyle.AffirmativeAndNegative, new MetroDialogSettings() { AffirmativeButtonText = "Weiter", NegativeButtonText = "Abbrechen" });
 
                                 if (res == MessageDialogResult.Negative)
                                     return;
@@ -332,7 +302,7 @@ namespace de.LandauSoftware.WPFTranslate
 
                         SearchWindow.SearchModule searchModule = sw.CreateSearchModule();
 
-                        ProgressDialogController progresscontroller = await DialogCoordinator.ShowProgressAsync(this, "Suche", "Bitte warten...", true);
+                        ProgressDialogController progresscontroller = await DialogCoordinator.ShowProgressAsync(this, App.FindString("search"), App.FindString("pleaseWait"), true);
 
                         progresscontroller.Maximum = LangData.Keys.Count;
 
@@ -403,7 +373,7 @@ namespace de.LandauSoftware.WPFTranslate
         {
             while (langID == null || LangData.ContainsLanguage(langID))
             {
-                langID = await DialogCoordinator.ShowInputAsync(this, "Sprache vorhanden!", "Die Sprache konnte nicht festgelegt werden! Möglicherweise ist diese bereits vorhanden oder der SprachKey konnte nicht gefunden werden.");
+                langID = await DialogCoordinator.ShowInputAsync(this, App.FindString("error"), App.FindString("errorCanNotAddLanguage"));
 
                 if (string.IsNullOrWhiteSpace(langID))
                     return;

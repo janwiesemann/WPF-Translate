@@ -10,18 +10,20 @@ namespace de.LandauSoftware.WPFTranslate.IO
     /// </summary>
     public class ResourceDictionaryReader : IResourceFileReader
     {
+        public const string LangKeyKey = "languageKey";
         public string FileExtension => "xaml";
 
         public string GetLanguageKey(ResourceDictionaryFile file)
         {
-            string filename = Path.GetFileName(file.FileName);
+            string key = TryGetLangKeyViaFilename(file);
+            if (key != null)
+                return key;
 
-            Match match = Regex.Match(filename, @"(\w{2}-\w{2})");
+            key = TryGetLangKeyViaContent(file);
+            if (key != null)
+                return key;
 
-            if (match.Success)
-                return match.Groups[1].Value;
-            else
-                return null;
+            return null;
         }
 
         public IResourceFileWriter GetWriter()
@@ -209,6 +211,25 @@ namespace de.LandauSoftware.WPFTranslate.IO
                 if (item.Name == "x:Class")
                     rdfile.XClass = item.Value;
             }
+        }
+
+        private static string TryGetLangKeyViaFilename(ResourceDictionaryFile file)
+        {
+            string filename = Path.GetFileName(file.FileName);
+            Match match = Regex.Match(filename, @"(\w{2}-\w{2})");
+
+            return match.Success ? match.Groups[1].Value : null;
+        }
+
+        private string TryGetLangKeyViaContent(ResourceDictionaryFile file)
+        {
+            foreach (DictionaryRawEntry item in file.Entrys)
+            {
+                if (item is DictionaryStringEntry dsi && dsi.Key == LangKeyKey)
+                    return item.Value;
+            }
+
+            return null;
         }
     }
 }

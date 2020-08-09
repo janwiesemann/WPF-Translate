@@ -177,9 +177,6 @@
     <Compile Include="LangValue.cs" />
     <Compile Include="LangValueCollection.cs" />
     <Compile Include="MissingKeyInfo.cs" />
-    <Compile Include="GUI\MissingKeysWindow.xaml.cs">
-      <DependentUpon>MissingKeysWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="GUI\RemoveLanguageWindow.xaml.cs">
       <DependentUpon>RemoveLanguageWindow.xaml</DependentUpon>
     </Compile>
@@ -210,10 +207,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="GUI\MissingKeysWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="GUI\RemoveLanguageWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -227,6 +220,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\TranslateWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Langs\Strings_de.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Langs\Strings_en.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -14,6 +14,8 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
                 <!--  MahApps FlatButton  -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.FlatButton.xaml" />
+                <!--  Strings  -->
+                <ResourceDictionary Source="pack://application:,,,/WPF-Translate;component/Resources/Langs/Strings_en.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!--  Makes the TextBox look a bit nicer  -->

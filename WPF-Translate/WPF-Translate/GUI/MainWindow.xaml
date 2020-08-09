@@ -8,7 +8,7 @@
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
     xmlns:local="clr-namespace:de.LandauSoftware.WPFTranslate"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="WPF-Translate"
+    Title="{DynamicResource wpfTranslate}"
     Width="800"
     Height="600"
     MinWidth="600"
@@ -37,10 +37,6 @@
             Modifiers="Ctrl" />
         <KeyBinding
             Key="N"
-            Command="{Binding AddLanguageCommand, Mode=OneWay}"
-            Modifiers="Ctrl" />
-        <KeyBinding
-            Key="N"
             Command="{Binding AddKeyCommand, Mode=OneWay}"
             Modifiers="Ctrl" />
     </Controls:MetroWindow.InputBindings>
@@ -51,37 +47,30 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Menu>
-            <MenuItem Header="Datei">
+            <MenuItem Header="{DynamicResource file}">
                 <MenuItem
                     Command="{Binding LoadFileCommand, Mode=OneWay}"
-                    Header="Öffnen"
-                    InputGestureText="Strg+O" />
+                    Header="{DynamicResource open}"
+                    InputGestureText="{DynamicResource keysCtrlO}" />
                 <MenuItem
                     Command="{Binding SaveFileCommand, Mode=OneWay}"
-                    Header="Speichern"
-                    InputGestureText="Strg+S" />
-                <MenuItem
-                    Command="{Binding AddLanguageCommand, Mode=OneWay}"
-                    Header="Neu"
-                    InputGestureText="Strg+N" />
+                    Header="{DynamicResource save}"
+                    InputGestureText="{DynamicResource keysCtrlS}" />
+                <MenuItem Command="{Binding AddLanguageCommand, Mode=OneWay}" Header="{DynamicResource addLanguage}" />
                 <Separator />
                 <MenuItem
                     Command="{Binding SearchCommand, Mode=OneWay}"
-                    Header="Suche"
-                    InputGestureText="Strg+F" />
-                <MenuItem Command="{Binding ClearCommand, Mode=OneWay}" Header="Inhalt Löschen" />
+                    Header="{DynamicResource search}"
+                    InputGestureText="{DynamicResource keysCtrlF}" />
+                <MenuItem Command="{Binding ClearCommand, Mode=OneWay}" Header="{DynamicResource clearContent}" />
                 <Separator />
-                <MenuItem Click="Close_Click" Header="Beenden" />
+                <MenuItem Click="Close_Click" Header="{DynamicResource close}" />
             </MenuItem>
-            <MenuItem Header="Sprache">
-                <MenuItem
-                    Command="{Binding AddLanguageCommand, Mode=OneWay}"
-                    Header="Sprache anlegen"
-                    InputGestureText="Strg+N" />
-                <MenuItem Command="{Binding RemoveLanguageCommand, Mode=OneWay}" Header="Sprache löschen" />
-                <MenuItem Command="{Binding TranslateLanguageCommand, Mode=OneWay}" Header="Sprache übersetzen" />
+            <MenuItem Header="{DynamicResource language}">
+                <MenuItem Command="{Binding AddLanguageCommand, Mode=OneWay}" Header="{DynamicResource addLanguage}" />
+                <MenuItem Command="{Binding RemoveLanguageCommand, Mode=OneWay}" Header="{DynamicResource removeLanguage}" />
+                <MenuItem Command="{Binding TranslateLanguageCommand, Mode=OneWay}" Header="{DynamicResource translateLanguage}" />
             </MenuItem>
-            <MenuItem Command="{Binding HelpCommand, Mode=OneWay}" Header="Hilfe" />
         </Menu>
         <ListView
             x:Name="listView"
@@ -115,6 +104,6 @@
                                             Width=32,
                                             Height=32}"
             Style="{DynamicResource AccentCircleButtonStyle}"
-            ToolTip="Neuer Key (Strg+N)" />
+            ToolTip="{DynamicResource addKeyCtrlN}" />
     </Grid>
 </Controls:MetroWindow>

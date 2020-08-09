@@ -6,13 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:de.LandauSoftware.WPFTranslate"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Suchergebnisse"
+    Title="{DynamicResource searchResults}"
     Width="500"
     Height="400"
     MinWidth="300"
     MinHeight="300"
+    Icon="/WPF-Translate;component/appicon.ico"
     Topmost="True"
-    mc:Ignorable="d" Icon="/WPF-Translate;component/appicon.ico">
+    mc:Ignorable="d">
     <ListView
         x:Name="listView"
         Margin="10"

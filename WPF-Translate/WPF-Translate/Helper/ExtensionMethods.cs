@@ -43,14 +43,14 @@ namespace de.LandauSoftware.WPFTranslate
                     for (int i = 0; i < chars.Length; i++)
                     {
                         if (*strStartPtr == chars[i])
-                            return false;
+                            return true;
                     }
 
                     strStartPtr++;
                 }
             }
 
-            return true;
+            return false;
         }
     }
 }

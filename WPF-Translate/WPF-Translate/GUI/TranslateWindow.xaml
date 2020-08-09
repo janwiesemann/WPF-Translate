@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:de.LandauSoftware.WPFTranslate"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Übersetzer"
+    Title="{DynamicResource translator}"
     Width="400"
     Dialog:DialogParticipation.Register="{Binding}"
     ResizeMode="NoResize"
@@ -36,10 +36,10 @@
                 <RowDefinition Height="5" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <CheckBox Content="Bei Fehler abbrechen" IsChecked="{Binding CancelOnException}" />
+            <CheckBox Content="{DynamicResource cancelOnError}" IsChecked="{Binding CancelOnException}" />
             <CheckBox
                 Grid.Row="2"
-                Content="Nur leere übersetzen"
+                Content="{DynamicResource skipAlreadyTranslatetValues}"
                 IsChecked="{Binding TranslateJustEmpty}" />
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
@@ -81,17 +81,17 @@
                 <ColumnDefinition Width="5" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button Command="{Binding StartCommand, Mode=OneWay}" Content="Start" />
+            <Button Command="{Binding StartCommand, Mode=OneWay}" Content="{DynamicResource start}" />
             <Button
                 Grid.Column="2"
                 Command="{Binding StopCommand,
                                   Mode=OneWay}"
-                Content="Stop" />
+                Content="{DynamicResource stop}" />
             <Button
                 Grid.Column="4"
                 Command="{Binding RestCommand,
                                   Mode=OneWay}"
-                Content="Zurücksetzten" />
+                Content="{DynamicResource reset}" />
         </Grid>
     </Grid>
 </Controls:MetroWindow>

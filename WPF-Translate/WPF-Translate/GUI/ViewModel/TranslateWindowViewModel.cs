@@ -341,7 +341,7 @@ namespace de.LandauSoftware.WPFTranslate
                 {
                     Task.Run(async () =>
                     {
-                        await DialogCoordinator.ShowMessageAsync(this, "Fehler", "Beim Übersetzten ist ein Fehler aufgetreten!" + Environment.NewLine + ex.Message);
+                        await DialogCoordinator.ShowMessageAsync(this, App.FindString("error"), ex.Message);
                     });
 
                     return false;
