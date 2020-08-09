@@ -1,10 +1,9 @@
-﻿using de.LandauSoftware.WPFTranslate.IO;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace de.LandauSoftware.WPFTranslate
+namespace de.LandauSoftware.WPFTranslate.IO
 {
-    internal class XAMLSerttingsXamarin : XAMLSettings
+    internal class XAMLSettingsXamarin : XAMLSettings
     {
         private DictionaryNamespace _MainNamepsace;
         private DictionaryNamespace _StaticNamepsace;
@@ -23,10 +22,9 @@ namespace de.LandauSoftware.WPFTranslate
 
         public override DictionaryNamespace MainNamepsace => _MainNamepsace ?? (_MainNamepsace = new DictionaryNamespace("", "http://xamarin.com/schemas/2014/forms"));
 
+        public override bool SupportesXmlPreserveSpace => false;
         public override DictionaryNamespace SystemNamespace => XNamespace;
 
         public override DictionaryNamespace XNamespace => _StaticNamepsace ?? (_StaticNamepsace = new DictionaryNamespace("x", "http://schemas.microsoft.com/winfx/2009/xaml"));
-
-        public override bool SupportesXmlPreserveSpace => false;
     }
 }

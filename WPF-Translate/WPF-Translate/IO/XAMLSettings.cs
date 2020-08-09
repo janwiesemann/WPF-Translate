@@ -1,9 +1,8 @@
-﻿using de.LandauSoftware.WPFTranslate.IO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
-namespace de.LandauSoftware.WPFTranslate
+namespace de.LandauSoftware.WPFTranslate.IO
 {
     /// <summary>
     /// Standartnamespaces

@@ -150,15 +150,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BindingProxy.cs" />
-    <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="MetroNotifyBase.cs" />
-    <Compile Include="NotifyBase.cs" />
-    <Compile Include="RelayICommandT.cs" />
-    <Compile Include="RelayICommand.cs" />
-    <Compile Include="XAMLSettings.cs" />
-    <Compile Include="XAMLSerttingsXamarin.cs" />
-    <Compile Include="XAMLSettingsWPF.cs" />
+    <Compile Include="Helper\BindingProxy.cs" />
+    <Compile Include="Helper\ExtensionMethods.cs" />
+    <Compile Include="Helper\MetroNotifyBase.cs" />
+    <Compile Include="Helper\NotifyBase.cs" />
+    <Compile Include="Helper\RelayICommandT.cs" />
+    <Compile Include="Helper\RelayICommand.cs" />
+    <Compile Include="IO\XAMLSettings.cs" />
+    <Compile Include="IO\XAMLSettingsXamarin.cs" />
+    <Compile Include="IO\XAMLSettingsWPF.cs" />
     <Compile Include="IO\DictionaryStringEntry.cs" />
     <Compile Include="IO\DictionaryNamespace.cs" />
     <Compile Include="IO\MergedDictionary.cs" />
@@ -247,7 +247,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Uml INotifyPropertyChanged.cd" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
