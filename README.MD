@@ -17,6 +17,9 @@ Open some files or create some. Thats is!
 # Screenshots
 ![enter image description here](https://raw.githubusercontent.com/Jan18101997/WPF-Translate/master/screenshots/MainWindow.png)
 
+# Download
+[Download](https://github.com/Jan18101997/WPF-Translate/releases)
+
 # Help bringing this application forward
 Some plans for the future
 
