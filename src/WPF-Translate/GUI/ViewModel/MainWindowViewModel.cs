@@ -24,7 +24,6 @@ namespace de.LandauSoftware.WPFTranslate
         private RelayICommand _AddLanguageCommand;
         private RelayICommand _ClearCommand;
         private Dictionary<Language, ResourceDictionaryFile> _FileList;
-        private RelayICommand _HelpCommand;
         private LanguageKeyValueCollection _LangData;
         private RelayICommand _LoadFileCommand;
         private RelayICommand<LangValueCollection> _RemoveKeyCommand;

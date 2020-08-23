@@ -68,20 +68,20 @@ You can fine all this code used in WPF-Translate ([App.xaml.cs in LoadCultureStr
 		if (i > 0)
 			name = name.Substring(0, i);
 			
-		if (name == "en") //default and its already added in App.xaml
-			return;
-			
-		try
+		if (name != "en") //default and its already added in App.xaml
 		{
-			//Loading resources
-			ResourceDictionary rd = new ResourceDictionary()
+			try
 			{
-				Source = new Uri($"pack://application:,,,/WPF-Translate;component/Resources/Langs/Strings_{name}.xaml", UriKind.RelativeOrAbsolute)
-			};
-			Resources.MergedDictionaries.Add(rd);
+				//Loading resources
+				ResourceDictionary rd = new ResourceDictionary()
+				{
+					Source = new Uri($"pack://application:,,,/WPF-Translate;component/Resources/Langs/Strings_{name}.xaml", UriKind.RelativeOrAbsolute)
+				};
+				Resources.MergedDictionaries.Add(rd);
+			}
+			catch (Exception) //not found it’s the easiest way to test, if it exists.
+			{ }
 		}
-		catch (Exception) //not found it’s the easiest way to test, if it exists.
-		{ }
 	
 		base.OnStartup(e);
 	}
